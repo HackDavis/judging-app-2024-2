@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from './Footer.module.scss';
-import type { NavLink } from '@data/navLinks';
+import type { NavLink } from 'app/(pages)/_data/navLinks';
 
 export default function Footer({ navLinks }: { navLinks: NavLink[] }) {
   return (
