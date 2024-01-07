@@ -1,7 +1,6 @@
 const { getClient } = require('./mongoClient.js');
 const readline = require('readline');
 const collections = require('../../_data/collections.json');
-const schema = require('../../_data/schemaValidation.json');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -25,9 +24,12 @@ async function dbInit(wipe) {
 
     // Create collections if they don't already exist
     for (const c of collections) {
+      const path = `./schema/${c}`;
+      const schema = require(path);
+
       await db.createCollection(c, {
         validator: {
-          $jsonSchema: schema[c],
+          $jsonSchema: schema,
         },
       });
       console.log(`Created collection: ${c}...`);
