@@ -10,28 +10,28 @@ export default function Welcome() {
           <h1>Hackers!</h1>
           <div className={styles.container_cow}>
             <Image
-              src="/judging-app-assets/hackersPOV/judge_cow.svg"
+              src="/hackersPOV/judge_cow.svg"
               alt="judge_cow"
               width={230}
               height={203}
               style={{ zIndex: 0 }}
             />
             <Image
-              src="/judging-app-assets/hackersPOV/judge_wig.svg"
+              src="/hackersPOV/judge_wig.svg"
               alt="judge_wig"
               width={187}
               height={96}
               style={{ position: 'absolute', left: 21, top: 7, zIndex: 1 }}
             />
             <Image
-              src="/judging-app-assets/hackersPOV/judge_gavel.svg"
+              src="/hackersPOV/judge_gavel.svg"
               alt="judge_gavel"
               width={103}
               height={103}
               style={{ position: 'absolute', left: 190, top: 30, zIndex: 2 }}
             />
             <Image
-              src="/judging-app-assets/hackersPOV/judge_sparkles.svg"
+              src="/hackersPOV/judge_sparkles.svg"
               alt="judge_sparkles"
               width={59}
               height={60}
