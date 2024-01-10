@@ -4,6 +4,7 @@ $bg-color: #E5EEF1;
 
 
 $mobile-width: 390px;
+$component-height: 395px;
 
 .judgeNotHere{
   display: flex;
@@ -21,7 +22,7 @@ $mobile-width: 390px;
 
   align-items: center;
   
-  height: 375px;
+  height: $component-height;
   padding-top: 32px;
   padding-left: 17px;
   padding-right: 17px;
@@ -97,6 +98,35 @@ $mobile-width: 390px;
     &_colon{
       margin-left: 12px;
       margin-right: 12px;
+    }
+  }
+
+  &_button{
+    display: flex;
+    flex-direction: row;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 24px;
+    cursor: pointer;
+    padding: 12px 80px;
+    gap: 10px;
+
+    border-radius: 16px;
+    background: #FFC53D;
+    box-shadow: 0px 4px 32px 0px rgba(255, 197, 61, 0.16);
+
+    p{
+      color: #173A52;
+      // border: 1px solid black;
+      text-align: center;
+      // font-family: Proxima Nova;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: 0.36px;
     }
   }
 }

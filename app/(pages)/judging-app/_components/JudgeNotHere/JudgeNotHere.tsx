@@ -2,6 +2,7 @@
 // import Image from 'next/image';
 import styles from './JudgeNotHere.module.scss';
 import moment from 'moment';
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { useEffect, useState } from 'react';
 
 const useTimer = () => {
@@ -30,7 +31,7 @@ export default function JudgeNotHere() {
   const minuteDigits = minutesString.split('');
   const secondDigits = secondsString.split('');
 
-  const tempBTN = () => {
+  const DirectorNoti = () => {
     console.log('clicked');
   };
   return (
@@ -75,7 +76,10 @@ export default function JudgeNotHere() {
           </div>
           {/*  */}
         </div>
-        <div className={styles.container_button}></div>
+        <div className={styles.container_button} onClick={DirectorNoti}>
+          <NotificationsNoneOutlinedIcon />
+          <p>Notify a Director</p>
+        </div>
       </div>
     </div>
   );
