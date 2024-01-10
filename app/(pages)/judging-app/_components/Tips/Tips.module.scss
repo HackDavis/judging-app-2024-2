@@ -59,3 +59,9 @@
     letter-spacing: 0.32px;
     width: 354px;
 }
+#scrollBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
