@@ -29,6 +29,10 @@ export default function JudgeNotHere() {
   // Splitting into individual digits
   const minuteDigits = minutesString.split('');
   const secondDigits = secondsString.split('');
+
+  const tempBTN = () => {
+    console.log('clicked');
+  };
   return (
     <div className={styles.judgeNotHere}>
       <div className={styles.container}>
@@ -40,25 +44,38 @@ export default function JudgeNotHere() {
           </p>
         </div>
         <div className={styles.container_timer}>
-          {/* <div className={styles.container_timer_mins}>{curTime}</div> */}
-          <div className={styles.container_timer_card}>
-            <h1>{minuteDigits[0]}</h1>
+          <div className={styles.container_timer_mins}>
+            <div className={styles.time}>
+              <div className={styles.time_card}>
+                <h1>{minuteDigits[0]}</h1>
+              </div>
+              <div className={styles.time_card}>
+                <h1>{minuteDigits[1]}</h1>
+              </div>
+            </div>
+            <div className={styles.container_timer_mins_text}>
+              <p>Minutes</p>
+            </div>
           </div>
-          <div className={styles.container_timer_card}>
-            <h1>{minuteDigits[1]}</h1>
-          </div>
-          {/*  */}
           <div className={styles.container_timer_colon}>
             <h1>:</h1>
           </div>
+          <div className={styles.container_timer_secs}>
+            <div className={styles.time}>
+              <div className={styles.time_card}>
+                <h1>{secondDigits[0]}</h1>
+              </div>
+              <div className={styles.time_card}>
+                <h1>{secondDigits[1]}</h1>
+              </div>
+            </div>
+            <div className={styles.container_timer_secs_text}>
+              <p>Seconds</p>
+            </div>
+          </div>
           {/*  */}
-          <div className={styles.container_timer_card}>
-            <h1>{secondDigits[0]}</h1>
-          </div>
-          <div className={styles.container_timer_card}>
-            <h1>{secondDigits[1]}</h1>
-          </div>
         </div>
+        <div className={styles.container_button}></div>
       </div>
     </div>
   );

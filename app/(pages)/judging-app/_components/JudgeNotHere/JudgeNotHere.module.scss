@@ -9,9 +9,11 @@ $mobile-width: 390px;
   display: flex;
   justify-content: center;
   width: 100%;
+  
 }
 
 .container{
+  z-index: 1;
   background-color: $bg-color;
   max-width: $mobile-width;
   display: flex;
@@ -67,9 +69,55 @@ $mobile-width: 390px;
       margin-right: 2px;
     }
 
+    &_mins{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &_text{
+        p{
+          margin-top: 8px;
+        }
+      }
+    }
+
+    &_secs{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      &_text{
+        p{
+          margin-top: 8px;
+        }
+      }
+    }
+
     &_colon{
       margin-left: 12px;
       margin-right: 12px;
     }
   }
+}
+
+.time{
+  display: flex;
+  flex-direction: row;
+
+  &_card{
+    display: flex;
+    width: 62.565px;
+    height: 93px;
+    padding: 46.344px 12.358px;
+  
+    justify-content: center;
+    align-items: center;
+    gap: 7.724px;
+    border-radius: 5.407px;
+    background: #9EE7E5;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+  
 }
