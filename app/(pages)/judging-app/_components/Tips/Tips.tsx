@@ -7,6 +7,14 @@ export default function Tips() {
   const maxPosition = 4;
   const smallestPosition = 0;
 
+  const tipsArray = [
+    "Take a deep breath. It'll help you both organize your thoughts and your presentation better!",
+    '2',
+    '3',
+    '4',
+    '5',
+  ];
+
   const moveRight = () => {
     if (scrollPosition + 1 <= maxPosition) {
       setScrollPosition(scrollPosition + 1);
@@ -30,11 +38,8 @@ export default function Tips() {
       </div>
 
       <div id={styles.tips}>
-        <p className={styles.tipText}>Tip #1:</p>
-        <p className={styles.tipText}>
-          Take a deep breath. It'll help you both organize your thoughts and
-          your presentation better!
-        </p>
+        <p className={styles.tipText}>Tip #{scrollPosition + 1}:</p>
+        <p className={styles.tipText}>{tipsArray[scrollPosition]}</p>
       </div>
 
       <div id={styles.scrollBar}>
