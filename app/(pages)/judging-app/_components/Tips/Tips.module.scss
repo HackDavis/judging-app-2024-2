@@ -65,3 +65,17 @@
     align-items: center;
     gap: 32px;
 }
+#bar {
+    width: 225px;
+    height: 6px;
+    background:  #E0DFD8;
+    border-radius: 10px;
+}
+#progress {
+    width: 45px;
+    height: 6px;
+    background:  #1FBBC0;
+    border-radius: 10px;
+    position: absolute;
+    transition: transform 0.5s ease;
+}
