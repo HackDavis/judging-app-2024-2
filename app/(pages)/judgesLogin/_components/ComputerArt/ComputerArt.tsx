@@ -53,6 +53,32 @@ export default function ComputerArt() {
             top: 67,
           }}
         />
+        <Image
+          src="/judgesLogin/computer_light.svg"
+          alt="computer_silhouette"
+          width={162}
+          height={150}
+          style={{
+            objectFit: 'contain',
+            zIndex: 2,
+            position: 'absolute',
+            left: 142,
+            top: 10,
+          }}
+        />
+        <Image
+          src="/judgesLogin/computer_light.svg"
+          alt="computer_computer"
+          width={162}
+          height={150}
+          style={{
+            objectFit: 'contain',
+            zIndex: 2,
+            position: 'absolute',
+            left: 142,
+            top: 10,
+          }}
+        />
       </div>
     </div>
   );
