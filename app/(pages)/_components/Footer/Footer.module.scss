@@ -1,13 +1,16 @@
+$footer-color: #122537;
+$brand-icon-color: white;
 
 .container {
     width: 100%;
     min-height: 188px;
     display: flex;
     flex-direction: column;
-    background: #122537;
+    background: $footer-color;
     align-items: center;
     padding-top: 30px;
     gap: 10px;
+
     .brandIcons {
         display: flex;
         flex-direction: row;
@@ -16,17 +19,21 @@
         width: 100%;
         max-width: 420px;
         padding-top: 10px;
+
         .singleIcon { // used for most of the brand icons
             max-width: 30px;
             width: 7%;
-            color:white;
+            color:$brand-icon-color;
+
         }
+
         .fbIcon { // fb icon is larger than the rest so it needs smaller size
             max-width: 17px;
-            width: 7%;
-            color:white;
+            width: 6%;
+            color:$brand-icon-color;
         }
     }
+    
     .copyright {
         color:white;
         font-size: 14px;
