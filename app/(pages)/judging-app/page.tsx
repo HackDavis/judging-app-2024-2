@@ -5,9 +5,8 @@ export default function Judging() {
   return (
     <main>
       <Welcome />
-      <JudgeNotHere />
       <Tips />
-
+      <JudgeNotHere />
     </main>
   );
 }
