@@ -12,6 +12,9 @@
     "init:windows": "node --env-file=\".\\.env\" \".\\app\\(api)\\_utils\\mongodb\\dbInit.mjs\""
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.2",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
@@ -30,6 +33,9 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.4",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/js-cookie": "^3.0.6",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
