@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import getQueries from '@utils/request/getQueries';
-import { type HttpError } from '@utils/response/Errors';
+import type { HttpError } from '@utils/response/Errors';
 
 export async function GET(request: NextRequest) {
   try {

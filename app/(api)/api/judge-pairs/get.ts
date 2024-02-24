@@ -1,9 +1,10 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-import { getDatabase } from '@utils/mongodb/mongoClient';
+import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import getQueries from '@utils/request/getQueries';
+import HttpError from '@utils/response/HttpError';
 
-export async function GET(request) {
+export async function GET(request: NextRequest) {
   try {
     const queries = getQueries(request);
     const db = await getDatabase();
@@ -39,7 +40,8 @@ export async function GET(request) {
       .toArray();
 
     return NextResponse.json({ ok: true, body: judge_pair }, { status: 200 });
-  } catch (error) {
+  } catch (e) {
+    const error = e as HttpError;
     return NextResponse.json(
       { ok: false, error: error.message },
       { status: 400 }

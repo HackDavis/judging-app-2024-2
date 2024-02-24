@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 
-import { getDatabase } from '@utils/mongodb/mongoClient';
+import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import NotFoundError from '@utils/response/NotFoundError';
+import HttpError from '@utils/response/HttpError';
 
-export async function GET(_, { params }) {
+export async function GET(_: any, { params }: { params: { id: string } }) {
   try {
     const id = new ObjectId(params.id);
     const db = await getDatabase();
@@ -12,7 +13,7 @@ export async function GET(_, { params }) {
     const judge_pair = await db.collection('judge-pairs').findOne({ _id: id });
 
     if (judge_pair === null) {
-      throw NotFoundError(`judge_pair with id: ${params.id} not found.`);
+      throw new NotFoundError(`judge_pair with id: ${params.id} not found.`);
     }
 
     const judges = await db
@@ -29,7 +30,8 @@ export async function GET(_, { params }) {
     judge_pair.teams = teams;
 
     return NextResponse.json({ ok: true, body: judge_pair }, { status: 200 });
-  } catch (error) {
+  } catch (e) {
+    const error = e as HttpError;
     return NextResponse.json(
       { ok: false, error: error.message },
       { status: error.status || 400 }

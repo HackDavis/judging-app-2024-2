@@ -6,6 +6,7 @@ import isBodyEmpty from '@utils/request/isBodyEmpty';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import NoContentError from '@utils/response/NoContentError';
 import { type HttpError } from '@utils/response/Errors';
+import Team from 'app/(api)/_schema/models/teams';
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,7 +20,7 @@ export async function POST(request: NextRequest) {
     const db = await getDatabase();
     const creationStatus = await db.collection('teams').insertOne(parsedBody);
 
-    const team = await db.collection('teams').findOne({
+    const team: Team = await db.collection('teams').findOne({
       _id: new ObjectId(creationStatus.insertedId),
     });
 

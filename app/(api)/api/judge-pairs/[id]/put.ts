@@ -1,17 +1,21 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 
-import { getDatabase } from '@utils/mongodb/mongoClient';
+import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import NotFoundError from '@utils/response/NotFoundError';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
 import NoContentError from '@utils/response/NoContentError';
 import parseAndReplace from '@utils/request/parseAndReplace';
+import HttpError from '@utils/response/HttpError';
 
-export async function PUT(request, { params }) {
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const body = await request.json();
     if (isBodyEmpty(body)) {
-      throw new NoContentError('Empty request body');
+      throw new NoContentError();
     }
 
     const parsedBody = await parseAndReplace(body);
@@ -27,11 +31,12 @@ export async function PUT(request, { params }) {
     );
 
     if (judge_pair === null) {
-      throw NotFoundError(`Judge-pair with id: ${params.id} not found.`);
+      throw new NotFoundError(`Judge-pair with id: ${params.id} not found.`);
     }
 
     return NextResponse.json({ ok: true, body: judge_pair }, { status: 200 });
-  } catch (error) {
+  } catch (e) {
+    const error = e as HttpError;
     return NextResponse.json(
       { ok: false, error: error.message },
       { status: 400 }

@@ -1,9 +1,13 @@
 import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 
-import { getDatabase } from '@utils/mongodb/mongoClient';
+import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
+import HttpError from '@utils/response/HttpError';
 
-export async function GET(_, { params }) {
+export async function GET(
+  _: any,
+  { params }: { params: { judge_id: string; team_id: string } }
+) {
   try {
     // Search by judge_id and team_id together rather than creating a new id field
     const judge_id = new ObjectId(params.judge_id);
@@ -22,7 +26,8 @@ export async function GET(_, { params }) {
     }
 
     return NextResponse.json({ ok: true, body: submission }, { status: 200 });
-  } catch (error) {
+  } catch (e) {
+    const error = e as HttpError;
     return NextResponse.json(
       { ok: false, error: error.message },
       { status: 400 }
