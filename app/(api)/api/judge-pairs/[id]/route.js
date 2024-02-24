@@ -1,3 +1,3 @@
-export { GET } from './get.js';
-export { PUT } from './put.js';
-export { DELETE } from './delete.js';
+export { GET } from './get';
+export { PUT } from './put';
+export { DELETE } from './delete';

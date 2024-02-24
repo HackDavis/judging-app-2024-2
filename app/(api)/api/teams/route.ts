@@ -1,2 +1,2 @@
-export { GET } from './get.js';
-export { POST } from './post.js';
+export { GET } from './get';
+export { POST } from './post';

@@ -1,12 +1,13 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 import getQueries from '@utils/request/getQueries';
-import { getDatabase } from '@utils/mongob/mongoClient';
+import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
+import HttpError from '@utils/response/HttpError';
 
-export async function GET(request) {
+export async function GET(request: NextRequest) {
   try {
     const queries = getQueries(request);
-    const db = getDatabase.db();
+    const db = await getDatabase();
 
     const submissions = await db
       .collection('submissions')
@@ -14,7 +15,8 @@ export async function GET(request) {
       .toArray();
 
     return NextResponse.json({ ok: true, body: submissions }, { status: 200 });
-  } catch (error) {
+  } catch (e) {
+    const error = e as HttpError;
     return NextResponse.json(
       { ok: false, error: error.message },
       { status: 400 }
