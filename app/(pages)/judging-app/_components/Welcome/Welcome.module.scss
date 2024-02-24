@@ -1,0 +1,57 @@
+@use 'app/(pages)/_globals/mixins';
+
+$bg-color: #005271;
+$pad-size: 16px;
+$mobile-width: 390px;
+
+.welcome{
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+    width: 100%;
+    // height: calc(100vh - var(--navbar-height));
+}
+.container {
+    background-color: $bg-color;
+    max-width: $mobile-width;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 375px;
+    padding: $pad-size;
+
+    &_title{
+        margin-top: 58px;
+
+        h2{
+            color: white;
+            // font-family: 'Proxima Nova';
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 125%;
+            letter-spacing: 0.48px;
+        }
+
+        h1{
+            margin-top: 3px;
+            margin-left: 48px;
+            // font-family: Proxima Nova;
+            font-size: 64px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 125%; /* 80px */
+            letter-spacing: 1.28px;
+            
+            background: var(--gradient, linear-gradient(284deg, #FCFCD1 9.72%, #B2E7DD 44.61%, #76D6E6 79.5%));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+
+    &_cow{
+        // border: 1px solid white;
+        position: relative;
+        margin-left: -$pad-size;
+    }
+}
