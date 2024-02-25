@@ -23,7 +23,7 @@ export const GetJudge = cache(async (id: string) => {
     const error = e as HttpError;
     return NextResponse.json(
       { ok: false, error: error.message },
-      { status: 400 }
+      { status: error.status || 400 }
     );
   }
 });
@@ -39,7 +39,7 @@ export const GetManyJudges = cache(async (query: object = {}) => {
     const error = e as HttpError;
     return NextResponse.json(
       { ok: false, error: error.message },
-      { status: 400 }
+      { status: error.status || 400 }
     );
   }
 });

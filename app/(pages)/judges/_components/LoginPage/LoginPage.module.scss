@@ -18,7 +18,7 @@
     justify-content: center;
     gap: var(--spacer);
     background-color: var(--background-secondary);
-    padding: var(--large-spacer) var(--medium-spacer);
+    padding: var(--large-spacer) var(--medium-spacer) var(--small-spacer) var(--medium-spacer);
     .logo_container {
         position: absolute;
         top: 0;
@@ -53,4 +53,7 @@
 .computer_container {
     position: relative;
     width: 100%;
+    background-color: var(--background-secondary);
+    display: flex;
+    flex-direction: column-reverse;
 }
