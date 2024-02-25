@@ -6,7 +6,7 @@ interface TeamInt {
   designEmphasis: number;
   judgePairs: string[];
   judgeSubmissions: string[];
-  id?: string;
+  _id?: string;
 }
 
 export default TeamInt;

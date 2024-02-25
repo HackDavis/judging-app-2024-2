@@ -2,7 +2,7 @@ interface SubmissionInt {
   type: string;
   judges: string[];
   teams: string[];
-  id?: string;
+  _id?: string;
 }
 
 export default SubmissionInt;

@@ -4,7 +4,7 @@ interface JudgeInt {
   specialty: string; //enumerate tech, nontech, design?
   pair: string;
   submissions: string[];
-  id?: string;
+  _id?: string;
 }
 
 export default JudgeInt;
