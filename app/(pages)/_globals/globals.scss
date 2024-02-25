@@ -29,11 +29,14 @@
     /* variables */
     --background-primary: #173A52;
     --background-secondary: #005271;
+    --background-secondary-light: #136E90;
     --background-tertiary: #E5EEF1;
     --background-light: white;
 
+
     --text-light: white;
     --text-gray: #868974;
+    --text-gray-light: #E0DFD8;
     --text-dark: black;
 
     --gradient-primary: linear-gradient(284deg, #FCFCD1 9.72%, #B2E7DD 44.61%, #76D6E6 79.5%);
@@ -63,6 +66,7 @@ html {
     width: 390px;
     margin-left: auto;
     margin-right: auto;
+    border: 1px solid var(--background-primary);
 }
 
 * {
