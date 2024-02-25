@@ -31,8 +31,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setLoading(false);
         return;
       }
-
-      const userData = data.body as AuthTokenInt | null;
+      const userData = data.body as AuthTokenInt;
 
       setUser(userData);
       setLoading(false);
