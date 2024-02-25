@@ -1,6 +1,7 @@
 const Submission = {
   bsonType: 'object',
   title: 'Submission Object Validation',
+  required: ['judge_id', 'team_id', 'scores', 'correlations'],
   properties: {
     _id: {
       bsonType: 'objectId',
@@ -23,8 +24,8 @@ const Submission = {
       description: 'correlations must be a JSON object',
     },
     comments: {
-      bsonType: 'string',
-      description: 'comments  must be a string',
+      bsonType: ['string', 'null'],
+      description: 'comments must be a string',
     },
   },
   additionalProperties: false,

@@ -1,45 +1,13 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { ObjectId } from 'mongodb';
-
-import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
-import NotFoundError from '@utils/response/NotFoundError';
-import isBodyEmpty from '@utils/request/isBodyEmpty';
-import NoContentError from '@utils/response/NoContentError';
-import parseAndReplace from '@utils/request/parseAndReplace';
-import HttpError from '@utils/response/HttpError';
+import { NextRequest } from 'next/server';
+import { UpdateJudge } from '@datalib/judges/updateJudge';
+import { revalidatePath } from 'next/cache';
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  try {
-    const body = await request.json();
-    if (isBodyEmpty(body)) {
-      throw new NoContentError();
-    }
-
-    const parsedBody = await parseAndReplace(body);
-
-    const id = new ObjectId(params.id);
-    const db = await getDatabase();
-
-    const judge = await db.collection('judges').updateOne(
-      {
-        _id: id,
-      },
-      parsedBody
-    );
-
-    if (judge === null) {
-      throw new NotFoundError(`Judge with id: ${params.id} not found.`);
-    }
-
-    return NextResponse.json({ ok: true, body: judge }, { status: 200 });
-  } catch (e) {
-    const error = e as HttpError;
-    return NextResponse.json(
-      { ok: false, error: error.message },
-      { status: 400 }
-    );
-  }
+  const body = request.json();
+  const res = UpdateJudge(params.id, body);
+  revalidatePath('/judges');
+  return res;
 }

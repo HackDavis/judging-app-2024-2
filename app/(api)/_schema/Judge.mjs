@@ -1,6 +1,7 @@
 const Judge = {
   bsonType: 'object',
   title: 'Judge Object Validation',
+  required: ['name', 'email', 'password', 'specialty'],
   properties: {
     _id: {
       bsonType: 'objectId',
@@ -21,11 +22,18 @@ const Judge = {
     },
     specialty: {
       enum: ['tech', 'nontech', 'design'],
-      description: 'specialty must be either tech, nontech, or design.',
+      description: 'specialty must be either tech, nontech, or design',
     },
     judge_pair_id: {
       bsonType: ['objectId', 'null'],
       description: 'judge_pair_id must be an ObjectId',
+    },
+    submission_ids: {
+      bsonType: ['array', 'null'],
+      items: {
+        bsonType: 'objectId',
+      },
+      description: 'submission_ids must be an array of ObjectIds',
     },
   },
   additionalProperties: false,

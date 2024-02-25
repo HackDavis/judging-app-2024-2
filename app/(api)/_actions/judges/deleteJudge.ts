@@ -1,7 +1,9 @@
 'use server';
 
+import { DeleteJudge } from '@datalib/judges/deleteJudge';
+import { revalidatePath } from 'next/cache';
+
 export default async function deleteJudge(id: string) {
-  await fetch(`${process.env.BASE_URL}/api/judges/${id}`, {
-    method: 'DELETE',
-  });
+  await DeleteJudge(id);
+  revalidatePath('/judges');
 }

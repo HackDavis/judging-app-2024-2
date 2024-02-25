@@ -1,8 +1,8 @@
 interface JudgePairInt {
-  type: string; //enumerate TT, TN, D?
-  judges: string[];
-  teams: string[];
-  id?: string;
+  type: string;
+  judge_ids: string[];
+  team_ids?: string[];
+  _id: string;
 }
 
 export default JudgePairInt;

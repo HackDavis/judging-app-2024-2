@@ -1,6 +1,7 @@
 const Team = {
   bsonType: 'object',
   title: 'Team Object Validation',
+  required: ['number', 'tracks', 'name', 'tech_emphasis', 'design_emphasis'],
   properties: {
     _id: {
       bsonType: 'objectId',
@@ -29,19 +30,19 @@ const Team = {
       bsonType: 'int',
       description: 'design_emphasis must be an integer',
     },
-    judge_pairs: {
+    judge_pair_ids: {
       bsonType: ['array', 'null'],
       items: {
         bsonType: 'objectId',
       },
-      description: 'judge_pairs must be an array of ObjectIds or null',
+      description: 'judge_pair_ids must be an array of ObjectIds or null',
     },
-    judge_submissions: {
+    judge_submission_ids: {
       bsonType: ['array', 'null'],
       items: {
         bsonType: 'objectId',
       },
-      description: 'judge_submissions must be an array of ObjectIds or null',
+      description: 'judge_submission_ids must be an array of ObjectIds',
     },
   },
   additionalProperties: false,
