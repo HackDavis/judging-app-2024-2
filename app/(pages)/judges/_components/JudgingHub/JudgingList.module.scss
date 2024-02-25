@@ -1,0 +1,21 @@
+.container {
+    width: 100%;
+    padding: 27px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    background-color: var(--background-tertiary);
+
+    .top_text {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 0px 17px;
+        display: flex;
+        flex-direction: column;
+
+        span {
+            font-weight: 700;
+        }
+    }
+}
