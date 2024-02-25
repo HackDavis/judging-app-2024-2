@@ -38,7 +38,7 @@ function getAuthFromClient(): AuthTokenBody | null {
     return decodedToken;
   } catch (e) {
     const error = e as Error;
-    console.error('Error decoding JWT token:', error.message);
+    console.log('Error decoding JWT token:', error.message);
     return null;
   }
 }

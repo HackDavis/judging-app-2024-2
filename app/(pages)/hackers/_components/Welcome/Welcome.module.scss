@@ -10,6 +10,7 @@ $mobile-width: 390px;
     // align-items: center;
     width: 100%;
     // height: calc(100vh - var(--navbar-height));
+    overflow: hidden;
 }
 .container {
     background-color: $bg-color;
