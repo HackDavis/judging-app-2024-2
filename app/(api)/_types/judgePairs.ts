@@ -1,8 +1,8 @@
 interface JudgePairInt {
   type: string;
-  judges: string[];
-  teams: string[];
-  _id?: string;
+  judge_ids: string[];
+  team_ids?: string[];
+  _id: string;
 }
 
 export default JudgePairInt;
