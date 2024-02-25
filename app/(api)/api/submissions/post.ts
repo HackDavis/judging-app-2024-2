@@ -1,4 +1,4 @@
-import { createSubmission } from 'app/(api)/_datalib/submissions/createSubmission';
+import { createSubmission } from '@datalib/submissions/createSubmission';
 import { revalidatePath } from 'next/cache';
 import { NextRequest } from 'next/server';
 

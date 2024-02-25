@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { deleteSubmission } from 'app/(api)/_datalib/submissions/deleteSubmission';
+import { deleteSubmission } from '@datalib/submissions/deleteSubmission';
 import { revalidatePath } from 'next/cache';
 
 export async function DELETE(
