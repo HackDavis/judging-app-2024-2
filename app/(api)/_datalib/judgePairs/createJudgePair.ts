@@ -22,6 +22,12 @@ export const CreateJudgePair = async (body: object) => {
       parsedBody.judge_ids[index] = new ObjectId(judge_id);
     });
 
+    if (parsedBody.team_ids) {
+      parsedBody.team_ids.forEach(async (team_id: string, index: number) => {
+        parsedBody.team_ids[index] = new ObjectId(team_id);
+      });
+    }
+
     const db = await getDatabase();
 
     // judges dont exist
@@ -69,19 +75,18 @@ export const CreateJudgePair = async (body: object) => {
     });
 
     // update judges
-    const judgesUpdate = await db
+    await db
       .collection('judges')
       .updateMany(
         { _id: { $in: judge_ids } },
         { $set: { judge_pair_id: new ObjectId(creationStatus.insertedId) } }
       );
 
-    console.log(judgesUpdate);
-
     // update teams
     if (parsedBody.team_ids) {
-      const teamsUpdate = await db.collection('teams').updateMany(
-        { _id: { $in: parsedBody.teams_ids } },
+      const team_ids = parsedBody.team_ids;
+      await db.collection('teams').updateMany(
+        { _id: { $in: team_ids } },
         {
           $push: {
             judge_pair_ids: {
@@ -90,8 +95,6 @@ export const CreateJudgePair = async (body: object) => {
           },
         }
       );
-
-      console.log(teamsUpdate);
     }
 
     return NextResponse.json({ ok: true, body: judge_pair }, { status: 201 });
