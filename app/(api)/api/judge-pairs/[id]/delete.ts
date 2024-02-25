@@ -6,6 +6,7 @@ export async function DELETE(
   _: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  const res = DeleteJudgePair(params.id);
   revalidatePath('/judges');
-  return DeleteJudgePair(params.id);
+  return res;
 }

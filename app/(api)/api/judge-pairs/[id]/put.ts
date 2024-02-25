@@ -7,6 +7,7 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   const body = await request.json();
+  const res = UpdateJudgePair(params.id, body);
   revalidatePath('/judges');
-  return UpdateJudgePair(params.id, body);
+  return res;
 }
