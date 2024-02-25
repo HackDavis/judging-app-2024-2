@@ -1,6 +1,7 @@
 const JudgePair = {
   bsonType: 'object',
   title: 'JudgePair Object Validation',
+  required: ['type', 'judge_ids'],
   properties: {
     _id: {
       bsonType: 'objectId',
@@ -12,7 +13,7 @@ const JudgePair = {
         'type must be either TT (tech-tech), TN (tech-nontech), or D (design).',
     },
     judge_ids: {
-      bsonType: ['array', 'null'],
+      bsonType: 'array',
       items: {
         bsonType: 'objectId',
       },

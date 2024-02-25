@@ -1,6 +1,7 @@
 const Submission = {
   bsonType: 'object',
   title: 'Submission Object Validation',
+  required: ['judge_id', 'team_id', 'scores', 'correlations'],
   properties: {
     _id: {
       bsonType: 'objectId',

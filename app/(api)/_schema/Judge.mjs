@@ -1,6 +1,7 @@
 const Judge = {
   bsonType: 'object',
   title: 'Judge Object Validation',
+  required: ['name', 'email', 'password', 'specialty'],
   properties: {
     _id: {
       bsonType: 'objectId',

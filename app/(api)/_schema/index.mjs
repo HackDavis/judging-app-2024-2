@@ -5,7 +5,7 @@ import Team from './Team.mjs';
 
 const schema = {
   judges: Judge,
-  judgePairs: JudgePair,
+  'judge-pairs': JudgePair,
   submissions: Submission,
   teams: Team,
 };

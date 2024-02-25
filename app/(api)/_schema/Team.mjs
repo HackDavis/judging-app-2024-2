@@ -1,6 +1,7 @@
 const Team = {
   bsonType: 'object',
   title: 'Team Object Validation',
+  required: ['number', 'tracks', 'name', 'tech_emphasis', 'design_emphasis'],
   properties: {
     _id: {
       bsonType: 'objectId',

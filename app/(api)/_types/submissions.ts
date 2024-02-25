@@ -1,5 +1,4 @@
 interface SubmissionInt {
-  type: string;
   judge_id: string;
   team_id: string;
   scores: object;
