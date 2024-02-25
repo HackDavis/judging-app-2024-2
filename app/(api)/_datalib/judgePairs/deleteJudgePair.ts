@@ -24,7 +24,7 @@ export const DeleteJudgePair = async (id: string) => {
     const error = e as HttpError;
     return NextResponse.json(
       { ok: false, error: error.message },
-      { status: error.status }
+      { status: error.status || 400 }
     );
   }
 };

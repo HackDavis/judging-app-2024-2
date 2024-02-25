@@ -36,7 +36,7 @@ export const UpdateJudge = async (id: string, body: object) => {
     const error = e as HttpError;
     return NextResponse.json(
       { ok: false, error: error.message },
-      { status: 400 }
+      { status: error.status || 400 }
     );
   }
 };
