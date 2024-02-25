@@ -1,3 +1,4 @@
+import JudgeInt from '@typeDefs/judges';
 import LogoutButton from '../LogoutButton/LogoutButton';
 import styles from './HubHero.module.scss';
 
@@ -7,9 +8,12 @@ export default function HubHero({
   user,
   loading,
 }: {
-  user: object;
+  user: JudgeInt;
   loading: boolean;
 }) {
+  if (loading) {
+    return 'loading...';
+  }
   return (
     <div className={styles.container}>
       <LogoutButton />
