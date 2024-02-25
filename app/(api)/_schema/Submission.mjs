@@ -23,8 +23,8 @@ const Submission = {
       description: 'correlations must be a JSON object',
     },
     comments: {
-      bsonType: 'string',
-      description: 'comments  must be a string',
+      bsonType: ['string', 'null'],
+      description: 'comments must be a string',
     },
   },
   additionalProperties: false,
