@@ -1,0 +1,38 @@
+.container {
+    width: 100%;
+    padding: var(--spacer) var(--small-spacer);
+    background-color: var(--background-light);
+    border-radius: var(--b-radius);
+
+    display: flex;
+    flex-direction: column;
+
+    .fields {
+        display: flex;
+        flex-direction: column;
+        gap: var(--small-spacer);
+        margin-bottom: var(--small-medium-spacer);
+    }
+
+    .login_button {
+        padding: 5px 18px;
+        font-size: 1.125rem;
+        font-weight: 700;
+        line-height: normal;
+        color: var(--text-gray);
+        border: none;
+        border-radius: var(--b-radius-large);
+        background-color: var(--hd-yellow);
+        cursor: pointer;
+        margin-bottom: 12px;
+    }
+
+    .not_judge {
+        text-align: center;
+        font-size: 0.75rem;
+        a {
+            color: var(--background-primary);
+            font-weight: 700;
+        }
+    }
+}

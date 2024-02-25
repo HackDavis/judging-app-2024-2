@@ -1,0 +1,71 @@
+.container {
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--background-secondary);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--small-spacer);
+
+    .welcome_text {
+        padding: 68px 13px 0px 13px;
+        display: flex;
+        flex-direction: column;
+        gap: var(--tiny-spacer);
+
+        >p {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+    
+        .name_container {
+            width: 100%;
+            overflow: hidden;
+    
+            >h1 {
+                background: var(--gradient-primary);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+    }
+
+    .gavel_cow {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        .cow_container {
+            position: relative;
+            display: flex;
+            flex-direction: column-reverse;
+            width: 65%;
+        }
+
+        .blurb {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            gap: var(--small-spacer);
+            padding: 11px;
+            position: absolute;
+            right: var(--small-spacer);
+            top: var(--small-spacer);
+            background-color: var(--background-light);
+            border-radius: var(--b-radius);
+
+            .intro_text {
+                font-size: 1rem;
+                font-weight: 500;
+            }
+
+            .name {
+                font-size: 1.75rem;
+                font-weight: 600;
+            }
+        }
+    }
+}

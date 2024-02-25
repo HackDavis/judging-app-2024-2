@@ -1,13 +1,10 @@
 'use server';
+import { revalidatePath } from 'next/cache';
 import FormToJSON from '@utils/form/FormToJSON';
+import { createTeams } from 'app/(api)/_datalib/teams/createTeams';
 
-export default async function createTeam(formData: FormData) {
+export default async function CreateTeams(formData: FormData) {
   const dataJSON = FormToJSON(formData);
-  await fetch(`${process.env.BASE_URL}/api/teams`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(dataJSON),
-  });
+  await createTeams(dataJSON);
+  revalidatePath('/judges');
 }
