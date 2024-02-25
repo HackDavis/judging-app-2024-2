@@ -11,6 +11,8 @@ export default function LoginForm() {
   const { login } = useAuth();
 
   useEffect(() => {
+    console.log(loginState);
+
     if (loginState.ok === true) {
       login(loginState.body);
     }

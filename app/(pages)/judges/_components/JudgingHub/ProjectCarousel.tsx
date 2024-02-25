@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styles from './ProjectCarousel.module.scss';
 
 function JudgingCard({ project }: { project: object }) {
@@ -14,7 +14,28 @@ function JudgingCard({ project }: { project: object }) {
 }
 
 export default function JudgingList({ projects }: { projects: object[] }) {
+  const progressBarRef = useRef(null);
   const [index, setIndex] = useState(0);
+  const [divWidth, setDivWidth] = useState(0);
+  const num_sections = Math.floor(projects.length / 2);
+
+  useEffect(() => {
+    if (progressBarRef.current) {
+      // Accessing clientWidth of the div element
+      const width = progressBarRef.current.clientWidth;
+      // Setting the width to state variable
+      setDivWidth(width);
+    }
+  }, [progressBarRef]);
+
+  const incIndex = () => {
+    setIndex((index + 1) % num_sections);
+  };
+
+  const decIndex = () => {
+    setIndex((index - 1) % num_sections);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.viewport}>
@@ -25,7 +46,7 @@ export default function JudgingList({ projects }: { projects: object[] }) {
         </div>
       </div>
       <div className={styles.controls}>
-        <button>
+        <button onClick={decIndex}>
           <Image
             src="/judges/hub/back-arrow.svg"
             alt=""
@@ -39,10 +60,10 @@ export default function JudgingList({ projects }: { projects: object[] }) {
             }}
           />
         </button>
-        <div className={styles.progress}>
-          <div className={styles.progress_bar} />
+        <div className={styles.progress} ref={progressBarRef}>
+          <div className={styles.progress_bar} style={{}} />
         </div>
-        <button>
+        <button onClick={incIndex}>
           <Image
             src="/judges/hub/next-arrow.svg"
             alt=""

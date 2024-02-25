@@ -54,10 +54,18 @@
         }
 
         .progress {
+            position: relative;
             flex-grow: 1;
             height: 6px;
             border-radius: 3px;
             background-color: var(--text-gray-light);
+
+            .progress_bar {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                background-color: var(--background-secondary-light);
+            }
         }
     }
 }

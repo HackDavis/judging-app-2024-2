@@ -1,3 +1,4 @@
+import LogoutButton from '../LogoutButton/LogoutButton';
 import styles from './HubHero.module.scss';
 
 import Image from 'next/image';
@@ -11,6 +12,7 @@ export default function HubHero({
 }) {
   return (
     <div className={styles.container}>
+      <LogoutButton />
       <div className={styles.welcome_text}>
         <p>Welcome to HackDavis,</p>
         <div className={styles.name_container}>

@@ -18,6 +18,20 @@ export default function LoginPage() {
         </div>
         <LoginForm></LoginForm>
       </div>
+      <div className={styles.computer_container}>
+        <Image
+          src="/judges/auth/computer.png"
+          alt=""
+          height={1600}
+          width={1600}
+          quality={100}
+          style={{
+            maxWidth: '100%',
+            height: 'auto',
+            objectFit: 'contain',
+          }}
+        />
+      </div>
     </div>
   );
 }
