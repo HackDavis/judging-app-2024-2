@@ -1,6 +1,6 @@
 import { type NextRequest } from 'next/server';
 import { revalidatePath } from 'next/cache';
-import { deleteTeam } from 'app/(api)/_datalib/teams/deleteTeam';
+import { deleteTeam } from '@datalib/teams/deleteTeam';
 
 export async function DELETE(
   _: NextRequest,

@@ -1,6 +1,5 @@
-import { type NextRequest } from 'next/server';
-
-import { createTeams } from 'app/(api)/_datalib/teams/createTeams';
+import { NextRequest } from 'next/server';
+import { createTeams } from '@datalib/teams/createTeams';
 import { revalidatePath } from 'next/cache';
 
 export async function POST(request: NextRequest) {
