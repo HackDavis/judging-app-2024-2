@@ -1,5 +1,5 @@
 import { type NextRequest } from 'next/server';
-import { getTeam } from 'app/(api)/_datalib/teams/getTeam';
+import { getTeam } from '@datalib/teams/getTeam';
 import { revalidatePath } from 'next/cache';
 
 export async function GET(
