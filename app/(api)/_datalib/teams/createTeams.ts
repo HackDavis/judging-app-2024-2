@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-import { ObjectId } from 'mongodb';
-
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
 import parseAndReplace from '@utils/request/parseAndReplace';
@@ -16,13 +14,16 @@ export const createTeams = async (body: object) => {
     const db = await getDatabase();
     const creationStatus = await db.collection('teams').insertMany(parsedBody);
 
-    const teams = await db.collection('teams').findMany({
+    const teams = await db.collection('teams').find({
       _id: {
-        $in: creationStatus.insertedIds.map((id: string) => new ObjectId(id)),
+        $in: Object.values(creationStatus.insertedIds).map((id: any) => id),
       },
     });
 
-    return NextResponse.json({ ok: true, body: teams }, { status: 201 });
+    return NextResponse.json(
+      { ok: true, body: await teams.toArray() },
+      { status: 201 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
