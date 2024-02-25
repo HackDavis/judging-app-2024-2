@@ -26,13 +26,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const updateAuth = async () => {
-      const cookie = Cookies.get('auth_token');
-      if (!cookie) {
-        setLoading(false);
-        return;
-      }
-
-      const data = await VerifyToken(cookie);
+      const data = await VerifyToken();
       if (!data.ok) {
         setLoading(false);
         return;
