@@ -2,41 +2,32 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
-import bcrypt from 'bcryptjs';
-import jwt, { Secret } from 'jsonwebtoken';
-
-import fetchPost from '@utils/fetch/fetchPost';
-import HttpError from '@utils/response/HttpError';
-import { auth_expiration } from '@apidata/configs';
+import jwt from 'jsonwebtoken';
+import { HttpError } from '@utils/response/Errors';
+import type AuthTokenInt from '@typeDefs/authToken';
+import { Register } from '@datalib/auth/register';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, password } = body;
-    const hashedPassword = await bcrypt.hash(password as string, 10);
-
-    // Create a new user
-    const res = await fetchPost('/api/judges', {
-      email,
-      password: hashedPassword,
-    });
+    const res = await Register(body);
     const data = await res.json();
-    const { body: newJudge } = data;
-    // set JWT token in cookies
-    const token = jwt.sign(newJudge, process.env.JWT_SECRET as Secret, {
-      expiresIn: `${auth_expiration}h`,
-    });
+
+    if (!data.ok) {
+      throw new HttpError(data.error);
+    }
+
+    const payload = jwt.decode(data.body) as AuthTokenInt;
 
     cookies().set({
       name: 'auth_token',
-      value: token,
-      expires: Date.now() + 1000 * 60 * 60 * auth_expiration,
+      value: data.body,
+      expires: payload.exp,
       secure: true,
+      httpOnly: true,
     });
 
-    const payload = jwt.decode(token);
-
-    return NextResponse.json({ ok: true, body: payload }, { status: 201 });
+    return NextResponse.json({ ok: true, body: payload }, { status: 200 });
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(

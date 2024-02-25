@@ -7,11 +7,22 @@
     display: flex;
     flex-direction: column;
 
+    .error_msg {
+        color: var(--text-error);
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: var(--tiny-spacer);
+    }
+
     .fields {
         display: flex;
         flex-direction: column;
         gap: var(--small-spacer);
         margin-bottom: var(--small-medium-spacer);
+    }
+
+    .error {
+        border-color: var(--text-error);
     }
 
     .login_button {
@@ -23,8 +34,14 @@
         border: none;
         border-radius: var(--b-radius-large);
         background-color: var(--hd-yellow);
-        cursor: pointer;
+        cursor: not-allowed;
         margin-bottom: 12px;
+    }
+
+    .valid {
+        background-color: var(--hd-orange);
+        color: var(--background-primary);
+        cursor: pointer;
     }
 
     .not_judge {
