@@ -1,8 +1,10 @@
 'use server';
-import fetchPost from '@utils/fetch/fetchPost';
+import { revalidatePath } from 'next/cache';
 import FormToJSON from '../../_utils/form/FormToJSON';
+import { createSubmission } from 'app/(api)/_datalib/submissions/createSubmission';
 
-export default async function createSubmission(formData: FormData) {
+export default async function CreateSubmission(formData: FormData) {
   const dataJSON = FormToJSON(formData);
-  await fetchPost('/api/submissions', dataJSON);
+  await createSubmission(dataJSON);
+  revalidatePath('/judges');
 }

@@ -1,15 +1,10 @@
 'use server';
 import FormToJSON from '@utils/form/FormToJSON';
+import { updateTeam } from 'app/(api)/_datalib/teams/updateTeam';
+import { revalidatePath } from 'next/cache';
 
-export default async function updateTeam(id: string, formData: FormData) {
+export default async function UpdateTeam(id: string, formData: FormData) {
   const dataJSON = FormToJSON(formData);
-  await fetch(`${process.env.BASE_URL}/api/teams/${id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      $set: dataJSON,
-    }),
-  });
+  await updateTeam(id, dataJSON);
+  revalidatePath('/judges');
 }
