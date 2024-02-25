@@ -1,13 +1,11 @@
 'use server';
+
+import { CreateJudgePair } from '@datalib/judgePairs/createJudgePair';
 import FormToJSON from '@utils/form/FormToJSON';
+import { revalidatePath } from 'next/cache';
 
 export default async function createJudgePair(formData: FormData) {
   const dataJSON = FormToJSON(formData);
-  await fetch(`${process.env.BASE_URL}/api/judge-pairs`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(dataJSON),
-  });
+  await CreateJudgePair(dataJSON);
+  revalidatePath('/judge-pairs');
 }

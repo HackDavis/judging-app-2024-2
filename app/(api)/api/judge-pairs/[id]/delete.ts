@@ -1,32 +1,11 @@
-import { NextResponse } from 'next/server';
-import { ObjectId } from 'mongodb';
+import { NextRequest } from 'next/server';
+import { DeleteJudgePair } from '@datalib/judgePairs/deleteJudgePair';
+import { revalidatePath } from 'next/cache';
 
-import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
-import NotFoundError from '@utils/response/NotFoundError';
-import HttpError from '@utils/response/HttpError';
-
-export async function DELETE(_: any, { params }: { params: { id: string } }) {
-  try {
-    const id = new ObjectId(params.id);
-    const db = await getDatabase();
-
-    const deleteStatus = await db.collection('judge-pairs').deleteOne({
-      _id: id,
-    });
-
-    if (deleteStatus.deletedCount === 0) {
-      throw new NotFoundError(`judge-pair with id: ${params.id} not found.`);
-    }
-
-    return NextResponse.json(
-      { ok: true, body: 'judge-pair deleted' },
-      { status: 200 }
-    );
-  } catch (e) {
-    const error = e as HttpError;
-    return NextResponse.json(
-      { ok: false, error: error.message },
-      { status: error.status }
-    );
-  }
+export async function DELETE(
+  _: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  revalidatePath('/judge-pairs');
+  return DeleteJudgePair(params.id);
 }
