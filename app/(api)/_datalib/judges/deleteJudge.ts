@@ -16,6 +16,14 @@ export const DeleteJudge = async (id: string) => {
       throw new NotFoundError(`judge with id: ${id} not found.`);
     }
 
+    // update judge_pair
+    await db
+      .collection('judge-pairs')
+      .updateOne(
+        { judge_ids: { $elemMatch: { $eq: object_id } } },
+        { $pull: { judge_ids: object_id } }
+      );
+
     return NextResponse.json(
       { ok: true, body: 'judge deleted' },
       { status: 200 }
