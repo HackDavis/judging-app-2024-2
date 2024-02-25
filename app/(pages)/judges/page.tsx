@@ -1,11 +1,12 @@
 'use client';
 
-import { useAuth } from '@hooks/useAuth';
+import ProtectedDisplay from '@components/ProtectedDisplay/ProtectedDisplay';
+import LoginPage from './_components/LoginPage/LoginPage';
 
 export default function Judges() {
-  const { user, loading } = useAuth();
-  if (loading) {
-    return 'LOADING...';
-  }
-  return JSON.stringify(user);
+  return (
+    <ProtectedDisplay loadingDisplay={'loading...'} failDisplay={<LoginPage />}>
+      Judging Page
+    </ProtectedDisplay>
+  );
 }

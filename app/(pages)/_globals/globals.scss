@@ -1,37 +1,75 @@
 @use "./mixins";
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('/fonts/ProximaNova/ProximaNova-Regular.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('/fonts/ProximaNova/ProximaNova-Medium.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('/fonts/ProximaNova/ProximaNova-Light.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('/fonts/ProximaNova/ProximaNova-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
 
 :root {
     /* variables */
-    --include-purple: #3c257e;
+    --background-primary: #173A52;
+    --background-secondary: #005271;
+    --background-tertiary: #E5EEF1;
+    --background-light: white;
 
-    --primary: var(--include-purple);
-    --secondary: #e7c6f9;
-    --light-background: rgb(241, 240, 240);
-    --dark-background: #0d303b;
+    --text-light: white;
+    --text-gray: #868974;
+    --text-dark: black;
 
-    --text-light: #def6ff;
+    --gradient-primary: linear-gradient(284deg, #FCFCD1 9.72%, #B2E7DD 44.61%, #76D6E6 79.5%);
+
+    --hd-yellow: #F6D995;
+    --hd-orange: #FFC53D;
 
     /* spacers */
     --tiny-spacer: 8px;
     --small-spacer: 16px;
     --spacer: 24px;
+    --small-medium-spacer: 32px;
     --medium-spacer: 48px;
     --large-spacer: 80px;
     
     /* border radius */
     --b-radius: 8px;
+    --b-radius-large: 16px;
 
     /* navbar */
     --navbar-height: 80px;
 
-    background-color: var(--light-background);
+    background-color: var(--background-tertiary);
+}
+
+html {
+    width: 390px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: var(--font-inter);
+  font-family: "Proxima Nova";
   color: var(--text-dark);
 }
 
@@ -41,7 +79,7 @@ a {
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 4rem;
 }
 h2 {
     font-size: 2.5rem;
@@ -55,3 +93,17 @@ h4 {
 p {
     font-size: 1rem;
 }
+
+input[type="email"], input[type="password"], input[type="text"] {
+    padding: 10px 8px;
+    border-radius: var(--b-radius);
+    border: 1px solid rgba(0, 0, 0, 0.27);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+::placeholder {
+    color: #A7AEB0;
+    font-size: 1rem;
+    font-weight: 600;
+  }

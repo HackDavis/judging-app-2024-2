@@ -15,6 +15,7 @@ export default function Welcome() {
               width={230}
               height={203}
               style={{ zIndex: 0 }}
+              priority
             />
             <Image
               src="/hackersPOV/judge_wig.svg"
