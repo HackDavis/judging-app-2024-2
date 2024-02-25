@@ -14,7 +14,6 @@ export const CreateJudge = async (body: object) => {
     const parsedBody = await parseAndReplace(body);
 
     const db = await getDatabase();
-
     const creationStatus = await db.collection('judges').insertOne(parsedBody);
 
     const judge = await db.collection('judges').findOne({
