@@ -5,5 +5,5 @@ import { revalidatePath } from 'next/cache';
 
 export default async function deleteJudgePairs(id: string) {
   await DeleteJudgePair(id);
-  revalidatePath('/judge-pairs');
+  revalidatePath('/judges');
 }

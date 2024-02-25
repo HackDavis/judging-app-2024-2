@@ -6,5 +6,5 @@ import { revalidatePath } from 'next/cache';
 export default async function updateJudgePairs(id: string, formData: FormData) {
   const dataJSON = FormToJSON(formData);
   await UpdateJudgePair(id, dataJSON);
-  revalidatePath('/judge-pairs');
+  revalidatePath('/judges');
 }
