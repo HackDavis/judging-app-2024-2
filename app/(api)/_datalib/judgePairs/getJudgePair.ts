@@ -49,15 +49,15 @@ export const GetManyJudgePairs = cache(async (query: object = {}) => {
           $lookup: {
             from: 'teams',
             localField: '_id',
-            foreignField: 'judge_pairs',
+            foreignField: 'judge_pair_ids',
             as: 'teams',
           },
         },
       ])
       .project({
         'judges.judge_pair_id': 0,
-        'teams.judge_pairs': 0,
-        'teams.judge_submissions': 0,
+        'teams.judge_pair_ids': 0,
+        'teams.submission_ids': 0,
       })
       .toArray();
 
@@ -66,7 +66,7 @@ export const GetManyJudgePairs = cache(async (query: object = {}) => {
     const error = e as HttpError;
     return NextResponse.json(
       { ok: false, error: error.message },
-      { status: 400 }
+      { status: error.status || 400 }
     );
   }
 });
