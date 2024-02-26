@@ -1,5 +1,8 @@
 'use client';
 
+import ProjectsCard from './ProjectsCard';
+import styles from './ProjectsCard.module.scss';
+
 export default function ProjectsList({ activeTab }: { activeTab: number }) {
   const scoredProjects = [
     {
@@ -33,7 +36,11 @@ export default function ProjectsList({ activeTab }: { activeTab: number }) {
   ];
 
   const renderScoredProjects = () => {
-    return <div>scored projects</div>;
+    return (
+      <div className={styles.container}>
+        <ProjectsCard />
+      </div>
+    );
   };
   const renderuUnjudgedProjects = () => {
     return <div>unjudgedProjects</div>;
