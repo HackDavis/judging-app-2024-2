@@ -3,12 +3,22 @@
 // import Category from './Category';
 import styles from './ProjectsCard.module.scss';
 
-export default function ProjectsCard() {
-  const project = {
-    num: 1,
-    name: 'sc haptic hand',
-    categories: ['Technical', 'Beginner', 'another category'],
-  };
+interface ProjectsCardProps {
+  num: number;
+  name: string;
+  categories: string[];
+}
+
+export default function ProjectsCard({
+  num,
+  name,
+  categories,
+}: ProjectsCardProps) {
+  //   const project = {
+  //     num: 1,
+  //     name: 'sc haptic hand',
+  //     categories: ['Technical', 'Beginner', 'another category'],
+  //   };
 
   const renderCategory = (category: string) => {
     return <div className={styles.category}>{category}</div>;
@@ -49,15 +59,15 @@ export default function ProjectsCard() {
   };
   return (
     <div className={styles.card}>
-      <div className={styles.teamNumber}>{project.num}</div>
+      <div className={styles.teamNumber}>{num}</div>
       <div className={styles.text}>
-        <div className={styles.teamName}>{project.name} </div>
+        <div className={styles.teamName}>{name} </div>
         {/* <div>
           {project.categories.map((category, index) => {
             <Category key={index} category={category} />;
           })}
         </div> */}
-        <div>{renderCategories(project.categories)}</div>
+        <div>{renderCategories(categories)}</div>
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ export default function ProjectsList({ activeTab }: { activeTab: number }) {
     {
       num: 75,
       name: 'unj haptic hand',
-      categories: ['not sure', 'something else'],
+      categories: ['not', 'something', 'one more', 'another 1'],
     },
     {
       num: 75,
@@ -38,12 +38,30 @@ export default function ProjectsList({ activeTab }: { activeTab: number }) {
   const renderScoredProjects = () => {
     return (
       <div className={styles.container}>
-        <ProjectsCard />
+        {scoredProjects.map((project, index) => (
+          <ProjectsCard
+            key={index}
+            num={project.num}
+            name={project.name}
+            categories={project.categories}
+          />
+        ))}
       </div>
     );
   };
   const renderuUnjudgedProjects = () => {
-    return <div>unjudgedProjects</div>;
+    return (
+      <div className={styles.container}>
+        {unjudgedProjects.map((project, index) => (
+          <ProjectsCard
+            key={index}
+            num={project.num}
+            name={project.name}
+            categories={project.categories}
+          />
+        ))}
+      </div>
+    );
   };
 
   return (
