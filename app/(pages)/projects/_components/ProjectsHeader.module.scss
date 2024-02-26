@@ -1,0 +1,41 @@
+.container {
+    width: 100%;
+    background-color: var(--background-secondary);
+    padding: 22px;
+    padding-top: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 82, 113, 0.25);
+    border: 0;
+    
+    
+    .header {
+        color: var(--text-light);
+        // font-family: "DM Sans";
+        font-size: 36px;
+        font-weight: 700;
+        
+    }
+
+    .projectType {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 38px;
+        font-size: 24px;
+        
+        .title {
+            color: rgba(254, 254, 254, 0.50);
+            font-weight: 600;
+            line-height: 150%; /* 36px */
+        }
+        
+        .selected {
+            color: var(--text-light);
+            border-bottom: 1px solid white;
+            // text-decoration: underline 0.15em white;
+            // transition: border-bottom 300ms;
+        }
+    }
+}
