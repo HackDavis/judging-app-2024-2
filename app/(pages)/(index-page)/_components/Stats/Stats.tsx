@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-'use client';
-=======
 import Link from 'next/link';
->>>>>>> origin/main
 import styles from './Stats.module.scss';
 import React, { useEffect, useState, useRef } from 'react';
 interface CountUpProps {

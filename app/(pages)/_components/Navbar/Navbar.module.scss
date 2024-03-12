@@ -143,7 +143,6 @@ $mobile-breakpoint: 425px;
     -webkit-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-<<<<<<< HEAD
 
     &_line{
         width: 30px;
@@ -178,70 +177,6 @@ $mobile-breakpoint: 425px;
                 transform: translateY(-8px) rotate(-45deg);
             }
         }
-    }
-}
-
-@media (max-width: $mobile-breakpoint) {
-    .container{
-        // background-color: transparent;
-        // backdrop-filter: none;
-        height: 10%;
-
-        &_active{
-            position: fixed;
-            left: 0;
-            top: 0;
-            background-color: var(--teal-2, #173A52);
-            backdrop-filter: none;
-            width: 100%;
-            height: 60vh;
-
-            z-index: 999;
-            animation: expand 0.3s ease-in-out forwards;
-        }
-    }
-    .nav{
-        flex-direction: column;
-        // padding: 1rem;
-        padding-top: 0;
-
-
-=======
-
-    &_line{
-        width: 30px;
-        height: 3px;
-        margin: 5px auto;
-        background-color: var(--teal-2, #173A52);
-        display: block;
-        -webkit-transition: all 0.3s ease-in-out;
-        -o-transition: all 0.3s ease-in-out;
-        transition: all 0.3s ease-in-out;
-    }
-    &:hover{
-        cursor: pointer;
-    }
-
-    &_active{
-        animation: smallbig 0.6s forwards;
-
-        .hamburger_line {
-            background-color: #ecf0f1;
-            transition-delay: 0.2s;
-
-            &:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-            }
-
-            &:nth-child(2) {
-                opacity: 0;
-            }
-
-            &:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-            }
-        }
->>>>>>> origin/main
     }
 }
 
@@ -304,10 +239,7 @@ $mobile-breakpoint: 425px;
             width: 100%; 
             position: fixed; 
             top:25%; 
-<<<<<<< HEAD
-=======
             // top: 2.5%;
->>>>>>> origin/main
             left: 0;
             z-index: 1000; 
             animation: expand 0.3s ease-in-out forwards;

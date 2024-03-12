@@ -15,21 +15,13 @@ export default function Navbar({ navLinks }: { navLinks: NavLink[] }) {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-<<<<<<< HEAD
-      if (currentScrollY < 100) {
-=======
       if (currentScrollY < 60) {
->>>>>>> origin/main
         setAtTop(true);
         setDirection('down');
       } else if (currentScrollY < lastScrollY.current) {
         setAtTop(false);
         setDirection('up');
-<<<<<<< HEAD
-      } else if (currentScrollY > 100) {
-=======
       } else if (currentScrollY > 60) {
->>>>>>> origin/main
         setAtTop(false);
         setDirection('down');
       }
@@ -45,18 +37,6 @@ export default function Navbar({ navLinks }: { navLinks: NavLink[] }) {
 
   useEffect(() => {
     const disableScroll = (e: Event) => {
-<<<<<<< HEAD
-      if (active) {
-        e.preventDefault();
-      }
-    };
-
-    window.addEventListener('wheel', disableScroll, { passive: false });
-    window.addEventListener('touchmove', disableScroll, { passive: false });
-
-    return () => {
-      window.removeEventListener('wheel', disableScroll);
-=======
       e.preventDefault();
     };
 
@@ -68,7 +48,6 @@ export default function Navbar({ navLinks }: { navLinks: NavLink[] }) {
     return () => {
       window.removeEventListener('wheel', disableScroll);
       window.removeEventListener('touchmove', disableScroll);
->>>>>>> origin/main
     };
   }, [active]);
 
