@@ -13,10 +13,10 @@
     display: flex;
     flex-direction: column; 
     align-items: flex-start;
-    margin-top: -180px;
+    margin-top: -220px;
     margin-left: 140px;
-    //margin-bottom: 10rem;
-
+    width: 50vw;
+    height: auto;
 }
 
 .number-word-pair {
@@ -51,7 +51,7 @@
 .button {
     display: flex;
     width: 21.375rem;
-    height: 3rem;
+    height: 48px;
     padding: 0.75rem 4.125rem;
     justify-content: center;
     align-items: center;
@@ -63,7 +63,7 @@
     left: 11rem;
     bottom: 20px;
     left: 300px;
-    top: 700px;
+    top: 650px;
     transform: translateX(-50%); 
 }
 
@@ -81,34 +81,41 @@
 
 .cow_duck {
     position: absolute;
-    bottom: -520px;
-    left: 450px;
+    bottom: -80px;
+    left: 280px;
     transform: translateX(-50%); 
-    width: 700px;
-    height: 700px;
+    width: 300px;
+    height: 300px;
     justify-content: center;
     align-items: center;
 }
 
+
 .stack {
-    position: relative;
-    height: 250px; // Set the height to the height of the Polaroids or a bit more
-    margin-top: 50px; // Center the stack if needed
-    margin-left: 600px;
+  position: relative; 
+  max-height: 250px;
+  height: 50vw; 
+  width: 50vw; 
+  margin: 100px auto 10px; 
+  transition: height 0.9s ease, width 0.9s ease;
+  left: 50%; 
+  transform: translate(-50%, 20%);
+  top: 50%;
   }
   
   .polaroid {
-    width: 1000px;
-    height: 800px;
+    width: 50vw;
+    height: auto;
+    
     position: absolute;
     transition: transform 0.9s ease, z-index 0.9s ease;
     object-fit: cover;
-    // This will make the nth image be offset a bit more than the (n-1)th
+    
     &:nth-child(1) { 
       top: 0; 
       left: 0;
       transform: rotate(-3deg);
-      z-index: 5; // Ensure this image is on top of the stack
+      z-index: 5; 
     }
     &:nth-child(2) { 
       top: 5px; 
@@ -132,7 +139,7 @@
       top: 20px; 
       left: 20px;
       transform: rotate(-10deg);
-      z-index: 1; // Ensure this image is at the bottom of the stack
+      z-index: 1; 
     }
   
     &:hover {
@@ -158,12 +165,15 @@
     }
 
     .numbers-words-container {
-        margin-top: 600px;
-        padding: 4.75rem -1rem; 
-        left: 50%; 
-        top: 87%; 
-        transform: translateX(10%); 
-        width: 23rem;
+      position: absolute; 
+      left: 30%;
+      transform: translateX(-50%); 
+      top: 17%; 
+      padding: 0.75rem 4.125rem;
+      min-width: 23rem; 
+      width: 80%; 
+      max-width: 500px;
+      margin-top: 500px;
     }
 
     .number-word-pair {
@@ -182,10 +192,10 @@
 
     .button {
         width: 23rem;
-        height: 3rem;
+        height: 48px;
         padding: 0.75rem 4.125rem;  
         left: 50%; 
-        top: 1350px; 
+        top: 1200px; 
         transform: translateX(-50%); 
     
     }
@@ -200,18 +210,23 @@
 
 
     .cow_duck {
-        position: absolute;
-        left: 460px; /* Move the left edge of the element to the center of its parent */
-        right: 50%;
-        transform: translateX(-50%); /* Center the element with respect to its own width */
-        bottom: -16px; /* Keeps the element 16px above the bottom edge of its parent */
-        height: 200px; /* Height is retained as per your specification */
-        padding: 0.75rem 4.125rem; /* Padding is retained */  
+      left: 350px;
+      padding: 0.75rem 4.125rem; 
+      transform: translateX(-50%); 
+      top: 1000px;
+      width:50%;
+      height: 50%;
     }
 
     .stack{
-        left: -730px;
-        padding: 0.75rem 4.125rem;  
+        left: -10px;
+        padding: 0.75rem 4.125rem; 
+        transform: translate(-50%, -50%); 
+        top: 100px;
+    }
+    .polaroid{
+      object-fit: cover;
+      min-width:100vw;
     }
 
     

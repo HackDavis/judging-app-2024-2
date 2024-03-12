@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import styles from './Sponsor.module.scss';
+import Image from 'next/image';
 
 const images = [
   '/about-us-icon/Polaroid1.png',
@@ -59,9 +60,12 @@ const PolaroidStack = ({ images }: PolaroidStackProps) => {
   return (
     <div className={styles.stack}>
       {stack.map((image, index) => (
-        <img
+        <Image
           key={index}
           src={image}
+          width={500} // Example width
+          height={500} // Example height - should be in the same ratio as the width
+          layout="responsive"
           alt={`Polaroid ${index}`}
           className={styles.polaroid}
           style={{
@@ -70,7 +74,7 @@ const PolaroidStack = ({ images }: PolaroidStackProps) => {
               activeIndex === index ? 'translateY(-20px) scale(1.1)' : '',
             transition: 'transform 0.9s ease, z-index 0s',
           }}
-          onClick={() => handleImageClick(index)}
+          //onClick={() => handleImageClick(index)}
         />
       ))}
     </div>
@@ -103,15 +107,11 @@ const Sponsor = () => {
         <span className={styles['button-words']}>Sponsor 2024</span>
       </button>
       <div className={styles.cow_duck}>
-        <img
+        <Image
           src="/about-us-icon/cow and duck.svg"
           alt="Cow and duck"
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-            objectFit: 'contain',
-            marginTop: 'auto',
-          }}
+          layout="fill"
+          //objectFit="contain"
         />
       </div>
     </div>
