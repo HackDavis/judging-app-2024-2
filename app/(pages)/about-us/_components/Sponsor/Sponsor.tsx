@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from './Sponsor.module.scss';
 import Image from 'next/image';
 
@@ -15,7 +15,7 @@ interface PolaroidStackProps {
   images: string[];
   index: number;
 }
-
+/*
 const PolaroidStack = ({ images }: PolaroidStackProps) => {
   const [stack, setStack] = useState<string[]>(images);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -75,6 +75,26 @@ const PolaroidStack = ({ images }: PolaroidStackProps) => {
             transition: 'transform 0.9s ease, z-index 0s',
           }}
           //onClick={() => handleImageClick(index)}
+        />
+      ))}
+    </div>
+  );
+};*/
+
+const PolaroidStack = ({ images }: PolaroidStackProps) => {
+  // No need for state if we are not animating
+  return (
+    <div className={styles.stack}>
+      {images.map((image, index) => (
+        <Image
+          key={index}
+          src={image}
+          width={500} // Example width
+          height={500} // Example height - should be in the same ratio as the width
+          layout="responsive"
+          alt={`Polaroid ${index}`}
+          className={styles.polaroid}
+          //onClick={() => handleImageClick(index)} // Optional: if you want to handle clicks
         />
       ))}
     </div>
