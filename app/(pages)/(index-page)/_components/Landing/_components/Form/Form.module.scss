@@ -30,7 +30,6 @@ $tablet-scale: 0.75;
 .title{
   display: flex;
   flex-direction: column;
-
   &_ready{
     text-align: left;
     font-family: "Metropolis", sans-serif;
@@ -40,6 +39,22 @@ $tablet-scale: 0.75;
     font-weight: 800;
     line-height: 103%; /* 49.44px */
     letter-spacing: 0.96px;
+    
+    // border: 1px solid red; 
+
+    display: flex;
+    align-items: baseline;
+
+    &_wordCycle{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // width: 300px;
+      padding-left: 10px;
+      // border: 1px solid black;
+
+    }
+
   }
   &_social{
     font-family: "Metropolis", sans-serif;
@@ -86,7 +101,7 @@ $tablet-scale: 0.75;
     &_lower{
       display: flex;
       align-items: center;
-      gap: 0.25vw;
+      gap: 0.5vw;
 
       &_text{
         color: var(--teal-2, #173A52);
@@ -98,9 +113,16 @@ $tablet-scale: 0.75;
         letter-spacing: 0.48px;
       }
       &_icon{
+<<<<<<< HEAD
         width: $button-font-size;
         height: $button-font-size;
         margin-top: -2px;
+=======
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-top: -2px;
+        color: var(--teal-2, #173A52);
+>>>>>>> origin/main
       }
     }
   }
@@ -228,11 +250,22 @@ $tablet-scale: 0.75;
         display: flex;
 
         &_text{
+<<<<<<< HEAD
           font-size: calc($button-font-size * 0.75);
         }
         &_icon{
           width: calc($button-font-size * 0.75);
           height: calc($button-font-size * 0.75);
+=======
+          font-size: $button-font-size;
+        }
+        &_icon{
+          width: $button-font-size ;
+          height: $button-font-size;
+
+
+
+>>>>>>> origin/main
         }
       }
     }
@@ -282,7 +315,11 @@ $tablet-scale: 0.75;
       color: var(--teal-2, #173A52);
       text-align: center;
       font-family: "Metropolis";
+<<<<<<< HEAD
       font-size: 32px;
+=======
+      font-size: 36px;
+>>>>>>> origin/main
       font-style: normal;
       font-weight: 700;
       line-height: 115%; /* 36.8px */
@@ -291,6 +328,7 @@ $tablet-scale: 0.75;
     &_social{
       color: var(--teal-2, #173A52);
       font-family: "Metropolis";
+<<<<<<< HEAD
       font-size: 48px;
       font-style: normal;
       font-weight: 700;
@@ -367,6 +405,103 @@ $tablet-scale: 0.75;
       color: var(--teal-2, #173A52);
       font-family: "Metropolis";
       font-size: 48px;
+=======
+      font-size: 56px;
+>>>>>>> origin/main
+      font-style: normal;
+      font-weight: 700;
+      line-height: 115%;
+      letter-spacing: 0.96px;
+    }
+  }
+  .calendar{
+    &_inner{
+      &_upper{
+        font-size: 24px;
+        &_hackdavis{
+          font-size: 24px;
+        }
+      }
+      &_lower{
+<<<<<<< HEAD
+=======
+        display: flex;
+        justify-content: center;
+        // gap: 0.5vw; 
+
+>>>>>>> origin/main
+        &_text{
+          font-size: 20px;
+        }
+        &_icon{
+<<<<<<< HEAD
+          width: 20px;
+          height: 20px;
+          margin-top: -2px;
+=======
+          width: 1.5rem;
+          height: 1.5rem;
+          margin-bottom: 5px;
+>>>>>>> origin/main
+        }
+      }
+    }
+  }
+  .buttons{
+    width: 100%;
+    &_register{
+<<<<<<< HEAD
+=======
+      width: 85%;
+      height: 48px; 
+      padding: 7.75px 13.0px;
+>>>>>>> origin/main
+      p{
+        font-size: 20px;
+      }
+    }
+    &_sponsor{
+<<<<<<< HEAD
+      p{
+        font-size: 20px;
+=======
+      width: 85%;
+      height: 48px;
+      padding: 7.75px 13.0px;
+      p{
+        font-size: 18px;
+      }
+    }
+    &_userType{
+      gap: 25px;
+      span{
+        font-size: 18px;
+>>>>>>> origin/main
+      }
+    }
+
+  }
+
+}
+<<<<<<< HEAD
+=======
+
+@media (max-width: $small-mobile-breakpoint){
+  .title{
+    &_ready{
+      color: var(--teal-2, #173A52);
+      text-align: center;
+      font-family: "Metropolis";
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 115%; /* 36.8px */
+      letter-spacing: 0.64px;
+    }
+    &_social{
+      color: var(--teal-2, #173A52);
+      font-family: "Metropolis";
+      font-size: 48px;
       font-style: normal;
       font-weight: 700;
       line-height: 115%;
@@ -386,9 +521,9 @@ $tablet-scale: 0.75;
           font-size: 20px;
         }
         &_icon{
-          width: 20px;
-          height: 20px;
-          margin-top: -2px;
+          width: 1.5rem;
+          height: 1.5rem;
+          margin-bottom: 2px;
         }
       }
     }
@@ -404,7 +539,13 @@ $tablet-scale: 0.75;
         font-size: 20px;
       }
     }
+    &_usertype{
+      span{
+        font-size: 20px;
+      }
+    }
 
   }
 
 }
+>>>>>>> origin/main

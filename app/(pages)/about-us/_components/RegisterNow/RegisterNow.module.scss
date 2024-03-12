@@ -1,29 +1,3 @@
-@font-face {
-    font-family: 'Metropolis';
-    src: url('/fonts/ProximaNova/ProximaNova-Regular.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Metropolis';
-    src: url('/fonts/ProximaNova/ProximaNova-Medium.ttf') format('truetype');
-    font-weight: 600;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Metropolis';
-    src: url('/fonts/ProximaNova/ProximaNova-Light.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Metropolis';
-    src: url('/fonts/ProximaNova/ProximaNova-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-}
-
 .container {
     position: relative;
     display:flex;
@@ -73,7 +47,7 @@
         justify-content: center;
         align-items: center;
         gap: 48px;
-        width: 766px;
+        width: 800px;
 
         .text {
             color: #F4F4F4;
@@ -107,6 +81,7 @@
     .registerNow {
         // button background styling
         display: flex;
+        position: relative;
         width: 342px;
         height: 48px;
         padding: 12px 66px;
@@ -129,6 +104,10 @@
         line-height: normal;
         letter-spacing: 0.36px;
     }
+    .registerNow:hover {
+        cursor: pointer;
+        filter: brightness(1.1);
+      }
 }
 @media only screen and (max-width: 768px) {
     .container {

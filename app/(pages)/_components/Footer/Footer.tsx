@@ -28,9 +28,8 @@ export default function Footer() {
           height={92.7}
           className={styles.hdLogoWhite}
         />
-
         <Image
-          src="/Footer/hdLogoMotto.svg"
+          src="/Footer/hdLogoMottoUpdated.svg"
           alt="hackdavis name and motto"
           width={226}
           height={71.55}

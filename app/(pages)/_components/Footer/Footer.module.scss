@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @font-face {
     font-family: 'Metropolis';
     src: url('/fonts/ProximaNova/ProximaNova-Regular.ttf') format('truetype');
@@ -24,6 +25,8 @@
     font-style: normal;
 }
 
+=======
+>>>>>>> origin/main
 $footer-color: #122537;
 $brand-icon-color: white;
 
@@ -45,7 +48,13 @@ $brand-icon-color: white;
         flex-direction: row;
         align-items: center;
         gap: 23.48px;
-    }
+
+        .hdLogoWhite {
+            height: 72px;
+            width: 72px;
+        }
+     }
+}
 
     .socialContent {
         display: flex;
@@ -87,6 +96,7 @@ $brand-icon-color: white;
         }
         
         .copyright {
+            font-family: 'Metropolis';
             color:white;
             font-size: 14px;
         }
@@ -109,7 +119,7 @@ $brand-icon-color: white;
             font-family: 'Metropolis';
         }
     }
-}
+
 
 @media (max-width: 870px) {
     // css styling for mobile view
@@ -141,6 +151,7 @@ $brand-icon-color: white;
             height: 55px;
             width: 176px;
         }
+
     }
 
     .socialContent {
@@ -185,6 +196,7 @@ $brand-icon-color: white;
         }
         
         .copyright {
+            font-family: 'Metropolis';
             color:white;
             font-size: 9px;
         }

@@ -1,12 +1,22 @@
 import styles from './Form.module.scss';
 import { CiCalendar } from 'react-icons/ci';
+import WordCycle from './_components/WordCycle';
+import Link from 'next/link';
 
 export default function Form() {
   return (
     <div className={styles.background}>
       <div className={styles.container}>
         <div className={styles.title}>
-          <span className={styles.title_ready}>Ready to create for </span>
+          <span className={styles.title_ready}>
+            <span style={{ opacity: 0.75, fontFamily: 'Metropolis' }}>
+              Ready to
+            </span>
+            <span className={styles.title_ready_wordCycle}>
+              <WordCycle />
+            </span>
+          </span>
+
           <span className={styles.title_social}>social good?</span>
         </div>
         <div className={styles.calendar}>
@@ -20,22 +30,26 @@ export default function Form() {
             <div className={styles.calendar_inner_lower}>
               <CiCalendar className={styles.calendar_inner_lower_icon} />
               <span className={styles.calendar_inner_lower_text}>
-                January 1, 2024 @ UCenter
+                April 27-28 @ UCenter
               </span>
             </div>
           </div>
         </div>
         <div className={styles.buttons}>
           <div className={styles.buttons_register}>
-            <p>Register Now</p>
+            <Link href="https://form.typeform.com/to/RvoDiujh?utm_source=WEBSITE">
+              <p>Register Now</p>
+            </Link>
           </div>
           <div className={styles.buttons_sponsor}>
-            <p>Sponsor</p>
+            <a href="mailto:team@hackdavis.io">
+              <p>Sponsor</p>
+            </a>
           </div>
-          <div className={styles.buttons_userType}>
+          {/* <div className={styles.buttons_userType}>
             <span>VOLUNTEER</span>
             <span>MENTOR</span>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
