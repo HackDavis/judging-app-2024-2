@@ -11,7 +11,11 @@ import type AuthTokenInt from '@typeDefs/authToken';
 export default async function RegisterAction(
   prevState: any,
   formData: FormData
-) {
+): Promise<{
+  ok: boolean;
+  body?: AuthTokenInt | null;
+  error?: string | null;
+}> {
   try {
     const body = FormToJSON(formData) as { email: string; password: string };
 
