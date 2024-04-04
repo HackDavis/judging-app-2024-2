@@ -6,14 +6,17 @@ import Register from '@actions/auth/register';
 import styles from './RegisterForm.module.scss';
 import Link from 'next/link';
 import AuthTokenInt from '@typeDefs/authToken';
+import { useInvite } from '@hooks/useInvite';
+import { useRouter } from 'next/navigation';
 
 export default function RegisterForm() {
-  const [email, setEmail] = useState('');
+  const router = useRouter();
+
+  const [_, email] = useInvite();
   const [password, setPassword] = useState('');
   const [passwordDupe, setPasswordDupe] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [error, setError] = useState('');
-  const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [passwordDupeError, setPasswordDupeError] = useState(false);
 
@@ -24,10 +27,6 @@ export default function RegisterForm() {
   });
   const { login } = useAuth();
 
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
@@ -36,19 +35,7 @@ export default function RegisterForm() {
     setPasswordDupe(event.target.value);
   };
 
-  const validateForm = (
-    email: string,
-    password: string,
-    passwordDupe: string
-  ) => {
-    // Simple email validation
-    const isEmailValid = /\S+@\S+\.\S+/.test(email) || email.length === 0;
-    if (!isEmailValid) {
-      setError('Email is not valid format.');
-    }
-    setEmailError(!isEmailValid);
-    console.log(!isEmailValid);
-
+  const validateForm = (password: string, passwordDupe: string) => {
     // Password validation (example: minimum length of 6 characters)
     const isPasswordValid = password.length >= 6 || password.length === 0;
     if (!isPasswordValid) {
@@ -64,8 +51,8 @@ export default function RegisterForm() {
     setPasswordDupeError(!passwordMatch);
 
     // Set isValid state based on email and password validity
-    setIsValid(isEmailValid && isPasswordValid && passwordMatch);
-    if (isEmailValid && isPasswordValid && passwordMatch) {
+    setIsValid(isPasswordValid && passwordMatch);
+    if (isPasswordValid && passwordMatch) {
       setError('');
     }
   };
@@ -73,16 +60,18 @@ export default function RegisterForm() {
   useEffect(() => {
     if (registerState.ok === true) {
       const user = registerState.body as AuthTokenInt;
+      setError('');
       login(user);
+      router.push('/judges');
     } else {
       const err = registerState.error as string;
       setError(err);
     }
-  }, [registerState, login]);
+  }, [registerState, login, router]);
 
   useEffect(() => {
-    validateForm(email, password, passwordDupe);
-  }, [email, password, passwordDupe]);
+    validateForm(password, passwordDupe);
+  }, [password, passwordDupe]);
 
   return (
     <form action={RegisterAction} className={styles.container}>
@@ -92,9 +81,8 @@ export default function RegisterForm() {
           name="email"
           type="email"
           placeholder="Email"
-          value={email}
-          onChange={handleEmailChange}
-          className={`${emailError ? styles.error : null}`}
+          defaultValue={(email as string) ?? ''}
+          readOnly
         />
         <input
           name="password"
