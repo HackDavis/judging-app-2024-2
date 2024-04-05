@@ -1,7 +1,7 @@
 const Judge = {
   bsonType: 'object',
   title: 'Judge Object Validation',
-  required: ['name', 'email', 'password', 'specialty'],
+  required: ['name', 'email', 'password', 'specialty', 'role'],
   properties: {
     _id: {
       bsonType: 'objectId',
@@ -34,6 +34,10 @@ const Judge = {
         bsonType: 'objectId',
       },
       description: 'submission_ids must be an array of ObjectIds',
+    },
+    role: {
+      enum: ['judge', 'admin'],
+      description: 'role must be either judge or admin',
     },
   },
   additionalProperties: false,

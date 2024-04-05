@@ -7,9 +7,15 @@ import { DuplicateError, HttpError } from '@utils/response/Errors';
 import { GetManyJudges } from '@datalib/judges/getJudge';
 import { createAuthToken } from './authToken';
 
-export async function Register(body: { email: string; password: string }) {
+export async function Register(body: {
+  name: string;
+  email: string;
+  password: string;
+  specialty: string;
+  role: string;
+}) {
   try {
-    const { email, password } = body;
+    const { email, password, ...rest } = body;
     const hashedPassword = await bcrypt.hash(password as string, 10);
 
     // Find Judge
@@ -20,8 +26,9 @@ export async function Register(body: { email: string; password: string }) {
     }
 
     // Create Judge
-    const res = await CreateJudge({ email, password: hashedPassword });
+    const res = await CreateJudge({ email, password: hashedPassword, ...rest });
     const data = await res.json();
+    console.log(data);
 
     if (!data.ok) {
       throw new HttpError('Failed to create judge');
