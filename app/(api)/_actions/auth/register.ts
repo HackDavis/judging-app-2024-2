@@ -17,7 +17,14 @@ export default async function RegisterAction(
   error?: string | null;
 }> {
   try {
-    const body = FormToJSON(formData) as { email: string; password: string };
+    const body = FormToJSON(formData) as {
+      name: string;
+      email: string;
+      specialty: string;
+      role: string;
+      password: string;
+    };
+    console.log(body);
 
     const res = await Register(body);
     const data = await res.json();

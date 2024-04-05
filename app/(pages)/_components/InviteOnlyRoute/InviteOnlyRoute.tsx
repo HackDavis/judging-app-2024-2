@@ -7,12 +7,12 @@ export default function InviteOnlyRoute({
 }: {
   children: React.ReactNode;
 }) {
-  const [pending, email] = useInvite();
+  const { pending, data } = useInvite();
 
   if (pending) {
     return 'Loading...';
   }
-  if (email === null) {
+  if (data === null) {
     return 'Bad Invite Link';
   } else {
     return children;

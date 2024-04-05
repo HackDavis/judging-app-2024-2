@@ -1,5 +1,5 @@
 interface NewFormJSON {
-  [key: string]: FormDataEntryValue;
+  [key: string]: FormDataEntryValue | number;
 }
 
 export default function FormToJSON(formData: FormData) {

@@ -10,7 +10,10 @@ export default function Register() {
         <p>Create invite</p>
         <div>
           <label>Email</label>
+          <input name="name" type="hidden" value="austin" />
           <input name="email" type="email" />
+          <input name="specialty" type="hidden" value="tech" />
+          <input name="role" type="hidden" value="judge" />
         </div>
         <button type="submit">Create an invite</button>
         <p aria-live="polite" className="sr-only">

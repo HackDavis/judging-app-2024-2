@@ -5,25 +5,43 @@ import { useSearchParams } from 'next/navigation';
 import verifyInvite from '@actions/invite/verifyInvite';
 import { useState, useEffect } from 'react';
 
-export function useInvite() {
+interface InviteData {
+  email: string;
+  name?: string;
+  specialty?: string;
+  role?: string;
+  exp: number;
+}
+
+export function useInvite(type: string = 'register') {
   const searchParams = useSearchParams();
 
   const [pending, setPending] = useState(true);
-  const [email, setEmail] = useState<string | null>(null);
+  const [data, setData] = useState<InviteData | null>(null);
 
   useEffect(() => {
-    const email = searchParams.get('email');
+    const data = searchParams.get('data');
     const sig = searchParams.get('sig');
 
     const verifyInviteWrapper = async () => {
-      const verified = await verifyInvite(email as string, sig as string);
+      const verified = await verifyInvite(data as string, sig as string);
       if (verified) {
-        setEmail(email);
+        const dje = atob(data as string);
+        const dj = JSON.parse(dje) as InviteData;
+        if (type === 'register') {
+          if (dj.name && dj.email && dj.specialty && dj.role && dj.exp) {
+            setData(dj);
+          }
+        } else if (type == 'reset') {
+          if (dj.email && dj.exp) {
+            setData(dj);
+          }
+        }
       }
       setPending(false);
     };
 
     verifyInviteWrapper();
-  }, [searchParams]);
-  return [pending, email];
+  }, [searchParams, type]);
+  return { pending, data };
 }

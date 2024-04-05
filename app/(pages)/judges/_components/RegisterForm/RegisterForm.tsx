@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 export default function RegisterForm() {
   const router = useRouter();
 
-  const [_, email] = useInvite();
+  const { data } = useInvite('register');
   const [password, setPassword] = useState('');
   const [passwordDupe, setPasswordDupe] = useState('');
   const [isValid, setIsValid] = useState(false);
@@ -81,7 +81,7 @@ export default function RegisterForm() {
           name="email"
           type="email"
           placeholder="Email"
-          defaultValue={(email as string) ?? ''}
+          defaultValue={data ? data.email : ''}
           readOnly
         />
         <input
@@ -93,13 +93,19 @@ export default function RegisterForm() {
           className={`${passwordError ? styles.error : null}`}
         />
         <input
-          name="password-dupe"
           type="password"
           placeholder="Retype password"
           value={passwordDupe}
           onChange={handlePasswordDupeChange}
           className={`${passwordDupeError ? styles.error : null}`}
         />
+        <input name="name" type="hidden" defaultValue={data ? data.name : ''} />
+        <input
+          name="specialty"
+          type="hidden"
+          defaultValue={data ? data.specialty : ''}
+        />
+        <input name="role" type="hidden" defaultValue={data ? data.role : ''} />
       </div>
       <button
         className={`${styles.login_button} ${isValid ? styles.valid : null}`}
