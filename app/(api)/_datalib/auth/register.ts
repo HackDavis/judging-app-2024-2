@@ -6,14 +6,9 @@ import { CreateJudge } from '@datalib/judges/createJudge';
 import { DuplicateError, HttpError } from '@utils/response/Errors';
 import { GetManyJudges } from '@datalib/judges/getJudge';
 import { createAuthToken } from './authToken';
+import JudgeInt from '@typeDefs/judges';
 
-export async function Register(body: {
-  name: string;
-  email: string;
-  password: string;
-  specialty: string;
-  role: string;
-}) {
+export async function Register(body: JudgeInt) {
   try {
     const { email, password, ...rest } = body;
     const hashedPassword = await bcrypt.hash(password as string, 10);
@@ -28,7 +23,6 @@ export async function Register(body: {
     // Create Judge
     const res = await CreateJudge({ email, password: hashedPassword, ...rest });
     const data = await res.json();
-    console.log(data);
 
     if (!data.ok) {
       throw new HttpError('Failed to create judge');

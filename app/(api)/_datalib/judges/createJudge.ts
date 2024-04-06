@@ -21,8 +21,6 @@ export const CreateJudge = async (body: object) => {
 
     const db = await getDatabase();
 
-    console.log(parsedBody);
-
     // duplicate
     const existingJudge = await db.collection('judges').findOne({
       email: parsedBody.email,
@@ -30,16 +28,13 @@ export const CreateJudge = async (body: object) => {
     if (existingJudge) {
       throw new DuplicateError('Duplicate: judge already exists.');
     }
-    console.log('CREATING JUDGE');
     const creationStatus = await db.collection('judges').insertOne(parsedBody);
-    console.log(creationStatus);
     const judge = await db.collection('judges').findOne({
       _id: new ObjectId(creationStatus.insertedId),
     });
 
     return NextResponse.json({ ok: true, body: judge }, { status: 201 });
   } catch (e) {
-    console.log(JSON.stringify(e));
     const error = e as HttpError;
     return NextResponse.json(
       { ok: false, error: error.message },
