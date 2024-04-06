@@ -15,10 +15,8 @@ export default function ProtectedDisplay({
     return loadingDisplay;
   }
   if (user === null) {
-    console.log(user);
     return failDisplay;
   } else {
-    console.log(user);
     return children;
   }
 }
