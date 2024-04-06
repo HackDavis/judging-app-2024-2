@@ -1,7 +1,7 @@
 'use client';
 import { useAuth } from '@hooks/useAuth';
 
-export default function ProtectedDisplay({
+export default function AdminProtected({
   loadingDisplay,
   failDisplay,
   children,
@@ -14,11 +14,9 @@ export default function ProtectedDisplay({
   if (loading) {
     return loadingDisplay;
   }
-  if (user === null) {
-    console.log(user);
+  if (user === null || user?.role !== 'admin') {
     return failDisplay;
   } else {
-    console.log(user);
     return children;
   }
 }
