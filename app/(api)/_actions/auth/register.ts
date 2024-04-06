@@ -37,9 +37,9 @@ export default async function RegisterAction(
       httpOnly: true,
     });
 
-    return { ok: true, body: payload };
+    return { ok: true, body: payload, error: null };
   } catch (e) {
     const error = e as HttpError;
-    return { ok: false, error: error.message };
+    return { ok: false, body: null, error: error.message };
   }
 }
