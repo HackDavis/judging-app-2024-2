@@ -6,7 +6,6 @@ export default function authenticated(
   handler: (request: NextRequest) => Promise<NextResponse>
 ) {
   return async (request: NextRequest) => {
-    console.log('Middleware Running!');
     try {
       await authenticate(request);
     } catch (e) {

@@ -7,6 +7,7 @@ import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
 import FormToJSON from '@utils/form/FormToJSON';
 
 import type AuthTokenInt from '@typeDefs/authToken';
+import type JudgeInt from '@typeDefs/judges';
 
 export default async function RegisterAction(
   prevState: any,
@@ -17,14 +18,7 @@ export default async function RegisterAction(
   error?: string | null;
 }> {
   try {
-    const body = FormToJSON(formData) as {
-      name: string;
-      email: string;
-      specialty: string;
-      role: string;
-      password: string;
-    };
-    console.log(body);
+    const body = FormToJSON(formData) as JudgeInt;
 
     const res = await Register(body);
     const data = await res.json();
