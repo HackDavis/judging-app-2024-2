@@ -53,11 +53,11 @@
   },
   {
     "name": "Best User Research",
-    "scores": [0.35, 0.05, 0.4, 0.1, 0.1]
+    "scores": [0.35, 0.05, 0.3, 0.2, 0.1]
   },
   {
     "name": "Best Interactive Media Hack",
-    "scores": [0.35, 0.05, 0.4, 0.1, 0.1]
+    "scores": [0.35, 0.05, 0.2, 0.2, 0.2]
   },
   {
     "name": "Best Finance + Tech Hack",
@@ -65,7 +65,7 @@
   },
   {
     "name": "Best Entrepreneurship Hack",
-    "scores": [0.35, 0.2, 0.15, 0.2, 0.1]
+    "scores": [0.35, 0.05, 0.1, 0.2, 0.3]
   },
   {
     "name": "Best Statistical Model",
