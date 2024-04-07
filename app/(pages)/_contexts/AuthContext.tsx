@@ -1,8 +1,8 @@
 'use client';
 import { createContext, useState, useEffect, useCallback } from 'react';
-import Cookies from 'js-cookie';
 import VerifyToken from '@actions/auth/verifyToken';
 import AuthTokenInt from '@typeDefs/authToken';
+import DeleteAuthToken from '@actions/auth/deleteAuthToken';
 
 interface AuthProviderValue {
   user: AuthTokenInt;
@@ -10,11 +10,6 @@ interface AuthProviderValue {
   login: (user: AuthTokenInt) => void;
   logout: () => void;
 }
-
-const deleteAuthTokenCookie = () => {
-  // Delete the 'auth-token' cookie
-  Cookies.remove('auth_token', { path: '/' });
-};
 
 export type { AuthTokenInt, AuthProviderValue };
 
@@ -45,7 +40,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const logout = useCallback(() => {
-    deleteAuthTokenCookie();
+    DeleteAuthToken();
     setUser(null);
   }, []);
 

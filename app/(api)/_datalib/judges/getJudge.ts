@@ -18,11 +18,14 @@ export const GetJudge = cache(async (id: string) => {
       throw new NotFoundError(`judge with id: ${id} not found.`);
     }
 
-    return NextResponse.json({ ok: true, body: judge }, { status: 200 });
+    return NextResponse.json(
+      { ok: true, body: judge, error: null },
+      { status: 200 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }
@@ -34,11 +37,14 @@ export const GetManyJudges = cache(async (query: object = {}) => {
 
     const judge = await db.collection('judges').find(query).toArray();
 
-    return NextResponse.json({ ok: true, body: judge }, { status: 200 });
+    return NextResponse.json(
+      { ok: true, body: judge, error: null },
+      { status: 200 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }
