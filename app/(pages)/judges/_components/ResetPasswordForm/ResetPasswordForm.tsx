@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 
 export default function ResetPasswordForm() {
   const router = useRouter();
-
   const { data } = useInvite('reset');
   const [password, setPassword] = useState('');
   const [passwordDupe, setPasswordDupe] = useState('');
