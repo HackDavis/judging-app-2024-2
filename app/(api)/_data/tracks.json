@@ -1,0 +1,110 @@
+[
+  {
+    "name": "Best Hack for Social Good",
+    "scores": [0.5, 0.1, 0.1, 0.2, 0.1]
+  },
+  {
+    "name": "Best Beginner Hack",
+    "scores": [0.35, 0.15, 0.1, 0.2, 0.2]
+  },
+  {
+    "name": "Best Interdisciplinary Hack",
+    "scores": [0.35, 0.4, 0.05, 0.1, 0.1]
+  },
+  {
+    "name": "Best Hardware Hack",
+    "scores": [0.35, 0.3, 0.05, 0.2, 0.1]
+  },
+  {
+    "name": "Best Health Hack",
+    "scores": [0.35, 0.2, 0.15, 0.2, 0.1]
+  },
+  {
+    "name": "Best Hack for Social Justice",
+    "scores": [0.5, 0.1, 0.1, 0.2, 0.1]
+  },
+  {
+    "name": "Most Creative Hack",
+    "scores": [0.35, 0.05, 0.15, 0.3, 0.15]
+  },
+  {
+    "name": "Best Cybersecurity Hack",
+    "scores": [0.35, 0.3, 0.05, 0.2, 0.1]
+  },
+  {
+    "name": "Best AI/ML Hack",
+    "scores": [0.35, 0.3, 0.05, 0.2, 0.1]
+  },
+  {
+    "name": "Best use of Intel® Developer Cloud",
+    "scores": [0.35, 0.3, 0.05, 0.2, 0.1]
+  },
+  {
+    "name": "Most Technically Challenging Hack",
+    "scores": [0.35, 0.4, 0.05, 0.1, 0.1]
+  },
+  {
+    "name": "Best UI/UX Prototyping",
+    "scores": [0.35, 0.05, 0.4, 0.1, 0.1]
+  },
+  {
+    "name": "Best Overall Design",
+    "scores": [0.35, 0.05, 0.4, 0.1, 0.1]
+  },
+  {
+    "name": "Best User Research",
+    "scores": [0.35, 0.05, 0.4, 0.1, 0.1]
+  },
+  {
+    "name": "Best Interactive Media Hack",
+    "scores": [0.35, 0.05, 0.4, 0.1, 0.1]
+  },
+  {
+    "name": "Best Finance + Tech Hack",
+    "scores": [0.35, 0.2, 0.15, 0.2, 0.1]
+  },
+  {
+    "name": "Best Entrepreneurship Hack",
+    "scores": [0.35, 0.2, 0.15, 0.2, 0.1]
+  },
+  {
+    "name": "Best Statistical Model",
+    "scores": [0.35, 0.4, 0.05, 0.1, 0.1]
+  },
+  {
+    "name": "Best DEI Hack",
+    "scores": [0.5, 0.1, 0.1, 0.2, 0.1]
+  },
+  {
+    "name": "Best Use of Kintone",
+    "scores": [0.35, 0.3, 0.05, 0.2, 0.1]
+  },
+  {
+    "name": "Best .Tech Domain Name",
+    "scores": [0.35, 0.25, 0.05, 0.25, 0.1]
+  },
+  {
+    "name": "Best Use of TinyMCE",
+    "scores": [0.35, 0.3, 0.05, 0.2, 0.1]
+  },
+  {
+    "name": "Best Use of PropelAuth",
+    "scores": [0.35, 0.3, 0.05, 0.2, 0.1]
+  },
+  {
+    "name": "Sauce Labs Raffle",
+    "scores": [0.35, 0.25, 0.05, 0.25, 0.1]
+  },
+  {
+    "name": "Life of Kai",
+    "scores": [0.35, 0.25, 0.05, 0.25, 0.1]
+  },
+  {
+    "name": "DCMH",
+    "scores": [0.35, 0.25, 0.05, 0.25, 0.1]
+  },
+  {
+    "name": "AggieHouse",
+    "scores": [0.35, 0.25, 0.05, 0.25, 0.1]
+  }
+]
