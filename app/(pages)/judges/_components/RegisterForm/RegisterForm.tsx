@@ -13,6 +13,7 @@ export default function RegisterForm() {
   const router = useRouter();
 
   const { data } = useInvite('register');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordDupe, setPasswordDupe] = useState('');
   const [isValid, setIsValid] = useState(false);
@@ -27,6 +28,10 @@ export default function RegisterForm() {
   });
   const { login } = useAuth();
 
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
@@ -35,7 +40,17 @@ export default function RegisterForm() {
     setPasswordDupe(event.target.value);
   };
 
-  const validateForm = (password: string, passwordDupe: string) => {
+  const validateForm = (
+    email: string,
+    password: string,
+    passwordDupe: string
+  ) => {
+    const isEmailValid = /\S+@\S+\.\S+/.test(email) || email.length === 0;
+    if (!isEmailValid) {
+      setError('Email invalid format.');
+    }
+    setPasswordError(!isEmailValid);
+
     // Password validation (example: minimum length of 6 characters)
     const isPasswordValid = password.length >= 6 || password.length === 0;
     if (!isPasswordValid) {
@@ -51,8 +66,8 @@ export default function RegisterForm() {
     setPasswordDupeError(!passwordMatch);
 
     // Set isValid state based on email and password validity
-    setIsValid(isPasswordValid && passwordMatch);
-    if (isPasswordValid && passwordMatch) {
+    setIsValid(isEmailValid && isPasswordValid && passwordMatch);
+    if (isEmailValid && isPasswordValid && passwordMatch) {
       setError('');
     }
   };
@@ -70,8 +85,8 @@ export default function RegisterForm() {
   }, [registerState, login, router]);
 
   useEffect(() => {
-    validateForm(password, passwordDupe);
-  }, [password, passwordDupe]);
+    validateForm(email, password, passwordDupe);
+  }, [email, password, passwordDupe]);
 
   return (
     <form action={RegisterAction} className={styles.container}>
@@ -81,8 +96,9 @@ export default function RegisterForm() {
           name="email"
           type="email"
           placeholder="Email"
-          defaultValue={data ? data.email : ''}
-          readOnly
+          value={data ? data.email : email}
+          onChange={handleEmailChange}
+          readOnly={data ? true : false}
         />
         <input
           name="password"
@@ -99,13 +115,21 @@ export default function RegisterForm() {
           onChange={handlePasswordDupeChange}
           className={`${passwordDupeError ? styles.error : null}`}
         />
-        <input name="name" type="hidden" defaultValue={data ? data.name : ''} />
+        <input
+          name="name"
+          type="hidden"
+          defaultValue={data ? data.name : 'HackDavis Admin'}
+        />
         <input
           name="specialty"
           type="hidden"
-          defaultValue={data ? data.specialty : ''}
+          defaultValue={data ? data.specialty : 'tech'}
         />
-        <input name="role" type="hidden" defaultValue={data ? data.role : ''} />
+        <input
+          name="role"
+          type="hidden"
+          defaultValue={data ? data.role : 'admin'}
+        />
       </div>
       <button
         className={`${styles.login_button} ${isValid ? styles.valid : null}`}
