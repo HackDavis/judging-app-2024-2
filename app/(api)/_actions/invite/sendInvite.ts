@@ -11,6 +11,6 @@ export default async function sendInvite(prevState: any, formData: FormData) {
   const data_encoded = btoa(JSON.stringify(data));
 
   const hmac_sig = generateHMACSignature(data_encoded);
-  const hmac_url = `${process.env.BASE_URL}/judges/register?data=${data_encoded}&sig=${hmac_sig}`;
+  const hmac_url = `${process.env.BASE_URL}/judges${data.slug}?data=${data_encoded}&sig=${hmac_sig}`;
   return hmac_url;
 }
