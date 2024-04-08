@@ -23,11 +23,14 @@ export const createSubmission = async (body: object) => {
       _id: new ObjectId(creationStatus.insertedId),
     });
 
-    return NextResponse.json({ ok: true, body: submission }, { status: 201 });
+    return NextResponse.json(
+      { ok: true, body: submission, error: null },
+      { status: 201 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }

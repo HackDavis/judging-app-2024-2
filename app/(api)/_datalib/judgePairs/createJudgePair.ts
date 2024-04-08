@@ -7,7 +7,6 @@ import {
   NoContentError,
   HttpError,
   NotFoundError,
-  DuplicateError,
 } from '@utils/response/Errors';
 
 export const CreateJudgePair = async (body: object) => {
@@ -87,11 +86,14 @@ export const CreateJudgePair = async (body: object) => {
       );
     }
 
-    return NextResponse.json({ ok: true, body: judge_pair }, { status: 201 });
+    return NextResponse.json(
+      { ok: true, body: judge_pair, error: null },
+      { status: 201 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }

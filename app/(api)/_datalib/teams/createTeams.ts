@@ -21,13 +21,13 @@ export const createTeams = async (body: object) => {
     });
 
     return NextResponse.json(
-      { ok: true, body: await teams.toArray() },
+      { ok: true, body: await teams.toArray(), error: null },
       { status: 201 }
     );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }

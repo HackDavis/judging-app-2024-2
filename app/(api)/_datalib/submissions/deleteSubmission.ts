@@ -23,13 +23,13 @@ export const deleteSubmission = async (judge_id: string, team_id: string) => {
     }
 
     return NextResponse.json(
-      { ok: true, body: 'Submission deleted.' },
+      { ok: true, body: 'Submission deleted.', error: null },
       { status: 200 }
     );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }

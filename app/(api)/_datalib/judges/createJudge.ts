@@ -33,11 +33,14 @@ export const CreateJudge = async (body: object) => {
       _id: new ObjectId(creationStatus.insertedId),
     });
 
-    return NextResponse.json({ ok: true, body: judge }, { status: 201 });
+    return NextResponse.json(
+      { ok: true, body: judge, error: null },
+      { status: 201 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }
