@@ -56,16 +56,6 @@ export const CreateJudgePair = async (body: object) => {
       }
     }
 
-    // duplicate
-    const existingJudgePair = await db.collection('judge-pairs').findOne({
-      judge_ids: { $all: judge_ids },
-    });
-    if (existingJudgePair) {
-      throw new DuplicateError(
-        'Duplicate: judge pair with these judges already exists.'
-      );
-    }
-
     const creationStatus = await db
       .collection('judge-pairs')
       .insertOne(parsedBody);
