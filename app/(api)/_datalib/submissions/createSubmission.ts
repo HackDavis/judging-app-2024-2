@@ -13,6 +13,8 @@ export const createSubmission = async (body: object) => {
       throw new NoContentError();
     }
     const parsedBody = await parseAndReplace(body);
+    parsedBody.judge_id = new ObjectId(parsedBody.judge_id);
+    parsedBody.team_id = new ObjectId(parsedBody.team_id);
 
     const db = await getDatabase();
     const creationStatus = await db
