@@ -1,3 +1,5 @@
+import tracks from '../_data/tracks.json' assert { type: 'json' };
+
 const Submission = {
   bsonType: 'object',
   title: 'Submission Object Validation',
@@ -19,16 +21,34 @@ const Submission = {
       bsonType: 'array',
       description: 'scores must be an array of integers',
       minItems: 5,
+      maxItems: 5,
       items: {
         bsonType: 'int',
+        minimum: 1,
+        maximum: 5,
+        description: 'score must be an integer',
       },
     },
     correlations: {
       bsonType: 'array',
-      description: 'correlations must be an array of integers',
+      description: 'correlations must be an array of correlations',
       minItems: 1,
+      maxItems: 4,
       items: {
-        bsonType: 'int',
+        bsonType: 'object',
+        required: ['track', 'score'],
+        properties: {
+          track: {
+            enum: tracks.map((track) => track.name),
+            description: 'track must be one of the valid tracks',
+          },
+          score: {
+            bsonType: 'int',
+            minimum: 1,
+            maximum: 5,
+            description: 'score must be an integer between 1 and 5',
+          },
+        },
       },
     },
     comments: {
