@@ -37,7 +37,7 @@ export default function JudgingHub() {
   return (
     <div className={styles.container}>
       <HubHero user={user} loading={loading} />
-      <JudgingList user={user} loading={loading} projects={projects} />
+      <JudgingList /*user={user} loading={loading}*/ projects={projects} />
     </div>
   );
 }

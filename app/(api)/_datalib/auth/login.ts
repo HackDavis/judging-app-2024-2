@@ -30,11 +30,14 @@ export async function Login(body: { email: string; password: string }) {
     }
 
     const token = await createAuthToken(judge);
-    return NextResponse.json({ ok: true, body: token }, { status: 200 });
+    return NextResponse.json(
+      { ok: true, body: token, error: null },
+      { status: 200 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }

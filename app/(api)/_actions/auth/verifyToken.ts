@@ -7,7 +7,7 @@ export default async function VerifyToken() {
   const cookieStore = cookies();
   const cookie = cookieStore.get('auth_token');
   if (!cookie) {
-    return { ok: false, error: 'No Auth Token Found' };
+    return { ok: false, body: null, error: 'No Auth Token Found' };
   }
   const token = cookie.value;
 

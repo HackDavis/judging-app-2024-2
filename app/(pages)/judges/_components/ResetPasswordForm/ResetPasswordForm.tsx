@@ -1,19 +1,15 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 import { useFormState } from 'react-dom';
 import { useAuth } from '@hooks/useAuth';
-import Register from '@actions/auth/register';
-
-import styles from './RegisterForm.module.scss';
+import ResetPassword from '@actions/auth/resetPassword';
+import styles from './ResetPasswordForm.module.scss';
 import Link from 'next/link';
-import AuthTokenInt from '@typeDefs/authToken';
 import { useInvite } from '@hooks/useInvite';
 import { useRouter } from 'next/navigation';
 
-export default function RegisterForm() {
+export default function ResetPasswordForm() {
   const router = useRouter();
-
-  const { data } = useInvite('register');
-  const [email, setEmail] = useState('');
+  const { data } = useInvite('reset');
   const [password, setPassword] = useState('');
   const [passwordDupe, setPasswordDupe] = useState('');
   const [isValid, setIsValid] = useState(false);
@@ -21,16 +17,12 @@ export default function RegisterForm() {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordDupeError, setPasswordDupeError] = useState(false);
 
-  const [registerState, RegisterAction] = useFormState(Register, {
+  const [resetState, ResetPasswordAction] = useFormState(ResetPassword, {
     ok: false,
     body: null,
     error: null,
   });
-  const { login } = useAuth();
-
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
+  const { logout } = useAuth();
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
@@ -40,17 +32,7 @@ export default function RegisterForm() {
     setPasswordDupe(event.target.value);
   };
 
-  const validateForm = (
-    email: string,
-    password: string,
-    passwordDupe: string
-  ) => {
-    const isEmailValid = /\S+@\S+\.\S+/.test(email) || email.length === 0;
-    if (!isEmailValid) {
-      setError('Email invalid format.');
-    }
-    setPasswordError(!isEmailValid);
-
+  const validateForm = (password: string, passwordDupe: string) => {
     // Password validation (example: minimum length of 6 characters)
     const isPasswordValid = password.length >= 6 || password.length === 0;
     if (!isPasswordValid) {
@@ -66,69 +48,52 @@ export default function RegisterForm() {
     setPasswordDupeError(!passwordMatch);
 
     // Set isValid state based on email and password validity
-    setIsValid(isEmailValid && isPasswordValid && passwordMatch);
-    if (isEmailValid && isPasswordValid && passwordMatch) {
+    setIsValid(isPasswordValid && passwordMatch);
+    if (isPasswordValid && passwordMatch) {
       setError('');
     }
   };
 
   useEffect(() => {
-    if (registerState.ok === true) {
-      const user = registerState.body as AuthTokenInt;
+    if (resetState.ok === true) {
       setError('');
-      login(user);
+      logout();
       router.push('/judges');
     } else {
-      const err = registerState.error as string;
+      const err = resetState.error as string;
       setError(err);
     }
-  }, [registerState, login, router]);
+  }, [resetState, logout, router]);
 
   useEffect(() => {
-    validateForm(email, password, passwordDupe);
-  }, [email, password, passwordDupe]);
+    validateForm(password, passwordDupe);
+  }, [password, passwordDupe]);
 
   return (
-    <form action={RegisterAction} className={styles.container}>
+    <form action={ResetPasswordAction} className={styles.container}>
       <p className={styles.error_msg}>{error}</p>
       <div className={styles.fields}>
         <input
           name="email"
           type="email"
           placeholder="Email"
-          value={data ? data.email : email}
-          onChange={handleEmailChange}
-          readOnly={data ? true : false}
+          defaultValue={data ? data.email : ''}
+          readOnly
         />
         <input
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder="New password"
           value={password}
           onChange={handlePasswordChange}
           className={`${passwordError ? styles.error : null}`}
         />
         <input
           type="password"
-          placeholder="Retype password"
+          placeholder="Retype new password"
           value={passwordDupe}
           onChange={handlePasswordDupeChange}
           className={`${passwordDupeError ? styles.error : null}`}
-        />
-        <input
-          name="name"
-          type="hidden"
-          defaultValue={data ? data.name : 'HackDavis Admin'}
-        />
-        <input
-          name="specialty"
-          type="hidden"
-          defaultValue={data ? data.specialty : 'tech'}
-        />
-        <input
-          name="role"
-          type="hidden"
-          defaultValue={data ? data.role : 'admin'}
         />
       </div>
       <button
@@ -136,7 +101,7 @@ export default function RegisterForm() {
         type="submit"
         disabled={!isValid}
       >
-        Create account
+        Reset password
       </button>
       <div className={styles.not_judge}>
         Not a judge? <Link href="/hackers">Click here</Link>

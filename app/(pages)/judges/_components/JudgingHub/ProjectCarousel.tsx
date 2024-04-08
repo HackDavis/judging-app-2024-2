@@ -14,7 +14,7 @@ function JudgingCard({ project }: { project: object }) {
 }
 
 export default function JudgingList({ projects }: { projects: object[] }) {
-  const progressBarRef = useRef(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [divWidth, setDivWidth] = useState(0);
   const num_sections = Math.floor(projects.length / 2);
@@ -22,7 +22,7 @@ export default function JudgingList({ projects }: { projects: object[] }) {
   useEffect(() => {
     if (progressBarRef.current) {
       // Accessing clientWidth of the div element
-      const width = progressBarRef.current.clientWidth;
+      const width = progressBarRef.current.offsetWidth;
       // Setting the width to state variable
       setDivWidth(width);
     }

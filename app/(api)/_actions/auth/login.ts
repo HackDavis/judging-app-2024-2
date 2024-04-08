@@ -7,6 +7,7 @@ import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
 import FormToJSON from '@utils/form/FormToJSON';
 
 import type AuthTokenInt from '@typeDefs/authToken';
+import JudgeInt from '@typeDefs/judges';
 
 export default async function LoginAction(
   prevState: any,
@@ -17,7 +18,7 @@ export default async function LoginAction(
   error?: string | null;
 }> {
   try {
-    const body = FormToJSON(formData) as { email: string; password: string };
+    const body = FormToJSON(formData) as JudgeInt;
     const res = await Login(body);
     const data = await res.json();
 
