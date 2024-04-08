@@ -3,10 +3,6 @@ const Submission = {
   title: 'Submission Object Validation',
   required: ['judge_id', 'team_id', 'scores', 'correlations'],
   properties: {
-    _id: {
-      bsonType: 'objectId',
-      description: '_id must be an ObjectId',
-    },
     judge_id: {
       bsonType: 'objectId',
       description: 'judge_id must be an ObjectId',
@@ -16,12 +12,22 @@ const Submission = {
       description: 'team_id must be an ObjectId',
     },
     scores: {
-      bsonType: 'object',
-      description: 'scores must be a JSON object',
+      bsonType: 'array',
+      description: 'scores must be an array of integers',
+      minItems: 5,
+      items: {
+        bsonType: 'int',
+        description: 'score must be an integer',
+      },
     },
     correlations: {
-      bsonType: 'object',
-      description: 'correlations must be a JSON object',
+      bsonType: 'array',
+      description: 'correlations must be an array of integers',
+      minItems: 1,
+      items: {
+        bsonType: 'int',
+        description: 'correlation must be an integer',
+      },
     },
     comments: {
       bsonType: ['string', 'null'],

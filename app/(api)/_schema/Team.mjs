@@ -1,3 +1,5 @@
+import tracks from '../_data/tracks.json' assert { type: 'json' };
+
 const Team = {
   bsonType: 'object',
   title: 'Team Object Validation',
@@ -15,6 +17,8 @@ const Team = {
       bsonType: 'array',
       items: {
         bsonType: 'string',
+        enum: tracks.map((track) => track.name),
+        description: 'track must be one of the valid tracks',
       },
       description: 'tracks must be an array of strings',
     },
