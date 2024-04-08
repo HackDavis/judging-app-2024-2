@@ -17,15 +17,6 @@ export const CreateJudgePair = async (body: object) => {
     }
 
     const parsedBody = await parseAndReplace(body);
-    parsedBody.judge_ids.forEach(async (judge_id: string, index: number) => {
-      parsedBody.judge_ids[index] = new ObjectId(judge_id);
-    });
-
-    if (parsedBody.team_ids) {
-      parsedBody.team_ids.forEach(async (team_id: string, index: number) => {
-        parsedBody.team_ids[index] = new ObjectId(team_id);
-      });
-    }
 
     const db = await getDatabase();
 
