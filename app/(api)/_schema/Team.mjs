@@ -16,7 +16,7 @@ const Team = {
     tracks: {
       bsonType: 'array',
       items: {
-        enum: Object.keys(tracks),
+        enum: tracks.map((track) => track.name),
         description: 'track must be one of the valid tracks',
       },
       description: 'tracks must be an array of strings',

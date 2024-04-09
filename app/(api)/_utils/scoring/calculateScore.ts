@@ -2,10 +2,18 @@ import tracks from '../../_data/tracks.json' assert { type: 'json' };
 
 export default function calculateScore(
   chosenTracks: string[],
-  scores: int[],
-  correlations: int[]
+  scores: number[],
+  correlations: object[]
 ) {
-  const finalScore: number = 0;
+  let finalScores: number[];
 
-  return finalScore;
+  const str: string = "hello"
+  const x = chosenTracks[0];
+  const y = x[str];
+
+  finalScores = chosenTracks.map((chosenTrack: string) => (
+    return tracks[chosenTrack].reduce()
+  ));
+
+  return finalScores;
 }

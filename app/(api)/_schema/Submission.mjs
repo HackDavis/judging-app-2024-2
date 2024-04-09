@@ -39,7 +39,7 @@ const Submission = {
         required: ['track', 'score'],
         properties: {
           track: {
-            enum: Object.keys(tracks),
+            enum: tracks.map((track) => track.name),
             description: 'track must be one of the valid tracks',
           },
           score: {
