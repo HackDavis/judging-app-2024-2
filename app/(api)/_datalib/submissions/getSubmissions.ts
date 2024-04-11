@@ -13,11 +13,14 @@ export const getSubmissions = cache(async (query: object = {}) => {
       .find(query)
       .toArray();
 
-    return NextResponse.json({ ok: true, body: submissions }, { status: 200 });
+    return NextResponse.json(
+      { ok: true, body: submissions, error: null },
+      { status: 200 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }
@@ -40,11 +43,14 @@ export const getSubmission = cache(
         );
       }
 
-      return NextResponse.json({ ok: true, body: submission }, { status: 200 });
+      return NextResponse.json(
+        { ok: true, body: submission, error: null },
+        { status: 200 }
+      );
     } catch (e) {
       const error = e as HttpError;
       return NextResponse.json(
-        { ok: false, error: error.message },
+        { ok: false, body: null, error: error.message },
         { status: error.status || 400 }
       );
     }
