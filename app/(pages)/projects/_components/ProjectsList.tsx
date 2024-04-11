@@ -29,6 +29,21 @@ export default function ProjectsList({ activeTab }: { activeTab: number }) {
       categories: ['not', 'something', 'one more', 'another 1'],
     },
     {
+      num: 175,
+      name: 'unj haptic hand',
+      categories: ['not sure', 'something else'],
+    },
+    {
+      num: 75,
+      name: 'unj haptic hand',
+      categories: ['not sure', 'something else'],
+    },
+    {
+      num: 75,
+      name: 'unj haptic hand',
+      categories: ['not', 'something', 'one more', 'another 1'],
+    },
+    {
       num: 75,
       name: 'unj haptic hand',
       categories: ['not sure', 'something else'],

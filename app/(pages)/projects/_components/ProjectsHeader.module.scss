@@ -11,10 +11,37 @@
     
     
     .header {
-        color: var(--text-light);
-        // font-family: "DM Sans";
-        font-size: 36px;
-        font-weight: 700;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        &_title {
+            color: var(--text-light);
+            // font-family: "DM Sans";
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        &_map {
+            margin: 0;
+            // width: auto;
+            // height: 80%;
+            
+            border-radius: 8px;
+            border: 1px solid #000;
+            background: linear-gradient(296deg, #FCFCD1 -9.72%, #B2E7DD 36.02%, #76D6E6 106.05%);
+            box-shadow: 0px 4px 4px 0px rgba(136, 216, 221, 0.20);
+    
+            padding: 4px 6px 0px 6px;
+            justify-content: flex-end;
+            align-items: center;
+
+            &_icon {
+                width: 28px;
+                height: 28px;
+            }
+
+        }
         
     }
 
