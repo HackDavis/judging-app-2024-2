@@ -1,3 +1,5 @@
+import tracks from '../_data/tracks.json' assert { type: 'json' };
+
 const Team = {
   bsonType: 'object',
   title: 'Team Object Validation',
@@ -14,7 +16,8 @@ const Team = {
     tracks: {
       bsonType: 'array',
       items: {
-        bsonType: 'string',
+        enum: tracks.map((track) => track.name),
+        description: 'track must be one of the valid tracks',
       },
       description: 'tracks must be an array of strings',
     },
@@ -31,14 +34,14 @@ const Team = {
       description: 'design_emphasis must be an integer',
     },
     judge_pair_ids: {
-      bsonType: ['array', 'null'],
+      bsonType: 'array',
       items: {
         bsonType: 'objectId',
       },
       description: 'judge_pair_ids must be an array of ObjectIds or null',
     },
     judge_submission_ids: {
-      bsonType: ['array', 'null'],
+      bsonType: 'array',
       items: {
         bsonType: 'objectId',
       },

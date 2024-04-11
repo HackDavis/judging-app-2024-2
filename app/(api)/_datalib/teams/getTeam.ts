@@ -30,7 +30,6 @@ export const getTeam = cache(async (id: string) => {
 export const getTeams = cache(async (query: object = {}) => {
   try {
     const db = await getDatabase();
-    // const teams = await db.collection('teams').find(query).toArray();
     const teams = await db
       .collection('teams')
       .aggregate([
