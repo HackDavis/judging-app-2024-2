@@ -3,10 +3,16 @@ import { ObjectId } from 'mongodb';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
 import parseAndReplace from '@utils/request/parseAndReplace';
-import { HttpError, NoContentError } from '@utils/response/Errors';
+import {
+  HttpError,
+  NoContentError,
+  //   NotFoundError,
+  DuplicateError,
+} from '@utils/response/Errors';
 
 export const CreateJudge = async (body: object) => {
   try {
+    // empty
     if (isBodyEmpty(body)) {
       throw new NoContentError();
     }
@@ -15,8 +21,14 @@ export const CreateJudge = async (body: object) => {
 
     const db = await getDatabase();
 
+    // duplicate
+    const existingJudge = await db.collection('judges').findOne({
+      email: parsedBody.email,
+    });
+    if (existingJudge) {
+      throw new DuplicateError('Duplicate: judge already exists.');
+    }
     const creationStatus = await db.collection('judges').insertOne(parsedBody);
-
     const judge = await db.collection('judges').findOne({
       _id: new ObjectId(creationStatus.insertedId),
     });
@@ -26,7 +38,7 @@ export const CreateJudge = async (body: object) => {
     const error = e as HttpError;
     return NextResponse.json(
       { ok: false, error: error.message },
-      { status: 400 }
+      { status: error.status || 400 }
     );
   }
 };

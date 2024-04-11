@@ -1,5 +1,4 @@
-import { type NextRequest } from 'next/server';
-
+import { NextRequest } from 'next/server';
 import { createTeams } from '@datalib/teams/createTeams';
 import { revalidatePath } from 'next/cache';
 

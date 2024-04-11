@@ -1,18 +1,20 @@
 'use client';
 
 import { useInvite } from '@hooks/useInvite';
+import { useFirstUser } from '@hooks/useFirstUser';
 
 export default function InviteOnlyRoute({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [pending, email] = useInvite();
+  const { pending: pendingInvite, data } = useInvite();
+  const { pending: pendingFirst, noUsers } = useFirstUser();
 
-  if (pending) {
+  if (pendingInvite || pendingFirst) {
     return 'Loading...';
   }
-  if (email === null) {
+  if (!noUsers && data === null) {
     return 'Bad Invite Link';
   } else {
     return children;

@@ -4,12 +4,12 @@ import ProjectCarousel from './ProjectCarousel';
 const numProjects = 4;
 
 export default function JudgingList({
-  user,
-  loading,
+  //   user,
+  //   loading,
   projects,
 }: {
-  user: object;
-  loading: boolean;
+  //   user: object;
+  //   loading: boolean;
   projects: object[];
 }) {
   return (

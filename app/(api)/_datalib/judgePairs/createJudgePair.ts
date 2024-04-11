@@ -22,6 +22,12 @@ export const CreateJudgePair = async (body: object) => {
       parsedBody.judge_ids[index] = new ObjectId(judge_id);
     });
 
+    if (parsedBody.team_ids) {
+      parsedBody.team_ids.forEach(async (team_id: string, index: number) => {
+        parsedBody.team_ids[index] = new ObjectId(team_id);
+      });
+    }
+
     const db = await getDatabase();
 
     // judges dont exist
@@ -34,6 +40,20 @@ export const CreateJudgePair = async (body: object) => {
       .toArray();
     if (judgesExist.length !== judge_ids.length) {
       throw new NotFoundError('One or more judges not found.');
+    }
+
+    // teams dont exist
+    if (parsedBody.team_ids) {
+      const team_ids = parsedBody.team_ids;
+      const teamsExist = await db
+        .collection('teams')
+        .find({
+          _id: { $in: team_ids },
+        })
+        .toArray();
+      if (teamsExist.length !== team_ids.length) {
+        throw new NotFoundError('One or more teams not found.');
+      }
     }
 
     // duplicate
@@ -54,12 +74,35 @@ export const CreateJudgePair = async (body: object) => {
       _id: new ObjectId(creationStatus.insertedId),
     });
 
+    // update judges
+    await db
+      .collection('judges')
+      .updateMany(
+        { _id: { $in: judge_ids } },
+        { $set: { judge_pair_id: new ObjectId(creationStatus.insertedId) } }
+      );
+
+    // update teams
+    if (parsedBody.team_ids) {
+      const team_ids = parsedBody.team_ids;
+      await db.collection('teams').updateMany(
+        { _id: { $in: team_ids } },
+        {
+          $push: {
+            judge_pair_ids: {
+              $each: [new ObjectId(creationStatus.insertedId)],
+            },
+          },
+        }
+      );
+    }
+
     return NextResponse.json({ ok: true, body: judge_pair }, { status: 201 });
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
       { ok: false, error: error.message },
-      { status: 400 }
+      { status: error.status || 400 }
     );
   }
 };
