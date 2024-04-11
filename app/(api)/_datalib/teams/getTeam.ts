@@ -33,17 +33,25 @@ export const getTeam = cache(async (id: string) => {
 export const getTeams = cache(async (query: object = {}) => {
   try {
     const db = await getDatabase();
-    const teams = await db.collection('teams').find(query).toArray();
-    // const teams = await db
-    //   .collection('teams')
-    //   .aggregate([
-    //     {
-    //       $match: query,
-    //     },
-    //     {},
-    //   ])
-    //   .project({})
-    //   .toArray();
+    const teams = await db
+      .collection('teams')
+      .aggregate([
+        {
+          $match: query,
+        },
+        {
+          $lookup: {
+            from: 'submissions',
+            localField: '_id',
+            foreignField: 'team_id',
+            as: 'submissions',
+          },
+        },
+      ])
+      .project({
+        'submissions.team_id': 0,
+      })
+      .toArray();
 
     return NextResponse.json(
       { ok: true, body: teams, error: null },
