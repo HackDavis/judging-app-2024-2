@@ -6,7 +6,7 @@ export async function GET(
   _: NextRequest,
   { params }: { params: { judge_id: string; team_id: string } }
 ) {
-  const submission = getSubmission(params.judge_id, params.team_id);
+  const submission = await getSubmission(params.judge_id, params.team_id);
   revalidatePath('/judges');
   return submission;
 }

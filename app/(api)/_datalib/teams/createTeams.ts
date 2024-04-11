@@ -4,7 +4,7 @@ import isBodyEmpty from '@utils/request/isBodyEmpty';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import { NoContentError, HttpError } from '@utils/response/Errors';
 
-export const createTeams = async (body: object) => {
+export const createTeams = async (body: object[]) => {
   try {
     if (isBodyEmpty(body)) {
       throw new NoContentError();
@@ -14,20 +14,23 @@ export const createTeams = async (body: object) => {
     const db = await getDatabase();
     const creationStatus = await db.collection('teams').insertMany(parsedBody);
 
-    const teams = await db.collection('teams').find({
-      _id: {
-        $in: Object.values(creationStatus.insertedIds).map((id: any) => id),
-      },
-    });
+    const teams = await db
+      .collection('teams')
+      .find({
+        _id: {
+          $in: Object.values(creationStatus.insertedIds).map((id: any) => id),
+        },
+      })
+      .toArray();
 
     return NextResponse.json(
-      { ok: true, body: await teams.toArray() },
+      { ok: true, body: await teams, error: null },
       { status: 201 }
     );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }

@@ -19,13 +19,13 @@ export const deleteTeam = async (id: string) => {
     }
 
     return NextResponse.json(
-      { ok: true, body: 'Team deleted.' },
+      { ok: true, body: 'Team deleted.', error: null },
       { status: 200 }
     );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }

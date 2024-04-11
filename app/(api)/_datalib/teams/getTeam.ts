@@ -17,11 +17,14 @@ export const getTeam = cache(async (id: string) => {
       throw new NotFoundError(`Team with id: ${id} not found.`);
     }
 
-    return NextResponse.json({ ok: true, body: team }, { status: 200 });
+    return NextResponse.json(
+      { ok: true, body: team, error: null },
+      { status: 200 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }
@@ -50,11 +53,14 @@ export const getTeams = cache(async (query: object = {}) => {
       })
       .toArray();
 
-    return NextResponse.json({ ok: true, body: teams }, { status: 200 });
+    return NextResponse.json(
+      { ok: true, body: teams, error: null },
+      { status: 200 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }

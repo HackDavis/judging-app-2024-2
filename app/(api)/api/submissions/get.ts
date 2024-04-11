@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 
 export async function GET(request: NextRequest) {
   const queries = getQueries(request);
-  const submissions = getSubmissions(queries);
+  const submissions = await getSubmissions(queries);
   revalidatePath('/judges');
   return submissions;
 }

@@ -3,7 +3,7 @@ import tracks from '../_data/tracks.json' assert { type: 'json' };
 const Team = {
   bsonType: 'object',
   title: 'Team Object Validation',
-  required: ['number', 'tracks', 'name', 'tech_emphasis', 'design_emphasis'],
+  required: ['number', 'name', 'tracks', 'tech_emphasis', 'design_emphasis'],
   properties: {
     _id: {
       bsonType: 'objectId',
@@ -13,6 +13,10 @@ const Team = {
       bsonType: 'int',
       description: 'number must be an integer',
     },
+    name: {
+      bsonType: 'string',
+      description: 'name must be a string',
+    },
     tracks: {
       bsonType: 'array',
       items: {
@@ -21,10 +25,6 @@ const Team = {
       },
       description: 'tracks must be an array of strings',
     },
-    name: {
-      bsonType: 'string',
-      description: 'name must be a string',
-    },
     tech_emphasis: {
       bsonType: 'int',
       description: 'tech_emphasis must be an integer',
@@ -32,20 +32,6 @@ const Team = {
     design_emphasis: {
       bsonType: 'int',
       description: 'design_emphasis must be an integer',
-    },
-    judge_pair_ids: {
-      bsonType: 'array',
-      items: {
-        bsonType: 'objectId',
-      },
-      description: 'judge_pair_ids must be an array of ObjectIds or null',
-    },
-    judge_submission_ids: {
-      bsonType: 'array',
-      items: {
-        bsonType: 'objectId',
-      },
-      description: 'judge_submission_ids must be an array of ObjectIds',
     },
   },
   additionalProperties: false,

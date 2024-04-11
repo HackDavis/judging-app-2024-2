@@ -3,12 +3,12 @@ import { ObjectId } from 'mongodb';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { NotFoundError, HttpError } from '@utils/response/Errors';
 
-export const DeleteJudgePair = async (id: string) => {
+export const DeleteJudgeGroup = async (id: string) => {
   try {
     const object_id = new ObjectId(id);
     const db = await getDatabase();
 
-    const deleteStatus = await db.collection('judge-pairs').deleteOne({
+    const deleteStatus = await db.collection('judgeGroups').deleteOne({
       _id: object_id,
     });
 
@@ -20,26 +20,18 @@ export const DeleteJudgePair = async (id: string) => {
     await db
       .collection('judges')
       .updateMany(
-        { judge_pair_id: object_id },
-        { $set: { judge_pair_id: null } }
-      );
-
-    // update teams
-    await db
-      .collection('teams')
-      .updateMany(
-        { judge_pair_ids: { $elemMatch: { $eq: object_id } } },
-        { $pull: { judge_pair_ids: object_id } }
+        { judge_group_id: object_id },
+        { $unset: { judge_group_id: '' } }
       );
 
     return NextResponse.json(
-      { ok: true, body: 'judge-pair deleted' },
+      { ok: true, body: 'Judge Group deleted', error: null },
       { status: 200 }
     );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }

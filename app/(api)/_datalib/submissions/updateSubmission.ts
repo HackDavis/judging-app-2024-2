@@ -4,26 +4,41 @@ import { ObjectId } from 'mongodb';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import NotFoundError from '@utils/response/NotFoundError';
 import HttpError from '@utils/response/HttpError';
+import isBodyEmpty from '@utils/request/isBodyEmpty';
+import parseAndReplace from '@utils/request/parseAndReplace';
+import NoContentError from '@utils/response/NoContentError';
 
-export const deleteSubmission = async (judge_id: string, team_id: string) => {
+export const updateSubmission = async (
+  judge_id: string,
+  team_id: string,
+  body: object
+) => {
   try {
+    if (isBodyEmpty(body)) {
+      throw new NoContentError();
+    }
+    const parsedBody = await parseAndReplace(body);
+
     const judge_object_id = new ObjectId(judge_id);
     const team_object_id = new ObjectId(team_id);
     const db = await getDatabase();
 
-    const deleteStatus = await db.collection('submissions').deleteOne({
-      judge_id: judge_object_id,
-      team_id: team_object_id,
-    });
+    const updateStatus = await db.collection('submissions').updateOne(
+      {
+        judge_id: judge_object_id,
+        team_id: team_object_id,
+      },
+      parsedBody
+    );
 
-    if (deleteStatus.deletedCount === 0) {
+    if (updateStatus.matchedCount === 0) {
       throw new NotFoundError(
         `Submission with judge id: ${judge_id} and team id: ${team_id} not found.`
       );
     }
 
     return NextResponse.json(
-      { ok: true, body: 'Submission deleted.', error: null },
+      { ok: true, body: 'Submission updated.', error: null },
       { status: 200 }
     );
   } catch (e) {

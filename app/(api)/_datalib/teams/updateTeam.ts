@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { ObjectId } from 'mongodb';
 
-import { prependAllAttributes } from '@utils/request/prependAttributes';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import {
@@ -28,25 +27,18 @@ export const updateTeam = async (id: string, body: object) => {
       parsedBody
     );
 
-    const subDocumentUpdate = prependAllAttributes(body, 'teams.$[team].');
-    const judge_pair = await db
-      .collection('judge-pairs')
-      .updateMany({}, subDocumentUpdate, {
-        arrayFilters: [{ 'team._id': object_id }],
-      });
-
     if (team.matchedCount === 0) {
       throw new NotFoundError(`Team with id: ${id} not found.`);
     }
 
     return NextResponse.json(
-      { ok: true, body: [team, judge_pair] },
+      { ok: true, body: team, error: null },
       { status: 200 }
     );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }
