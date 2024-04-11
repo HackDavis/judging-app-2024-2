@@ -17,11 +17,14 @@ export const getTeam = cache(async (id: string) => {
       throw new NotFoundError(`Team with id: ${id} not found.`);
     }
 
-    return NextResponse.json({ ok: true, body: team }, { status: 200 });
+    return NextResponse.json(
+      { ok: true, body: team, error: null },
+      { status: 200 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }
@@ -30,32 +33,26 @@ export const getTeam = cache(async (id: string) => {
 export const getTeams = cache(async (query: object = {}) => {
   try {
     const db = await getDatabase();
-    // const teams = await db.collection('teams').find(query).toArray();
-    const teams = await db
-      .collection('teams')
-      .aggregate([
-        {
-          $match: query,
-        },
-        {
-          $lookup: {
-            from: 'submissions',
-            localField: '_id',
-            foreignField: 'team_id',
-            as: 'submissions',
-          },
-        },
-      ])
-      .project({
-        'submissions.team_id': 0,
-      })
-      .toArray();
+    const teams = await db.collection('teams').find(query).toArray();
+    // const teams = await db
+    //   .collection('teams')
+    //   .aggregate([
+    //     {
+    //       $match: query,
+    //     },
+    //     {},
+    //   ])
+    //   .project({})
+    //   .toArray();
 
-    return NextResponse.json({ ok: true, body: teams }, { status: 200 });
+    return NextResponse.json(
+      { ok: true, body: teams, error: null },
+      { status: 200 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }

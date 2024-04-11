@@ -6,7 +6,7 @@ export async function DELETE(
   _: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const team = deleteTeam(params.id);
+  const team = await deleteTeam(params.id);
   revalidatePath('/judges');
   return team;
 }

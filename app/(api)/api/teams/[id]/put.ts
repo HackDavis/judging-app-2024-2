@@ -6,7 +6,8 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const team = updateTeam(params.id, request);
+  const body = await request.json();
+  const team = await updateTeam(params.id, body);
   revalidatePath('/judges');
   return team;
 }
