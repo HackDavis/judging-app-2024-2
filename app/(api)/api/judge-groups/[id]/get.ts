@@ -1,9 +1,9 @@
 import { NextRequest } from 'next/server';
-import { GetJudgePair } from '@datalib/judgePairs/getJudgePair';
+import { GetJudgeGroup } from '@datalib/judgeGroups/getJudgeGroup';
 
 export async function GET(
   _: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  return GetJudgePair(params.id);
+  return GetJudgeGroup(params.id);
 }
