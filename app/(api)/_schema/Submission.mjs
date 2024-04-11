@@ -52,7 +52,7 @@ const Submission = {
       },
     },
     comments: {
-      bsonType: ['string', 'null'],
+      bsonType: 'string',
       description: 'comments must be a string',
     },
   },
