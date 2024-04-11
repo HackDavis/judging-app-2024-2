@@ -1,3 +1,4 @@
 export { GET } from './get';
-export { PUT } from './put';
 export { DELETE } from './delete';
+// We never update judge groups, only create and delete
+// export { PUT } from './put';

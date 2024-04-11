@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const res = CreateJudgeGroup(body);
+  const res = await CreateJudgeGroup(body);
   revalidatePath('/judges');
   return res;
 }

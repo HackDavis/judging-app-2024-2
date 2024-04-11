@@ -21,11 +21,11 @@ export const DeleteJudgeGroup = async (id: string) => {
       .collection('judges')
       .updateMany(
         { judge_group_id: object_id },
-        { $unset: { judge_group_id: null } }
+        { $unset: { judge_group_id: '' } }
       );
 
     return NextResponse.json(
-      { ok: true, body: 'judgeGroup deleted', error: null },
+      { ok: true, body: 'Judge Group deleted', error: null },
       { status: 200 }
     );
   } catch (e) {

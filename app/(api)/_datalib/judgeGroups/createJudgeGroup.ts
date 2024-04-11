@@ -22,45 +22,43 @@ export const CreateJudgeGroup = async (body: object) => {
 
     // judges dont exist
     const judge_ids = parsedBody.judge_ids;
-    const judgesExist = await db
+    const judges = await db
       .collection('judges')
       .find({
         _id: { $in: judge_ids },
       })
       .toArray();
-    if (judgesExist.length !== judge_ids.length) {
+    if (judges.length !== judge_ids.length) {
       throw new NotFoundError('One or more judges not found.');
     }
 
-    // teams dont exist
-    if (parsedBody.team_ids) {
-      const team_ids = parsedBody.team_ids;
-      const teamsExist = await db
-        .collection('teams')
-        .find({
-          _id: { $in: team_ids },
-        })
-        .toArray();
-      if (teamsExist.length !== team_ids.length) {
-        throw new NotFoundError('One or more teams not found.');
-      }
-    }
+    const existingGrouping = judges.some((judge: { judge_group_id: string }) =>
+      judge.judge_group_id ? true : false
+    );
 
     // duplicate
-    const existingJudgeGroup = await db.collection('judgeGroups').findOne({
-      judge_ids: { $all: judge_ids },
-    });
-    if (existingJudgeGroup) {
+    if (existingGrouping) {
       throw new DuplicateError(
         'Duplicate: judge group with these judges already exists.'
       );
     }
 
-    const creationStatus = await db
-      .collection('judgeGroups')
-      .insertOne(parsedBody);
+    const types = judges.map((judge: { specialty: string }) => judge.specialty);
+    const typesUnique = new Set(types);
+    let type = 'TN';
+    if (typesUnique.size === 1) {
+      if (typesUnique.has('tech')) {
+        type = 'T';
+      } else if (typesUnique.has('design')) {
+        type = 'D';
+      }
+    }
 
-    const judge_pair = await db.collection('judgeGroups').findOne({
+    const creationStatus = await db.collection('judgeGroups').insertOne({
+      type,
+    });
+
+    const judge_group = await db.collection('judgeGroups').findOne({
       _id: new ObjectId(creationStatus.insertedId),
     });
 
@@ -75,7 +73,7 @@ export const CreateJudgeGroup = async (body: object) => {
       );
 
     return NextResponse.json(
-      { ok: true, body: judge_pair, error: null },
+      { ok: true, body: judge_group, error: null },
       { status: 201 }
     );
   } catch (e) {

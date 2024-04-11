@@ -17,6 +17,16 @@ export const GetJudgeGroup = cache(async (id: string) => {
       throw new NotFoundError(`judgeGroup with id: ${id} not found.`);
     }
 
+    const judges = await db
+      .collection('judges')
+      .find({ judge_group_id: object_id })
+      .project({
+        judge_group_id: 0,
+      })
+      .toArray();
+
+    judgeGroup['judges'] = judges;
+
     return NextResponse.json(
       { ok: true, body: judgeGroup, error: null },
       { status: 200 }
@@ -50,7 +60,7 @@ export const GetManyJudgeGroups = cache(async (query: object = {}) => {
         },
       ])
       .project({
-        'judges.judge_pair_id': 0,
+        'judges.judge_group_id': 0,
       })
       .toArray();
 
