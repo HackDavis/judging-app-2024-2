@@ -9,25 +9,8 @@ export const GetJudgeGroup = cache(async (id: string) => {
   try {
     const judge_group_id = new ObjectId(id);
     const db = await getDatabase();
-    const judgeGroup = await db
-      .collection('judgeGroups')
-      .findOne({ _id: judge_group_id });
 
-    if (judgeGroup === null) {
-      throw new NotFoundError(`judgeGroup with id: ${id} not found.`);
-    }
-
-    const judges = await db
-      .collection('judges')
-      .find({ judge_group_id: judge_group_id })
-      .project({
-        judge_group_id: 0,
-      })
-      .toArray();
-
-    judgeGroup['judges'] = judges;
-
-    const teams = await db
+    const judgeGroups = await db
       .collection('judgeGroups')
       .aggregate([
         {
@@ -37,29 +20,38 @@ export const GetJudgeGroup = cache(async (id: string) => {
         },
         {
           $lookup: {
-            from: 'judgeGroupToTeam',
+            from: 'judgeGroupToTeams',
             localField: '_id',
             foreignField: 'judge_group_id',
             as: 'judgeGroupsToTeams',
           },
         },
         {
-          $unwind: '$judgeGroupsToTeams',
-        },
-        {
           $lookup: {
             from: 'teams',
-            local: 'judgeGroupsToTeams.team_id',
+            localField: 'judgeGroupsToTeams.team_id',
             foreignField: '_id',
             as: 'teams',
           },
         },
+        {
+          $lookup: {
+            from: 'judges',
+            localField: '_id',
+            foreignField: 'judge_group_id',
+            as: 'judges',
+          },
+        },
       ])
+      .project({ judgeGroupsToTeams: 0, 'judges.judge_group_id': 0 })
       .toArray();
 
-    console.log(teams);
+    if (judgeGroups.length === 0) {
+      throw new NotFoundError('Judge group not found');
+    }
+
     return NextResponse.json(
-      { ok: true, body: judgeGroup, error: null },
+      { ok: true, body: judgeGroups[0], error: null },
       { status: 200 }
     );
   } catch (e) {
@@ -83,6 +75,22 @@ export const GetManyJudgeGroups = cache(async (query: object = {}) => {
         },
         {
           $lookup: {
+            from: 'judgeGroupToTeams',
+            localField: '_id',
+            foreignField: 'judge_group_id',
+            as: 'judgeGroupsToTeams',
+          },
+        },
+        {
+          $lookup: {
+            from: 'teams',
+            localField: 'judgeGroupsToTeams.team_id',
+            foreignField: '_id',
+            as: 'teams',
+          },
+        },
+        {
+          $lookup: {
             from: 'judges',
             localField: '_id',
             foreignField: 'judge_group_id',
@@ -90,9 +98,7 @@ export const GetManyJudgeGroups = cache(async (query: object = {}) => {
           },
         },
       ])
-      .project({
-        'judges.judge_group_id': 0,
-      })
+      .project({ judgeGroupsToTeams: 0, 'judges.judge_group_id': 0 })
       .toArray();
 
     return NextResponse.json(
