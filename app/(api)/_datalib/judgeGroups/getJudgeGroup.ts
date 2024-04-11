@@ -7,11 +7,11 @@ import { ObjectId } from 'mongodb';
 
 export const GetJudgeGroup = cache(async (id: string) => {
   try {
-    const object_id = new ObjectId(id);
+    const judge_group_id = new ObjectId(id);
     const db = await getDatabase();
     const judgeGroup = await db
       .collection('judgeGroups')
-      .findOne({ _id: object_id });
+      .findOne({ _id: judge_group_id });
 
     if (judgeGroup === null) {
       throw new NotFoundError(`judgeGroup with id: ${id} not found.`);
@@ -19,7 +19,7 @@ export const GetJudgeGroup = cache(async (id: string) => {
 
     const judges = await db
       .collection('judges')
-      .find({ judge_group_id: object_id })
+      .find({ judge_group_id: judge_group_id })
       .project({
         judge_group_id: 0,
       })
@@ -27,6 +27,37 @@ export const GetJudgeGroup = cache(async (id: string) => {
 
     judgeGroup['judges'] = judges;
 
+    const teams = await db
+      .collection('judgeGroups')
+      .aggregate([
+        {
+          $match: {
+            _id: judge_group_id,
+          },
+        },
+        {
+          $lookup: {
+            from: 'judgeGroupToTeam',
+            localField: '_id',
+            foreignField: 'judge_group_id',
+            as: 'judgeGroupsToTeams',
+          },
+        },
+        {
+          $unwind: '$judgeGroupsToTeams',
+        },
+        {
+          $lookup: {
+            from: 'teams',
+            local: 'judgeGroupsToTeams.team_id',
+            foreignField: '_id',
+            as: 'teams',
+          },
+        },
+      ])
+      .toArray();
+
+    console.log(teams);
     return NextResponse.json(
       { ok: true, body: judgeGroup, error: null },
       { status: 200 }
