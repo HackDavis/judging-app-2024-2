@@ -10,7 +10,7 @@ import {
   DuplicateError,
 } from '@utils/response/Errors';
 
-export const CreateJudgePair = async (body: object) => {
+export const CreateJudgeGroup = async (body: object) => {
   try {
     // empty
     if (isBodyEmpty(body)) {
@@ -18,16 +18,6 @@ export const CreateJudgePair = async (body: object) => {
     }
 
     const parsedBody = await parseAndReplace(body);
-    parsedBody.judge_ids.forEach(async (judge_id: string, index: number) => {
-      parsedBody.judge_ids[index] = new ObjectId(judge_id);
-    });
-
-    if (parsedBody.team_ids) {
-      parsedBody.team_ids.forEach(async (team_id: string, index: number) => {
-        parsedBody.team_ids[index] = new ObjectId(team_id);
-      });
-    }
-
     const db = await getDatabase();
 
     // judges dont exist
@@ -57,51 +47,41 @@ export const CreateJudgePair = async (body: object) => {
     }
 
     // duplicate
-    const existingJudgePair = await db.collection('judge-pairs').findOne({
+    const existingJudgeGroup = await db.collection('judgeGroups').findOne({
       judge_ids: { $all: judge_ids },
     });
-    if (existingJudgePair) {
+    if (existingJudgeGroup) {
       throw new DuplicateError(
-        'Duplicate: judge pair with these judges already exists.'
+        'Duplicate: judge group with these judges already exists.'
       );
     }
 
     const creationStatus = await db
-      .collection('judge-pairs')
+      .collection('judgeGroups')
       .insertOne(parsedBody);
 
-    const judge_pair = await db.collection('judge-pairs').findOne({
+    const judge_pair = await db.collection('judgeGroups').findOne({
       _id: new ObjectId(creationStatus.insertedId),
     });
+
+    const judgeGroupId = new ObjectId(creationStatus.insertedId);
 
     // update judges
     await db
       .collection('judges')
       .updateMany(
         { _id: { $in: judge_ids } },
-        { $set: { judge_pair_id: new ObjectId(creationStatus.insertedId) } }
+        { $set: { judge_group_id: judgeGroupId } }
       );
 
-    // update teams
-    if (parsedBody.team_ids) {
-      const team_ids = parsedBody.team_ids;
-      await db.collection('teams').updateMany(
-        { _id: { $in: team_ids } },
-        {
-          $push: {
-            judge_pair_ids: {
-              $each: [new ObjectId(creationStatus.insertedId)],
-            },
-          },
-        }
-      );
-    }
-
-    return NextResponse.json({ ok: true, body: judge_pair }, { status: 201 });
+    return NextResponse.json(
+      { ok: true, body: judge_pair, error: null },
+      { status: 201 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }

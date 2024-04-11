@@ -24,7 +24,7 @@ const Submission = {
       description: 'correlations must be a JSON object',
     },
     comments: {
-      bsonType: ['string', 'null'],
+      bsonType: 'string',
       description: 'comments must be a string',
     },
   },

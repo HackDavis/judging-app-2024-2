@@ -30,20 +30,6 @@ const Team = {
       bsonType: 'int',
       description: 'design_emphasis must be an integer',
     },
-    judge_pair_ids: {
-      bsonType: ['array', 'null'],
-      items: {
-        bsonType: 'objectId',
-      },
-      description: 'judge_pair_ids must be an array of ObjectIds or null',
-    },
-    judge_submission_ids: {
-      bsonType: ['array', 'null'],
-      items: {
-        bsonType: 'objectId',
-      },
-      description: 'judge_submission_ids must be an array of ObjectIds',
-    },
   },
   additionalProperties: false,
 };

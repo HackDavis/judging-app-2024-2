@@ -9,7 +9,7 @@ import {
   HttpError,
 } from '@utils/response/Errors';
 
-export const UpdateJudgePair = async (id: string, body: object) => {
+export const UpdateJudgeGroup = async (id: string, body: object) => {
   try {
     const object_id = new ObjectId(id);
 
@@ -21,22 +21,25 @@ export const UpdateJudgePair = async (id: string, body: object) => {
 
     const db = await getDatabase();
 
-    const judge_pair = await db.collection('judge-pairs').updateOne(
+    const judgeGroup = await db.collection('judgeGroups').updateOne(
       {
         _id: object_id,
       },
       parsedBody
     );
 
-    if (judge_pair.matchedCount === 0) {
-      throw new NotFoundError(`Judge-pair with id: ${id} not found.`);
+    if (judgeGroup.matchedCount === 0) {
+      throw new NotFoundError(`Judge Group with id: ${id} not found.`);
     }
 
-    return NextResponse.json({ ok: true, body: judge_pair }, { status: 200 });
+    return NextResponse.json(
+      { ok: true, body: judgeGroup, error: null },
+      { status: 200 }
+    );
   } catch (e) {
     const error = e as HttpError;
     return NextResponse.json(
-      { ok: false, error: error.message },
+      { ok: false, body: null, error: error.message },
       { status: error.status || 400 }
     );
   }
