@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     cookies().set({
       name: 'auth_token',
       value: data.body,
-      expires: payload.exp,
+      expires: payload.exp * 1000,
       secure: true,
       httpOnly: true,
     });
