@@ -29,6 +29,9 @@ export default function JudgeNotHere() {
   const roundDuration = 60;
   if (timerDuration > 60) {
     timerDuration = (Date.now() - Date.parse(startHalf2)) / 1000 / 60;
+  } else if (timerDuration < 0) {
+    // for before DOE/judging
+    timerDuration = 0;
   }
   const timerStart = roundDuration - timerDuration;
   const curTime = useTimer(timerStart);
