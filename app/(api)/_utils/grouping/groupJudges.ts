@@ -1,5 +1,4 @@
 import Judge from '@typeDefs/judges';
-// import JudgeGroup from '@typeDefs/judgeGroups';
 
 export default function groupJudges(judges: Judge[]) {
   const techJudges = judges.filter((judge) => judge.specialty === 'tech');
