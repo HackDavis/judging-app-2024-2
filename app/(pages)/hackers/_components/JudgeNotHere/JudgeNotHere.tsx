@@ -5,23 +5,33 @@ import moment from 'moment';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { useEffect, useState } from 'react';
 
-const useTimer = () => {
-  const [time, setTime] = useState(moment());
+//2.5hrs judging => 1hr 15 min halves => 1hr 10 min phases + 10 min gap => notify director at 1 hour mark
+
+const useTimer = (timerDuration: number) => {
+  const [time, setTime] = useState(moment.duration(timerDuration, 'minutes'));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(moment());
+      setTime((time) => moment.duration(time.asSeconds() - 1, 'seconds'));
     }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // return time.format('mm:ss'); // Format time as needed
   return time;
 };
 
 export default function JudgeNotHere() {
-  const curTime = useTimer();
+  const startHalf1 = '2024-04-28T15:00:00.000-07:00';
+  const startHalf2 = '2024-04-28T16:20:00.000-07:00';
+  let timerDuration = (Date.now() - Date.parse(startHalf1)) / 1000 / 60;
+
+  const roundDuration = 60;
+  if (timerDuration > 60) {
+    timerDuration = (Date.now() - Date.parse(startHalf2)) / 1000 / 60;
+  }
+  const timerStart = roundDuration - timerDuration;
+  const curTime = useTimer(timerStart);
 
   // Ensuring two digits for minutes and seconds
   const minutesString = curTime.minutes().toString().padStart(2, '0');
