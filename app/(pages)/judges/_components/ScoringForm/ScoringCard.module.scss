@@ -1,0 +1,17 @@
+.scoringCard {
+    display: flex;
+    flex-direction: column;
+    .scoringCircleContainer {
+        display: flex;
+        gap: 10px;
+        .scoringCircle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%; /* Make the border radius half of the width/height to create a circle */
+            border: 2px solid black;
+        }
+    }
+}
