@@ -12,6 +12,14 @@ const JudgeGroup = {
       description:
         'type must be either T (tech), TN (tech-nontech), or D (design).',
     },
+    judge_ids: {
+      bsonType: 'array',
+      description: 'judge_ids must be an array of ObjectIds',
+      items: {
+        bsonType: 'objectId',
+        description: 'judge_id must be an ObjectId',
+      },
+    },
   },
   additionalProperties: false,
 };

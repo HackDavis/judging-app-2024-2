@@ -55,7 +55,8 @@ export const CreateJudgeGroup = async (body: object) => {
     }
 
     const creationStatus = await db.collection('judgeGroups').insertOne({
-      type,
+      type: type,
+      judge_ids: judge_ids,
     });
 
     const judge_group = await db.collection('judgeGroups').findOne({
