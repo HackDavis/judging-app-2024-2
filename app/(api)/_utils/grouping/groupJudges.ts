@@ -3,6 +3,7 @@ import Judge from '@typeDefs/judges';
 export default function groupJudges(judges: Judge[]) {
   const techJudges = judges.filter((judge) => judge.specialty === 'tech');
   const nonTechJudges = judges.filter((judge) => judge.specialty === 'nontech');
+  const desJudges = judges.filter((judge) => judge.specialty === 'design');
 
   const groups: { type: string; judge_ids: object }[] = [];
 
@@ -59,7 +60,7 @@ export default function groupJudges(judges: Judge[]) {
         },
       },
     });
-  } else {
+  } else if (techJudges.length) {
     const tJudge1 = techJudges.shift();
     const tJudge2 = techJudges.shift();
 
@@ -75,6 +76,18 @@ export default function groupJudges(judges: Judge[]) {
       },
     });
   }
+
+  // design judges
+  desJudges.forEach((djudge) => {
+    groups.push({
+      type: 'D',
+      judge_ids: {
+        '*convertIds': {
+          ids: [djudge._id],
+        },
+      },
+    });
+  });
 
   return groups;
 }
