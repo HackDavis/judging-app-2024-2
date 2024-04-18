@@ -1,19 +1,19 @@
 import styles from './ScoreInput.module.scss';
 import ScoringCard from './ScoringCard';
 
-export default function ScoringInput() {
-  const overallCategories = [
-    'Social Good',
-    'Technical Complexity',
-    'Design',
-    'Creativity',
-    'Presentation',
-  ];
+interface ScoringInputProps {
+  inputNameHeader: string;
+  inputScoreNames: string[];
+}
 
+export default function ScoringInput({
+  inputNameHeader,
+  inputScoreNames,
+}: ScoringInputProps) {
   return (
     <div className={styles.inputContainer}>
-      <h2 className={styles.scoringTitle}>Overall Scoring </h2>
-      {overallCategories.map((category, index) => (
+      <h2 className={styles.scoringTitle}>{inputNameHeader} </h2>
+      {inputScoreNames.map((category, index) => (
         <ScoringCard categoryName={category} index={index + 1} key={index} />
       ))}
     </div>

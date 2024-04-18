@@ -4,10 +4,32 @@ import TeamBlock from './TeamBlock';
 import ScoringInput from './ScoreInput';
 
 export default function ScoringForm() {
+  const generalScoreNames = [
+    'Social Good',
+    'Technical Complexity',
+    'Design',
+    'Creativity',
+    'Presentation',
+  ];
+
+  const trackScoreNames = [
+    'Best Social Hack',
+    'Best Beginner Hack',
+    'Best Design Hack',
+    'Best Usage of MongoDB',
+  ];
+
   return (
     <div className={styles.container}>
       <TeamBlock />
-      <ScoringInput />
+      <ScoringInput
+        inputNameHeader="Overall Scoring"
+        inputScoreNames={generalScoreNames}
+      />
+      <ScoringInput
+        inputNameHeader="Specific Tracks"
+        inputScoreNames={trackScoreNames}
+      />
     </div>
   );
 }

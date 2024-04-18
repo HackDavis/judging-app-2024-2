@@ -17,10 +17,12 @@
         font-weight: 400;
         line-height: normal;
         align-self: flex-start;
+        margin-left: 10px;
     }
     .scoringCircleContainer {
         display: flex;
         gap: 10px;
+        justify-content: space-around;
         
         .scoringCircle {
             display: flex;

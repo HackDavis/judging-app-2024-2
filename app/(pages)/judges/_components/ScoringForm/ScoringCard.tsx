@@ -4,15 +4,17 @@ interface ScoringCardProps {
   index: number;
 }
 export default function ScoringCard({ categoryName, index }: ScoringCardProps) {
+  const scores = [1, 2, 3, 4, 5];
+
   return (
     <div className={styles.scoringCard}>
       <h2 className={styles.categoryName}>{`${index}. ${categoryName}`}</h2>
       <div className={styles.scoringCircleContainer}>
-        <div className={styles.scoringCircle}>1</div>
-        <div className={styles.scoringCircle}>2</div>
-        <div className={styles.scoringCircle}>3</div>
-        <div className={styles.scoringCircle}>4</div>
-        <div className={styles.scoringCircle}>5</div>
+        {scores.map((score, index) => (
+          <div key={index} className={styles.scoringCircle}>
+            {score}
+          </div>
+        ))}
       </div>
     </div>
   );
