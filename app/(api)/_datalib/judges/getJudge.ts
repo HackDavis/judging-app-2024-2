@@ -34,6 +34,7 @@ export const GetManyJudges = async (query: object = {}) => {
     const db = await getDatabase();
 
     const judge = await db.collection('judges').find(query).toArray();
+    console.log(judge);
 
     return NextResponse.json(
       { ok: true, body: judge, error: null },
