@@ -21,8 +21,8 @@ const Judge = {
       description: 'encrypted password must be a string',
     },
     specialty: {
-      enum: ['tech', 'nontech', 'design'],
-      description: 'specialty must be either tech, nontech, or design',
+      enum: ['tech', 'general', 'design'],
+      description: 'specialty must be either tech, general, or design',
     },
     judge_group_id: {
       bsonType: 'objectId',
