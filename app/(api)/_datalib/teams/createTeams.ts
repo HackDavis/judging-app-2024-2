@@ -18,16 +18,23 @@ export const createTeams = async (body: object[]) => {
     const parsedBody = await parseAndReplace(body);
 
     parsedBody.forEach((team: Team) => {
+      const seenTracks = new Set();
       team.tracks.forEach((chosenTrack) => {
         const foundTrack = tracks.find((track) => track.name === chosenTrack);
         if (foundTrack == undefined) {
           throw new BadRequestError('Invalid track');
+        } else if (seenTracks.has(foundTrack.name)) {
+          throw new BadRequestError('Duplicate track');
         } else if (foundTrack.name === 'Best Hack for Social Good') {
           throw new BadRequestError(
-            'Invalid track: Best Hack for Social Good should not be included'
+            'Remove default track: Best Hack for Social Good'
           );
         }
+        seenTracks.add(chosenTrack);
       });
+
+      // automatically add Best Hack for Social Good
+      team.tracks.push('Best Hack for Social Good');
     });
 
     const db = await getDatabase();
