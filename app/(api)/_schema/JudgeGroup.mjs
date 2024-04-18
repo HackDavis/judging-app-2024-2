@@ -8,9 +8,8 @@ const JudgeGroup = {
       description: '_id must be an ObjectId',
     },
     type: {
-      enum: ['T', 'TN', 'D'],
-      description:
-        'type must be either T (tech), TN (tech-nontech), or D (design).',
+      enum: ['T', 'G', 'D'],
+      description: 'type must be either T (tech), G (general), or D (design).',
     },
     judge_ids: {
       bsonType: 'array',

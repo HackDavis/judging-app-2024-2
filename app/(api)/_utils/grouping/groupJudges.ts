@@ -2,22 +2,19 @@ import Judge from '@typeDefs/judges';
 
 export default function groupJudges(judges: Judge[]) {
   const techJudges = judges.filter((judge) => judge.specialty === 'tech');
-  const nonTechJudges = judges.filter((judge) => judge.specialty === 'nontech');
+  const generalJudges = judges.filter((judge) => judge.specialty === 'general');
   const desJudges = judges.filter((judge) => judge.specialty === 'design');
 
   const groups: { type: string; judge_ids: object }[] = [];
 
-  nonTechJudges.forEach((ntJudge) => {
+  generalJudges.forEach((gJudge) => {
     if (techJudges.length > 0) {
       const tJudge = techJudges.shift();
       groups.push({
-        type: 'TN',
+        type: 'G',
         judge_ids: {
           '*convertIds': {
-            ids: [
-              ntJudge._id ? ntJudge._id : '',
-              tJudge?._id ? tJudge._id : '',
-            ],
+            ids: [gJudge._id ? gJudge._id : '', tJudge?._id ? tJudge._id : ''],
           },
         },
       });
