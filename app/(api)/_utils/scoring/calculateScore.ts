@@ -10,7 +10,6 @@ export default function calculateScore(
   scores: number[],
   correlations: Correlation[]
 ) {
-  chosenTracks.push('Best Hack for Social Good');
   const finalScores = chosenTracks.map((chosenTrack) => {
     const weights = tracks.find((track) => track.name == chosenTrack);
     const score = weights?.weights.reduce((sum, weight, i) => {

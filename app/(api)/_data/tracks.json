@@ -2,7 +2,7 @@
   {
     "name": "Best Hack for Social Good",
     "weights": [0.5, 0.1, 0.1, 0.2, 0.1],
-    "type": "general"
+    "type": "all"
   },
   {
     "name": "Best Beginner Hack",
