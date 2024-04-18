@@ -19,6 +19,7 @@ export default function Comments() {
       </p>
       <input type="text" value={commentText} onChange={onCommentType} />
       <button onClick={onSubmitComment}>Submit Score</button>
+      <p>Once submitted, results cannot be changed.</p>
     </div>
   );
 }
