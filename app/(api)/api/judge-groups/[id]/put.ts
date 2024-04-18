@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { UpdateJudgeGroup } from '@datalib/judgeGroups/updateJudgePair';
+import { UpdateJudgeGroup } from '@datalib/judgeGroups/updateJudgeGroup';
 
 export async function PUT(
   request: NextRequest,

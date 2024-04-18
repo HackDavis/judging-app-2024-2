@@ -5,7 +5,7 @@ interface JudgeInt {
   password: string;
   specialty: string;
   role: string;
-  judge_pair_id?: string;
+  judge_group_id?: string;
   submission_ids?: string[];
 }
 
