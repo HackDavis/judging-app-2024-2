@@ -2,6 +2,7 @@
 import styles from './ScoringForm.module.scss';
 import TeamBlock from './TeamBlock';
 import ScoringInput from './ScoreInput';
+import Comments from './Comments';
 
 export default function ScoringForm() {
   const generalScoreNames = [
@@ -30,6 +31,7 @@ export default function ScoringForm() {
         inputNameHeader="Specific Tracks"
         inputScoreNames={trackScoreNames}
       />
+      <Comments />
     </div>
   );
 }
