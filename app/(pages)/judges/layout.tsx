@@ -1,5 +1,9 @@
-'use client';
+import { Metadata } from 'next';
 import { AuthProvider } from '../_contexts/AuthContext';
+
+export const metadata: Metadata = {
+  title: 'HackDavis Judge View',
+};
 
 export default function JudgesLayout({
   children,
