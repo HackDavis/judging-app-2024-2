@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from './ResetPasswordpage.module.scss';
+import styles from './ResetPasswordPage.module.scss';
 import ResetPasswordForm from './ResetPasswordForm';
 
 export default function ResetPasswordPage() {
