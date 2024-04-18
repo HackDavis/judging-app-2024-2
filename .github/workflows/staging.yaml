@@ -1,0 +1,47 @@
+name: Staging Deployment
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  deploy_staging:
+    name: Deploy Staging
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: ${{ vars.ENV_URL }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21.1.0'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint and build code, then publish to Vercel
+        run: >
+          vercel
+          --token ${{ secrets.VERCEL_TOKEN }}
+          -n ${{ vars.VERCEL_PROJECT }}
+          --yes
+          --prod
+          --env MONGODB_URI=${{ secrets.MONGODB_URI }}
+          --env BASE_URL=${{ vars.ENV_URL }}
+          --env JWT_SECRET=${{ secrets.JWT_SECRET }}
+          --env HMAC_INVITE_SECRET=${{ secrets.HMAC_INVITE_SECRET }}
+          --env INVITE_TIMEOUT=${{ vars.INVITE_TIMEOUT }}
+          --build-env MONGODB_URI=${{ secrets.MONGODB_URI }}
+          --build-env BASE_URL=${{ vars.ENV_URL }}
+          --build-env JWT_SECRET=${{ secrets.JWT_SECRET }}
+          --build-env HMAC_INVITE_SECRET=${{ secrets.HMAC_INVITE_SECRET }}
+          --build-env INVITE_TIMEOUT=${{ vars.INVITE_TIMEOUT }}
+
+      - name: Success
+        run: echo "🚀  Deploy successful - BLAST OFF WOO! (woot woot) !!! 🐕 🐕 🐕 🚀 "
