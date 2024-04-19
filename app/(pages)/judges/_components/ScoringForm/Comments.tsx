@@ -10,13 +10,27 @@ export default function Comments({ categoryScores }: CommentsProps) {
   const [commentText, setCommentText] = useState('');
   const [commentSubmitted, setCommentSubmitted] = useState(false);
 
+  const hasForNegativeScores = (scoresMap: Map<string, number>) => {
+    let hasNegativeScore = false;
+    scoresMap.forEach((score) => {
+      if (score === -1) {
+        hasNegativeScore = true;
+      }
+    });
+    return hasNegativeScore;
+  };
+
   const onCommentType = (e: any) => {
     setCommentText(e.target.value);
   };
 
   const onSubmitComment = () => {
-    setCommentSubmitted(true);
-    console.log(categoryScores);
+    if (hasForNegativeScores(categoryScores)) {
+      alert('Some fields are not inputted');
+    } else {
+      setCommentSubmitted(true);
+      console.log(categoryScores);
+    }
   };
 
   return (

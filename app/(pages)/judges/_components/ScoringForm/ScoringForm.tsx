@@ -6,10 +6,6 @@ import ScoringInput from './ScoreInput';
 import Comments from './Comments';
 
 export default function ScoringForm() {
-  const [categoryScores, setCategoryScores] = useState<Map<string, number>>(
-    new Map()
-  );
-
   const generalScoreNames = [
     'Social Good',
     'Technical Complexity',
@@ -24,6 +20,16 @@ export default function ScoringForm() {
     'Best Design Hack',
     'Best Usage of MongoDB',
   ];
+
+  // prefils the map with all the categories and sets the scores to -1 to
+  // assist in error handling
+
+  const initialCategoryScores = new Map();
+  [...generalScoreNames, ...trackScoreNames].forEach((category) => {
+    initialCategoryScores.set(category, -1);
+  });
+
+  const [categoryScores, setCategoryScores] = useState(initialCategoryScores);
 
   return (
     <div className={styles.container}>
