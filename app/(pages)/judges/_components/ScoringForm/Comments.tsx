@@ -18,12 +18,12 @@ export default function Comments() {
         Comments help us for deciding tiebreakers. If there was an exceptional
         project or one you’re suspicious of cheating, write it here!
       </p>
-      <input
+      <textarea
         className={styles.commentBox}
-        type="text"
         value={commentText}
         onChange={onCommentType}
-      />
+        placeholder="Write a comment here..."
+      ></textarea>
       <button className={styles.submitButton} onClick={onSubmitComment}>
         Submit Score
       </button>
