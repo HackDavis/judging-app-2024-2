@@ -1,7 +1,12 @@
 'use client';
 import styles from './Comments.module.scss';
 import { useState } from 'react';
-export default function Comments() {
+
+interface CommentsProps {
+  categoryScores: Map<string, number>;
+}
+
+export default function Comments({ categoryScores }: CommentsProps) {
   const [commentText, setCommentText] = useState('');
   const [commentSubmitted, setCommentSubmitted] = useState(false);
 
@@ -11,6 +16,7 @@ export default function Comments() {
 
   const onSubmitComment = () => {
     setCommentSubmitted(true);
+    console.log(categoryScores);
   };
 
   return (
