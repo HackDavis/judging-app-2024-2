@@ -26,7 +26,7 @@ export default function Comments({ categoryScores }: CommentsProps) {
 
   const onSubmitComment = () => {
     if (hasForNegativeScores(categoryScores)) {
-      alert('Some fields are not inputted');
+      alert('Some categories are not scored. Please score all of them.');
     } else {
       setCommentSubmitted(true);
       console.log(categoryScores);
