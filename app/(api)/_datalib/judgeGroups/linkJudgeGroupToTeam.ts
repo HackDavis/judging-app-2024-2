@@ -3,9 +3,45 @@ import { ObjectId } from 'mongodb';
 
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import isBodyEmpty from '@utils/request/isBodyEmpty';
+import parseAndReplace from '@utils/request/parseAndReplace';
 import NoContentError from '@utils/response/NoContentError';
 import HttpError from '@utils/response/HttpError';
 import { NotFoundError, DuplicateError } from '@utils/response/Errors';
+
+export const LinkManyJudgeGroupsToTeams = async (body: object[]) => {
+  try {
+    if (isBodyEmpty(body)) {
+      throw new NoContentError();
+    }
+
+    const parsedBody = parseAndReplace(body);
+
+    const db = await getDatabase();
+    const creationStatus = await db
+      .collection('judgeGroupToTeams')
+      .insertMany(parsedBody);
+
+    const links = await db
+      .collection('judgeGroupToTeams')
+      .find({
+        _id: {
+          $in: Object.values(creationStatus.insertedIds).map((id: any) => id),
+        },
+      })
+      .toArray();
+
+    return NextResponse.json(
+      { ok: true, body: await links, error: null },
+      { status: 201 }
+    );
+  } catch (e) {
+    const error = e as HttpError;
+    return NextResponse.json(
+      { ok: false, body: null, error: error.message },
+      { status: error.status || 400 }
+    );
+  }
+};
 
 export const LinkJudgeGroupToTeam = async (body: {
   judge_group_id: string;

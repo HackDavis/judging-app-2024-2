@@ -1,7 +1,43 @@
-import { LinkJudgeGroupToTeam } from '@datalib/judgeGroups/linkJudgeGroupToTeam';
+import { LinkManyJudgeGroupsToTeams } from '@datalib/judgeGroups/linkJudgeGroupToTeam';
 import JudgeGroup from '@typeDefs/judgeGroups';
 import Team from '@typeDefs/teams';
 import tracks from '../../_data/tracks.json' assert { type: 'json' };
+
+interface Match {
+  judge_group_id: string;
+  team_id: string;
+}
+
+function createMatches(
+  judgeGroups: JudgeGroup[],
+  teams: Team[],
+  type: string,
+  rounds: number
+) {
+  const matches: Match[] = [];
+
+  judgeGroups.forEach((judgeGroup) => {
+    let count = 0;
+    for (const team of teams) {
+      if (count == rounds) break;
+      for (const chosenTrack in team.tracks) {
+        if (judgeGroup._id == undefined) continue;
+        const foundTrack = tracks.find((track) => track.name === chosenTrack);
+        if (foundTrack == undefined) continue;
+
+        if (foundTrack.type === type) {
+          matches.push({
+            judge_group_id: judgeGroup._id,
+            team_id: team._id,
+          });
+          count++;
+        }
+      }
+    }
+  });
+
+  LinkManyJudgeGroupsToTeams(matches);
+}
 
 export default function matchTeams(judgeGroups: JudgeGroup[], teams: Team[]) {
   const techGroups = judgeGroups.filter((group) => group.type === 'T');
@@ -22,6 +58,7 @@ export default function matchTeams(judgeGroups: JudgeGroup[], teams: Team[]) {
       ) {
         return;
       }
+
       switch (foundTrack!.type) {
         case 'tech':
           totalTech++;
@@ -41,4 +78,10 @@ export default function matchTeams(judgeGroups: JudgeGroup[], teams: Team[]) {
   const techRounds = Math.ceil(totalTech / techGroups.length);
   const generalRounds = Math.ceil(totalGeneral / generalGroups.length);
   const designRounds = Math.ceil(totalDesign / designGroups.length);
+
+  createMatches(techGroups, teams, 'tech', techRounds);
+  createMatches(generalGroups, teams, 'general', generalRounds);
+  createMatches(designGroups, teams, 'design', designRounds);
+
+  return Math.max(techRounds, generalRounds, designRounds);
 }
