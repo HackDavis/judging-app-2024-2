@@ -8,7 +8,7 @@ import HttpError from '@utils/response/HttpError';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import { NotFoundError, DuplicateError } from '@utils/response/Errors';
 
-export const createSubmission = async (body: {
+export const CreateSubmission = async (body: {
   judge_id: string;
   team_id: string;
 }) => {

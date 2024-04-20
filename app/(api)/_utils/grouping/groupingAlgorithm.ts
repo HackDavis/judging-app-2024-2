@@ -1,6 +1,6 @@
 import Judge from '@typeDefs/judges';
 
-export default function groupJudges(judges: Judge[]) {
+export default function groupingAlgorithm(judges: Judge[]) {
   const techJudges = judges.filter((judge) => judge.specialty === 'tech');
   const generalJudges = judges.filter((judge) => judge.specialty === 'general');
   const desJudges = judges.filter((judge) => judge.specialty === 'design');

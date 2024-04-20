@@ -3,7 +3,7 @@ import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import HttpError from '@utils/response/HttpError';
 import { ObjectId } from 'mongodb';
 
-export const getSubmissions = async (query: object = {}) => {
+export const GetManySubmissions = async (query: object = {}) => {
   try {
     const db = await getDatabase();
     const submissions = await db
@@ -24,7 +24,7 @@ export const getSubmissions = async (query: object = {}) => {
   }
 };
 
-export const getSubmission = async (judge_id: string, team_id: string) => {
+export const GetSubmission = async (judge_id: string, team_id: string) => {
   try {
     const judge_object_id = new ObjectId(judge_id);
     const team_object_id = new ObjectId(team_id);

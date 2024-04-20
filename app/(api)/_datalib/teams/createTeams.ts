@@ -10,7 +10,7 @@ import {
 import Team from '@typeDefs/teams';
 import tracks from '../../_data/tracks.json' assert { type: 'json' };
 
-export const createTeams = async (body: object[]) => {
+export const CreateManyTeams = async (body: object[]) => {
   try {
     if (isBodyEmpty(body)) {
       throw new NoContentError();
