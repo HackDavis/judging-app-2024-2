@@ -3,7 +3,7 @@ import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { HttpError, NotFoundError } from '@utils/response/Errors';
 import { ObjectId } from 'mongodb';
 
-export const getTeam = async (id: string) => {
+export const GetTeam = async (id: string) => {
   try {
     const object_id = new ObjectId(id);
     const db = await getDatabase();
@@ -28,7 +28,7 @@ export const getTeam = async (id: string) => {
   }
 };
 
-export const getTeams = async (query: object = {}) => {
+export const GetManyTeams = async (query: object = {}) => {
   try {
     const db = await getDatabase();
     const teams = await db

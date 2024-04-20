@@ -1,7 +1,7 @@
-import { createSubmission } from '@datalib/submissions/createSubmission';
+import { CreateSubmission } from '@datalib/submissions/createSubmission';
 import { NextRequest } from 'next/server';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  return createSubmission(body);
+  return CreateSubmission(body);
 }

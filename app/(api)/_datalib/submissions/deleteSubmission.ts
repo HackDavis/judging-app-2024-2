@@ -5,7 +5,7 @@ import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import NotFoundError from '@utils/response/NotFoundError';
 import HttpError from '@utils/response/HttpError';
 
-export const deleteSubmission = async (judge_id: string, team_id: string) => {
+export const DeleteSubmission = async (judge_id: string, team_id: string) => {
   try {
     const judge_object_id = new ObjectId(judge_id);
     const team_object_id = new ObjectId(team_id);

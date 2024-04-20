@@ -8,7 +8,7 @@ import isBodyEmpty from '@utils/request/isBodyEmpty';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import NoContentError from '@utils/response/NoContentError';
 
-export const updateSubmission = async (
+export const UpdateSubmission = async (
   judge_id: string,
   team_id: string,
   body: object

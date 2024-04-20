@@ -11,7 +11,7 @@ import {
   NotFoundError,
 } from '@utils/response/Errors';
 
-export const updateTeam = async (id: string, body: object) => {
+export const UpdateTeam = async (id: string, body: object) => {
   try {
     const object_id = new ObjectId(id);
     if (isBodyEmpty(body)) {
