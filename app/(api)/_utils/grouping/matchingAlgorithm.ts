@@ -3,8 +3,8 @@ import Team from '@typeDefs/teams';
 import tracks from '../../_data/tracks.json' assert { type: 'json' };
 
 interface Match {
-  judge_group_id: string;
-  team_id: string;
+  judge_group_id: object;
+  team_id: object;
 }
 
 function createMatches(
@@ -26,8 +26,16 @@ function createMatches(
 
         if (foundTrack.type === type) {
           matches.push({
-            judge_group_id: judgeGroup._id,
-            team_id: team._id,
+            judge_group_id: {
+              '*convertId': {
+                id: judgeGroup._id,
+              },
+            },
+            team_id: {
+              '*convertId': {
+                id: team._id,
+              },
+            },
           });
           count++;
         }
@@ -42,9 +50,9 @@ export default function matchingAlgorithm(
   judgeGroups: JudgeGroup[],
   teams: Team[]
 ) {
-  const techGroups = judgeGroups.filter((group) => group.type === 'T');
-  const generalGroups = judgeGroups.filter((group) => group.type === 'G');
-  const designGroups = judgeGroups.filter((group) => group.type === 'D');
+  const techGroups = judgeGroups.filter((group) => group.type === 'tech');
+  const generalGroups = judgeGroups.filter((group) => group.type === 'general');
+  const designGroups = judgeGroups.filter((group) => group.type === 'design');
 
   let totalTech = 0;
   let totalGeneral = 0;
