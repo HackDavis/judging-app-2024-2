@@ -1,90 +1,66 @@
 import Judge from '@typeDefs/judges';
 
+function createGroups(judgeArray: Judge[], groupType: string) {
+  const groupArray: { type: string; judge_ids: object }[] = [];
+
+  while (judgeArray.length > 3) {
+    const judge1 = judgeArray.shift();
+    const judge2 = judgeArray.shift();
+
+    groupArray.push({
+      type: groupType,
+      judge_ids: {
+        '*convertIds': {
+          ids: [judge1?._id, judge2?._id],
+        },
+      },
+    });
+  }
+
+  if (judgeArray.length === 3) {
+    const judge1 = judgeArray.shift();
+    const judge2 = judgeArray.shift();
+    const judge3 = judgeArray.shift();
+
+    groupArray.push({
+      type: groupType,
+      judge_ids: {
+        '*convertIds': {
+          ids: [judge1?._id, judge2?._id, judge3?._id],
+        },
+      },
+    });
+  } else if (judgeArray.length) {
+    const judge1 = judgeArray.shift();
+    const judge2 = judgeArray.shift();
+
+    groupArray.push({
+      type: groupType,
+      judge_ids: {
+        '*convertIds': {
+          ids: [judge1?._id, judge2?._id],
+        },
+      },
+    });
+  }
+
+  return groupArray;
+}
+
 export default function groupingAlgorithm(judges: Judge[]) {
   const techJudges = judges.filter((judge) => judge.specialty === 'tech');
   const generalJudges = judges.filter((judge) => judge.specialty === 'general');
   const desJudges = judges.filter((judge) => judge.specialty === 'design');
 
-  const groups: { type: string; judge_ids: object }[] = [];
+  const Tgroups = createGroups(techJudges, 'T');
+  const Ggroups = createGroups(generalJudges, 'G');
+  const Dgroups = createGroups(desJudges, 'D');
 
-  generalJudges.forEach((gJudge) => {
-    if (techJudges.length > 0) {
-      const tJudge = techJudges.shift();
-      groups.push({
-        type: 'G',
-        judge_ids: {
-          '*convertIds': {
-            ids: [gJudge._id ? gJudge._id : '', tJudge?._id ? tJudge._id : ''],
-          },
-        },
-      });
-    }
-  });
-
-  // pairing remaining tech judges
-  while (techJudges.length > 3) {
-    const tJudge1 = techJudges.shift();
-    const tJudge2 = techJudges.shift();
-
-    groups.push({
-      type: 'T',
-      judge_ids: {
-        '*convertIds': {
-          ids: [
-            tJudge1?._id ? tJudge1._id : '',
-            tJudge2?._id ? tJudge2._id : '',
-          ],
-        },
-      },
-    });
-  }
-
-  // one group of 3 tech judges if there are an odd number of judges
-  if (techJudges.length === 3) {
-    const tJudge1 = techJudges.shift();
-    const tJudge2 = techJudges.shift();
-    const tjudge3 = techJudges.shift();
-
-    groups.push({
-      type: 'T',
-      judge_ids: {
-        '*convertIds': {
-          ids: [
-            tJudge1?._id ? tJudge1._id : '',
-            tJudge2?._id ? tJudge2._id : '',
-            tjudge3?._id ? tjudge3._id : '',
-          ],
-        },
-      },
-    });
-  } else if (techJudges.length) {
-    const tJudge1 = techJudges.shift();
-    const tJudge2 = techJudges.shift();
-
-    groups.push({
-      type: 'T',
-      judge_ids: {
-        '*convertIds': {
-          ids: [
-            tJudge1?._id ? tJudge1._id : '',
-            tJudge2?._id ? tJudge2._id : '',
-          ],
-        },
-      },
-    });
-  }
-
-  // design judges
-  desJudges.forEach((djudge) => {
-    groups.push({
-      type: 'D',
-      judge_ids: {
-        '*convertIds': {
-          ids: [djudge._id],
-        },
-      },
-    });
-  });
+  const groups: { type: string; judge_ids: object }[] = [
+    ...Tgroups,
+    ...Ggroups,
+    ...Dgroups,
+  ];
 
   return groups;
 }
