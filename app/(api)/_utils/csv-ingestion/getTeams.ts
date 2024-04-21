@@ -1,6 +1,6 @@
 import { parse } from 'csv-parse';
-import * as path from 'path';
 import * as fs from 'fs';
+// import * as path from 'path';
 // import { Result } from 'postcss';
 
 // type TeamSubmission = {
@@ -10,13 +10,6 @@ import * as fs from 'fs';
 //   tech_emphasis: number | 1;
 //   design_emphasis: number | 1;
 // };
-
-type CsvRecord = {
-  name: string;
-  numer: number;
-  status: string;
-  tracks: string[];
-};
 
 // const parseCSV = (filePath: string): Promise<any[]> => {
 //   return new Promise((resolve, reject) => {
@@ -44,28 +37,35 @@ type CsvRecord = {
 //   });
 // };
 
+interface CsvRecord {
+  name: string;
+  numer: number;
+  status: string;
+  tracks: string[];
+}
+
 export default async function GetTeams() {
-  const currentDir = __dirname;
-  const csvFileName = 'test_projects_2023.csv';
-  const csvFilePath = path.join(currentDir, csvFileName);
-  //   const parsedData = await parseCSV(csvFilePath);
-  //   console.log(parsedData);
+  const csvFilePath = 'app/(api)/_data/test_projects_2023.csv';
+
   const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
-  const headers = [
-    'Project Title',
-    'Table Number',
-    'Project Status',
-    'Opt-In Prizes',
-  ];
+  // const headers = [
+  //   'Project Title',
+  //   'Table Number',
+  //   'Project Status',
+  //   'Opt-In Prizes',
+  // ];
+
   parse(
     fileContent,
     {
       delimiter: ',',
-      columns: headers,
+      columns: true,
     },
     (error, result: CsvRecord[]) => {
       if (error) {
-        console.error(error);
+        console.log('error:');
+        console.error(error.message);
+        return null;
       }
       console.log('Result', result);
     }
