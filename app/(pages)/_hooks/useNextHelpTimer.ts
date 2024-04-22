@@ -7,18 +7,21 @@ export function useNextHelpTimer() {
   const [pending, setPending] = useState(true);
   const [event, setEvent] = useState<any | null>(null);
   const [timeTill, setTimeTill] = useState<number>(0);
-  const [ended, setEnded] = useState(false);
+  const [ended, setEnded] = useState(true);
 
   useEffect(() => {
-    const getNextHelperTimerWrapper = async () => {
-      const time = await getNextTimer();
-      setEvent(time);
-      setTimeTill(Math.floor((time.body.utc - Date.now()) / 1000));
-      setPending(false);
-    };
+    if (ended) {
+      const getNextHelperTimerWrapper = async () => {
+        const time = await getNextTimer();
+        setEvent(time);
+        setTimeTill(Math.floor((time.body.utc - Date.now()) / 1000));
+        setPending(false);
+        setEnded(false);
+      };
 
-    getNextHelperTimerWrapper();
-  }, []);
+      getNextHelperTimerWrapper();
+    }
+  }, [ended]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -32,5 +35,6 @@ export function useNextHelpTimer() {
 
     return () => clearInterval(interval);
   }, [event]);
+
   return { pending, event, timeTill, ended };
 }
