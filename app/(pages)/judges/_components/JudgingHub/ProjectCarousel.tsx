@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import styles from './ProjectCarousel.module.scss';
 
-function JudgingCard({ project }: { project: object }) {
+function JudgingCard({ project }: { project: any }) {
   return (
     <div className={styles.card_container}>
       <h2 className={styles.project_num}>#{project.num}</h2>
@@ -14,15 +14,15 @@ function JudgingCard({ project }: { project: object }) {
 }
 
 export default function JudgingList({ projects }: { projects: object[] }) {
-  const progressBarRef = useRef(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
-  const [divWidth, setDivWidth] = useState(0);
+  const [_, setDivWidth] = useState(0);
   const num_sections = Math.floor(projects.length / 2);
 
   useEffect(() => {
     if (progressBarRef.current) {
       // Accessing clientWidth of the div element
-      const width = progressBarRef.current.clientWidth;
+      const width = progressBarRef.current.offsetWidth;
       // Setting the width to state variable
       setDivWidth(width);
     }

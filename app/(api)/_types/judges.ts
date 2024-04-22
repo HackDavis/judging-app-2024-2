@@ -1,10 +1,12 @@
 interface JudgeInt {
+  _id?: string;
   name: string;
   email: string;
-  specialty: string; //enumerate tech, nontech, design?
-  pair: string;
-  submissions: string[];
-  id?: string;
+  password: string;
+  specialty: string;
+  role: string;
+  judge_group_id?: string;
+  submission_ids?: string[];
 }
 
 export default JudgeInt;

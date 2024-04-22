@@ -1,15 +1,8 @@
 'use server';
-import FormToJSON from '../../_utils/form/FormToJSON';
+import FormToJSON from '@utils/form/FormToJSON';
+import { UpdateSubmission } from '@datalib/submissions/updateSubmission';
 
-export default async function updateSubmission(id: string, formData: FormData) {
-  const dataJSON = FormToJSON(formData);
-  await fetch(`${process.env.BASE_URL}/api/submissions/${id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      $set: dataJSON,
-    }),
-  });
+export default async function updateSubmission(formData: FormData) {
+  const { judge_id, team_id, ...rest } = FormToJSON(formData);
+  await UpdateSubmission(judge_id, team_id, rest);
 }

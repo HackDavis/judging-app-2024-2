@@ -1,72 +1,46 @@
 'use client';
 import { createContext, useState, useEffect, useCallback } from 'react';
-import Cookies from 'js-cookie';
-import jwt from 'jsonwebtoken';
-
-interface AuthTokenBody {
-  _id: string;
-  email: string;
-  password: string;
-  iat?: number;
-  exp?: number;
-}
+import VerifyToken from '@actions/auth/verifyToken';
+import AuthTokenInt from '@typeDefs/authToken';
+import DeleteAuthToken from '@actions/auth/deleteAuthToken';
 
 interface AuthProviderValue {
-  user: AuthTokenBody;
+  user: AuthTokenInt;
   loading: boolean;
-  login: (user: AuthTokenBody) => void;
+  login: (user: AuthTokenInt) => void;
   logout: () => void;
 }
 
-function getAuthFromClient(): AuthTokenBody | null {
-  try {
-    // Get the JWT token from cookies
-    const authToken = Cookies.get('auth_token');
-
-    if (!authToken) {
-      throw new Error('token not found in cookies');
-    }
-
-    // Decode the JWT token
-    const decodedToken = jwt.decode(authToken) as AuthTokenBody;
-
-    // Ensure the token is not expired
-    const currentTimestamp = Math.floor(Date.now() / 1000);
-    if (decodedToken.exp && decodedToken.exp < currentTimestamp) {
-      throw new Error('token has expired');
-    }
-    return decodedToken;
-  } catch (e) {
-    const error = e as Error;
-    console.log('Error decoding JWT token:', error.message);
-    return null;
-  }
-}
-
-const deleteAuthTokenCookie = () => {
-  // Delete the 'auth-token' cookie
-  Cookies.remove('auth_token', { path: '/' });
-};
-
-export type { AuthTokenBody, AuthProviderValue };
+export type { AuthTokenInt, AuthProviderValue };
 
 export const AuthContext = createContext({});
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<AuthTokenBody | null>(null);
+  const [user, setUser] = useState<AuthTokenInt | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setUser(getAuthFromClient());
-    setLoading(false);
+    const updateAuth = async () => {
+      const data = await VerifyToken();
+      if (!data.ok) {
+        setLoading(false);
+        return;
+      }
+      const userData = data.body as AuthTokenInt;
+
+      setUser(userData);
+      setLoading(false);
+    };
+
+    updateAuth();
   }, []);
 
-  const login = useCallback((user: AuthTokenBody) => {
+  const login = useCallback((user: AuthTokenInt | null) => {
     setUser(user);
   }, []);
 
   const logout = useCallback(() => {
-    deleteAuthTokenCookie();
+    DeleteAuthToken();
     setUser(null);
   }, []);
 

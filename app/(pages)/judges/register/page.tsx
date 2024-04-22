@@ -1,5 +1,10 @@
 'use client';
-import RegisterForm from '../_components/RegisterForm/RegisterForm';
+import InviteOnlyRoute from '@components/InviteOnlyRoute/InviteOnlyRoute';
+import RegisterPage from '../_components/RegisterForm/RegisterPage';
 export default function Register() {
-  return <RegisterForm />;
+  return (
+    <InviteOnlyRoute>
+      <RegisterPage />
+    </InviteOnlyRoute>
+  );
 }

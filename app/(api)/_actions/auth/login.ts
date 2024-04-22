@@ -1,25 +1,44 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import HttpError from '@utils/response/HttpError';
-import FormToJSON from '../../_utils/form/FormToJSON';
-import fetchPost from '@utils/fetch/fetchPost';
+import jwt from 'jsonwebtoken';
+import { Login } from '@datalib/auth/login';
+import { HttpError, NotAuthenticatedError } from '@utils/response/Errors';
+import FormToJSON from '@utils/form/FormToJSON';
 
-import { parseSetCookie } from 'next/dist/compiled/@edge-runtime/cookies';
+import type AuthTokenInt from '@typeDefs/authToken';
+import JudgeInt from '@typeDefs/judges';
 
-export default async function Login(prevState: any, formData: FormData) {
+export default async function LoginAction(
+  prevState: any,
+  formData: FormData
+): Promise<{
+  ok: boolean;
+  body?: AuthTokenInt | null;
+  error?: string | null;
+}> {
   try {
-    const body = FormToJSON(formData);
-    const res = await fetchPost('/auth/login', body, false);
+    const body = FormToJSON(formData) as JudgeInt;
+    const res = await Login(body);
     const data = await res.json();
-    const set_cookies = res.headers.getSetCookie();
-    for (const c of set_cookies) {
-      const parsedCookie = parseSetCookie(c);
-      if (parsedCookie !== undefined) cookies().set(parsedCookie);
+
+    if (!data.ok) {
+      throw new NotAuthenticatedError(data.error);
     }
-    return data;
+
+    const payload = jwt.decode(data.body) as AuthTokenInt;
+
+    cookies().set({
+      name: 'auth_token',
+      value: data.body,
+      expires: payload.exp * 1000,
+      secure: true,
+      httpOnly: true,
+    });
+
+    return { ok: true, body: payload || null };
   } catch (e) {
     const error = e as HttpError;
-    console.log(error.message);
+    return { ok: false, error: error.message };
   }
 }
