@@ -19,12 +19,16 @@ function createMatches(
     let count = 0;
     for (const team of teams) {
       if (count == rounds) break;
-      for (const chosenTrack in team.tracks) {
+      for (const chosenTrack of team.tracks) {
+        if (chosenTrack === 'Best Hack for Social Good') continue;
         if (judgeGroup._id == undefined) continue;
         const foundTrack = tracks.find((track) => track.name === chosenTrack);
         if (foundTrack == undefined) continue;
 
         if (foundTrack.type === type) {
+          const idx = team.tracks.indexOf(chosenTrack);
+          if (idx !== -1) team.tracks.splice(idx, 1);
+
           matches.push({
             judge_group_id: {
               '*convertId': {
@@ -38,6 +42,7 @@ function createMatches(
             },
           });
           count++;
+          break;
         }
       }
     }

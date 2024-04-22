@@ -19,6 +19,7 @@ const Team = {
     },
     tracks: {
       bsonType: 'array',
+      minItems: 4,
       maxItems: 5,
       items: {
         enum: tracks.map((track) => track.name),

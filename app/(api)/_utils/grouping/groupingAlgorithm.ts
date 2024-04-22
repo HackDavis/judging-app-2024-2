@@ -48,6 +48,7 @@ function createGroups(judgeArray: Judge[], groupType: string) {
 }
 
 export default function groupingAlgorithm(judges: Judge[]) {
+  judges = judges.filter((judge) => judge.role === 'judge');
   const techJudges = judges.filter((judge) => judge.specialty === 'tech');
   const generalJudges = judges.filter((judge) => judge.specialty === 'general');
   const desJudges = judges.filter((judge) => judge.specialty === 'design');
