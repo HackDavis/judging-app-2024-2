@@ -6,6 +6,7 @@ import {
   NoContentError,
   HttpError,
   BadRequestError,
+  DuplicateError,
 } from '@utils/response/Errors';
 import Team from '@typeDefs/teams';
 import tracks from '../../_data/tracks.json' assert { type: 'json' };
@@ -16,6 +17,29 @@ export const CreateManyTeams = async (body: object[]) => {
       throw new NoContentError();
     }
     const parsedBody = await parseAndReplace(body);
+
+    const seenNumbers = new Set();
+    const teamNumbers = parsedBody.map((team: { number: number }) => {
+      if (seenNumbers.has(team.number)) {
+        throw new DuplicateError('Request contains duplicate team number(s)');
+      }
+      seenNumbers.add(team.number);
+      return team.number;
+    });
+
+    const db = await getDatabase();
+    const existingTeams = await db
+      .collection('teams')
+      .find({
+        number: {
+          $in: teamNumbers,
+        },
+      })
+      .toArray();
+
+    if (existingTeams.length > 0) {
+      throw new DuplicateError('Duplicate: one or more teams already exist');
+    }
 
     parsedBody.forEach((team: Team) => {
       const seenTracks = new Set();
@@ -37,7 +61,6 @@ export const CreateManyTeams = async (body: object[]) => {
       team.tracks.push('Best Hack for Social Good');
     });
 
-    const db = await getDatabase();
     const creationStatus = await db.collection('teams').insertMany(parsedBody);
 
     const teams = await db
