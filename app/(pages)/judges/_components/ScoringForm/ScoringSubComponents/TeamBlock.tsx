@@ -1,4 +1,5 @@
 import styles from './TeamBlock.module.scss';
+import Link from 'next/link';
 
 const RightArrow = () => {
   return (
@@ -52,10 +53,15 @@ export default function TeamBlock() {
           Please refer back to our judging guide for each track. Tracks are on a
           scale from 1-10.
         </p>
-        <div className={styles.guideButton}>
-          <NoteBook />
-          <p className={styles.guideButtonText}>Judging Guide</p>
-        </div>
+        <Link
+          href="https://hackdavis.notion.site/HackDavis-2024-Judging-Guide-2efbd41777fa4d10967d4a035dc41bbf"
+          target="_blank"
+        >
+          <div className={styles.guideButton}>
+            <NoteBook />
+            <p className={styles.guideButtonText}>Judging Guide</p>
+          </div>
+        </Link>
       </div>
     </div>
   );
