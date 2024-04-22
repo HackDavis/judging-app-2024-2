@@ -1,35 +1,23 @@
 'use client';
 // import Image from 'next/image';
 import styles from './JudgeNotHere.module.scss';
-import moment from 'moment';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import { useEffect, useState } from 'react';
+import { useNextHelpTimer } from '@hooks/useNextHelpTimer';
 
-const useTimer = () => {
-  const [time, setTime] = useState(moment());
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(moment());
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // return time.format('mm:ss'); // Format time as needed
-  return time;
-};
+//2.5hrs judging => 1hr 15 min halves => 1hr 10 min phases + 10 min gap => notify director at 1 hour mark
 
 export default function JudgeNotHere() {
-  const curTime = useTimer();
+  const { pending, timeTill, ended } = useNextHelpTimer();
 
-  // Ensuring two digits for minutes and seconds
-  const minutesString = curTime.minutes().toString().padStart(2, '0');
-  const secondsString = curTime.seconds().toString().padStart(2, '0');
+  const seconds = timeTill > 3600 ? 99 : pending || ended ? 0 : timeTill % 60;
+  const minutes =
+    timeTill > 3600 ? 99 : pending || ended ? 0 : (timeTill - seconds) / 60;
 
-  // Splitting into individual digits
-  const minuteDigits = minutesString.split('');
-  const secondDigits = secondsString.split('');
+  const secondDigits =
+    seconds < 10 ? '0'.concat(seconds.toString()) : seconds.toString();
+
+  const minuteDigits =
+    minutes < 10 ? '0'.concat(minutes.toString()) : minutes.toString();
 
   const DirectorNoti = () => {
     console.log('clicked');
@@ -74,7 +62,6 @@ export default function JudgeNotHere() {
               <p>Seconds</p>
             </div>
           </div>
-          {/*  */}
         </div>
         <div className={styles.container_button} onClick={DirectorNoti}>
           <NotificationsNoneOutlinedIcon />
