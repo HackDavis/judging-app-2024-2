@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import styles from './ScoreInput.module.scss';
-import ScoringCard from './ScoringCard';
+import ScoringCard from './ScoringCard/ScoringCard';
 
 interface ScoringInputProps {
   inputNameHeader: string;

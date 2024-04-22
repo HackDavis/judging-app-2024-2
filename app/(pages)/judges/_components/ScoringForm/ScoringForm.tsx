@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
 import styles from './ScoringForm.module.scss';
-import TeamBlock from './TeamBlock';
-import ScoringInput from './ScoreInput';
-import Comments from './Comments';
+import TeamBlock from './ScoringSubComponents/TeamBlock';
+import ScoringInput from './ScoringSubComponents/ScoreInput';
+import Comments from './ScoringSubComponents/Comments';
 
 export default function ScoringForm() {
   const generalScoreNames = [
