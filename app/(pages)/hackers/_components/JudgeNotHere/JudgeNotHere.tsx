@@ -1,48 +1,23 @@
 'use client';
 // import Image from 'next/image';
 import styles from './JudgeNotHere.module.scss';
-import moment from 'moment';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import { useEffect, useState } from 'react';
+import { useNextHelpTimer } from '@hooks/useNextHelpTimer';
 
 //2.5hrs judging => 1hr 15 min halves => 1hr 10 min phases + 10 min gap => notify director at 1 hour mark
 
-const useTimer = (timerDuration: number) => {
-  const [time, setTime] = useState(moment.duration(timerDuration, 'minutes'));
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime((time) => moment.duration(time.asSeconds() - 1, 'seconds'));
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return time;
-};
-
 export default function JudgeNotHere() {
-  const startHalf1 = '2024-04-28T15:00:00.000-07:00';
-  const startHalf2 = '2024-04-28T16:20:00.000-07:00';
-  let timerDuration = (Date.now() - Date.parse(startHalf1)) / 1000 / 60;
+  const { pending, timeTill, ended } = useNextHelpTimer();
 
-  const roundDuration = 60;
-  if (timerDuration > 60) {
-    timerDuration = (Date.now() - Date.parse(startHalf2)) / 1000 / 60;
-  } else if (timerDuration < 0) {
-    // for before DOE/judging
-    timerDuration = 0;
-  }
-  const timerStart = roundDuration - timerDuration;
-  const curTime = useTimer(timerStart);
+  const seconds = timeTill > 3600 ? 99 : pending || ended ? 0 : timeTill % 60;
+  const minutes =
+    timeTill > 3600 ? 99 : pending || ended ? 0 : (timeTill - seconds) / 60;
 
-  // Ensuring two digits for minutes and seconds
-  const minutesString = curTime.minutes().toString().padStart(2, '0');
-  const secondsString = curTime.seconds().toString().padStart(2, '0');
+  const secondDigits =
+    seconds < 10 ? '0'.concat(seconds.toString()) : seconds.toString();
 
-  // Splitting into individual digits
-  const minuteDigits = minutesString.split('');
-  const secondDigits = secondsString.split('');
+  const minuteDigits =
+    minutes < 10 ? '0'.concat(minutes.toString()) : minutes.toString();
 
   const DirectorNoti = () => {
     console.log('clicked');
@@ -87,7 +62,6 @@ export default function JudgeNotHere() {
               <p>Seconds</p>
             </div>
           </div>
-          {/*  */}
         </div>
         <div className={styles.container_button} onClick={DirectorNoti}>
           <NotificationsNoneOutlinedIcon />
