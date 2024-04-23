@@ -3,8 +3,8 @@ import Team from '@typeDefs/teams';
 import tracks from '../../_data/tracks.json' assert { type: 'json' };
 
 interface Match {
-  judge_group_id: string;
-  team_id: string;
+  judge_group_id: object;
+  team_id: object;
 }
 
 function createMatches(
@@ -19,17 +19,30 @@ function createMatches(
     let count = 0;
     for (const team of teams) {
       if (count == rounds) break;
-      for (const chosenTrack in team.tracks) {
+      for (const chosenTrack of team.tracks) {
+        if (chosenTrack === 'Best Hack for Social Good') continue;
         if (judgeGroup._id == undefined) continue;
         const foundTrack = tracks.find((track) => track.name === chosenTrack);
         if (foundTrack == undefined) continue;
 
         if (foundTrack.type === type) {
+          const idx = team.tracks.indexOf(chosenTrack);
+          if (idx !== -1) team.tracks.splice(idx, 1);
+
           matches.push({
-            judge_group_id: judgeGroup._id,
-            team_id: team._id,
+            judge_group_id: {
+              '*convertId': {
+                id: judgeGroup._id,
+              },
+            },
+            team_id: {
+              '*convertId': {
+                id: team._id,
+              },
+            },
           });
           count++;
+          break;
         }
       }
     }
@@ -42,9 +55,9 @@ export default function matchingAlgorithm(
   judgeGroups: JudgeGroup[],
   teams: Team[]
 ) {
-  const techGroups = judgeGroups.filter((group) => group.type === 'T');
-  const generalGroups = judgeGroups.filter((group) => group.type === 'G');
-  const designGroups = judgeGroups.filter((group) => group.type === 'D');
+  const techGroups = judgeGroups.filter((group) => group.type === 'tech');
+  const generalGroups = judgeGroups.filter((group) => group.type === 'general');
+  const designGroups = judgeGroups.filter((group) => group.type === 'design');
 
   let totalTech = 0;
   let totalGeneral = 0;

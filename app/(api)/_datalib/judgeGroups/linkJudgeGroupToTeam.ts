@@ -14,8 +14,7 @@ export const LinkManyJudgeGroupsToTeams = async (body: object[]) => {
       throw new NoContentError();
     }
 
-    const parsedBody = parseAndReplace(body);
-
+    const parsedBody = await parseAndReplace(body);
     const db = await getDatabase();
     const creationStatus = await db
       .collection('judgeGroupToTeams')
