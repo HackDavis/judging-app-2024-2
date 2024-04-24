@@ -5,5 +5,7 @@ import csvAlgorithm from '@utils/csv-ingestion/csvAlgorithm';
 
 export default async function ingestCSV() {
   const parsedData = await (await csvAlgorithm()).json();
-  await CreateManyTeams(parsedData.body);
+
+  const res = await (await CreateManyTeams(parsedData.body)).json();
+  return { ok: res.ok, error: res.error };
 }
