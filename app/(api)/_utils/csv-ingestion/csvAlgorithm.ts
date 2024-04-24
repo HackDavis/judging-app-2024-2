@@ -15,7 +15,9 @@ interface track {
 
 export default async function csvAlgorithm() {
   const csvFilePath = 'app/(api)/_data/test_projects_2023.csv';
-  const trackstar: string[] = trackData.map((track: track) => track.name);
+  const validTracks: string[] = trackData
+    .map((track: track) => track.name)
+    .filter((t) => t !== 'Best Hack for Social Good');
 
   try {
     const parsePromise = new Promise<parsedRecord[]>((resolve, reject) => {
@@ -28,14 +30,12 @@ export default async function csvAlgorithm() {
             output.push({
               name: data['Project Title'],
               number: parseInt(data['Table Number']),
+              // TODO: tracks order of importance
               tracks: data['Opt-In Prizes']
                 .split(',')
-                .filter(
-                  (track: string) =>
-                    !track.trim().toLowerCase().startsWith('sponsored by') &&
-                    trackstar.find((t) => t === track)
-                )
-                .map((track: string) => track.trim()),
+                .filter((track: string) =>
+                  validTracks.find((t) => t === track)
+                ),
             });
           }
         })
