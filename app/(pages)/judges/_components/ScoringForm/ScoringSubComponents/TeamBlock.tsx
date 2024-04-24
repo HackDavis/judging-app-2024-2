@@ -36,10 +36,14 @@ const NoteBook = () => {
 };
 
 export default function TeamBlock() {
+  /* retrieve these from backend */
+  const tableNumber = 117;
+  const teamName = 'Haptic Hand';
+
   return (
     <div className={styles.teamBlock}>
       <div className={styles.topText}>
-        <h2 className={styles.teamTable}>Table 117</h2>
+        <h2 className={styles.teamTable}>Table {tableNumber}</h2>
 
         <div className={styles.mapContent}>
           <h3 className={styles.mapText}>Find on Map</h3>
@@ -47,7 +51,7 @@ export default function TeamBlock() {
         </div>
       </div>
 
-      <h1 className={styles.teamName}>Haptic Hand</h1>
+      <h1 className={styles.teamName}>{teamName}</h1>
       <div className={styles.guideContent}>
         <p className={styles.guideText}>
           Please refer back to our judging guide for each track. Tracks are on a

@@ -10,7 +10,7 @@ export default function Comments({ categoryScores }: CommentsProps) {
   const [commentText, setCommentText] = useState('');
   const [commentSubmitted, setCommentSubmitted] = useState(false);
 
-  const hasForNegativeScores = (scoresMap: Map<string, number>) => {
+  const hasNegativeScores = (scoresMap: Map<string, number>) => {
     let hasNegativeScore = false;
     scoresMap.forEach((score) => {
       if (score === -1) {
@@ -25,11 +25,14 @@ export default function Comments({ categoryScores }: CommentsProps) {
   };
 
   const onSubmitComment = () => {
-    if (hasForNegativeScores(categoryScores)) {
+    if (hasNegativeScores(categoryScores)) {
       alert('Some categories are not scored. Please score all of them.');
     } else {
       setCommentSubmitted(true);
+
+      /* send scores to backend */
       console.log(categoryScores);
+      console.log(commentText);
     }
   };
 

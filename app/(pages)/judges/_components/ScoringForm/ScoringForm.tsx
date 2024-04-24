@@ -14,6 +14,7 @@ export default function ScoringForm() {
     'Presentation',
   ];
 
+  /* retrieve these from backend */
   const trackScoreNames = [
     'Best Social Hack',
     'Best Beginner Hack',
