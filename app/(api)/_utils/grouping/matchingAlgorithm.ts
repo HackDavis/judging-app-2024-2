@@ -5,6 +5,7 @@ import tracks from '../../_data/tracks.json' assert { type: 'json' };
 interface Match {
   judge_group_id: object;
   team_id: object;
+  round: number;
 }
 
 function createMatches(
@@ -17,10 +18,10 @@ function createMatches(
 
   judgeGroups.forEach((judgeGroup) => {
     if (judgeGroup._id === undefined) return;
-    let count = 0;
+    let count = 1;
     for (const team of teams) {
       if (team._id === undefined) continue;
-      if (count === rounds) break;
+      if (count === rounds + 1) break;
       for (const chosenTrack of team.tracks) {
         const foundTrack = tracks.find((track) => track.name === chosenTrack);
         if (foundTrack === undefined) continue;
@@ -40,6 +41,7 @@ function createMatches(
                 id: team._id,
               },
             },
+            round: count,
           });
           count++;
           break;
@@ -93,17 +95,9 @@ export default function matchingAlgorithm(
     });
   });
 
-  console.log('total tech: %d', totalTech);
-  console.log('total general: %d', totalGeneral);
-  console.log('total design: %d', totalDesign);
-
   const techRounds = Math.ceil(totalTech / techGroups.length);
   const generalRounds = Math.ceil(totalGeneral / generalGroups.length);
   const designRounds = Math.ceil(totalDesign / designGroups.length);
-
-  console.log('tech rounds: %d', techRounds);
-  console.log('general rounds: %d', generalRounds);
-  console.log('design rounds: %d', designRounds);
 
   const techMatches = createMatches(
     techGroups,
