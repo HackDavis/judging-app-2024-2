@@ -1,12 +1,9 @@
 import { type NextRequest } from 'next/server';
-import { revalidatePath } from 'next/cache';
-import { deleteTeam } from '@datalib/teams/deleteTeam';
+import { DeleteTeam } from '@datalib/teams/deleteTeam';
 
 export async function DELETE(
   _: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const team = await deleteTeam(params.id);
-  revalidatePath('/judges');
-  return team;
+  return DeleteTeam(params.id);
 }

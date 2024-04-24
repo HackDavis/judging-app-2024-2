@@ -26,7 +26,6 @@ export async function POST(request: NextRequest) {
     if (d) {
       const dd = atob(d);
       const parsed = JSON.parse(dd);
-      console.log('HELLO');
       body['email'] = parsed?.email ?? body.email;
       body['name'] = parsed?.name ?? body.name;
       body['specialty'] = parsed?.specialty ?? body.specialty;

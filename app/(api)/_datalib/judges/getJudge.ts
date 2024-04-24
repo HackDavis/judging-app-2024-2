@@ -1,11 +1,9 @@
-import { cache } from 'react';
-
 import { NextResponse } from 'next/server';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { HttpError, NotFoundError } from '@utils/response/Errors';
 import { ObjectId } from 'mongodb';
 
-export const GetJudge = cache(async (id: string) => {
+export const GetJudge = async (id: string) => {
   try {
     const object_id = new ObjectId(id);
     const db = await getDatabase();
@@ -29,14 +27,13 @@ export const GetJudge = cache(async (id: string) => {
       { status: error.status || 400 }
     );
   }
-});
+};
 
-export const GetManyJudges = cache(async (query: object = {}) => {
+export const GetManyJudges = async (query: object = {}) => {
   try {
     const db = await getDatabase();
 
     const judge = await db.collection('judges').find(query).toArray();
-
     return NextResponse.json(
       { ok: true, body: judge, error: null },
       { status: 200 }
@@ -48,4 +45,4 @@ export const GetManyJudges = cache(async (query: object = {}) => {
       { status: error.status || 400 }
     );
   }
-});
+};

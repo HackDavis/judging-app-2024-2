@@ -8,6 +8,7 @@ import {
   HttpError,
   NotFoundError,
   DuplicateError,
+  BadRequestError,
 } from '@utils/response/Errors';
 
 export const CreateJudgeGroup = async (body: object) => {
@@ -20,8 +21,12 @@ export const CreateJudgeGroup = async (body: object) => {
     const parsedBody = await parseAndReplace(body);
     const db = await getDatabase();
 
-    // judges dont exist
     const judge_ids = parsedBody.judge_ids;
+    if (judge_ids.length == 0) {
+      throw new BadRequestError('No judge IDs specified in this group.');
+    }
+
+    // judges dont exist
     const judges = await db
       .collection('judges')
       .find({
@@ -43,19 +48,18 @@ export const CreateJudgeGroup = async (body: object) => {
       );
     }
 
-    const types = judges.map((judge: { specialty: string }) => judge.specialty);
-    const typesUnique = new Set(types);
-    let type = 'TN';
-    if (typesUnique.size === 1) {
-      if (typesUnique.has('tech')) {
-        type = 'T';
-      } else if (typesUnique.has('design')) {
-        type = 'D';
-      }
+    const specialties = new Set();
+    judges.forEach((judge: { specialty: string }) =>
+      specialties.add(judge.specialty)
+    );
+
+    if (specialties.size > 1) {
+      throw new BadRequestError('Judge specialties are not the same.');
     }
 
     const creationStatus = await db.collection('judgeGroups').insertOne({
-      type,
+      type: judges[0].specialty,
+      judge_ids: judge_ids,
     });
 
     const judge_group = await db.collection('judgeGroups').findOne({

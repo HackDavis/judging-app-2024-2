@@ -1,12 +1,9 @@
 import { NextRequest } from 'next/server';
-import { deleteSubmission } from '@datalib/submissions/deleteSubmission';
-import { revalidatePath } from 'next/cache';
+import { DeleteSubmission } from '@datalib/submissions/deleteSubmission';
 
 export async function DELETE(
   _: NextRequest,
   { params }: { params: { judge_id: string; team_id: string } }
 ) {
-  const submission = await deleteSubmission(params.judge_id, params.team_id);
-  revalidatePath('/judges');
-  return submission;
+  return DeleteSubmission(params.judge_id, params.team_id);
 }
