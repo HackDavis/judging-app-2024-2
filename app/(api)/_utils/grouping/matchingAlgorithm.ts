@@ -16,14 +16,14 @@ function createMatches(
   const matches: Match[] = [];
 
   judgeGroups.forEach((judgeGroup) => {
+    if (judgeGroup._id === undefined) return;
     let count = 0;
     for (const team of teams) {
-      if (count == rounds) break;
+      if (team._id === undefined) continue;
+      if (count === rounds) break;
       for (const chosenTrack of team.tracks) {
-        if (chosenTrack === 'Best Hack for Social Good') continue;
-        if (judgeGroup._id == undefined) continue;
         const foundTrack = tracks.find((track) => track.name === chosenTrack);
-        if (foundTrack == undefined) continue;
+        if (foundTrack === undefined) continue;
 
         if (foundTrack.type === type) {
           const idx = team.tracks.indexOf(chosenTrack);
@@ -55,6 +55,12 @@ export default function matchingAlgorithm(
   judgeGroups: JudgeGroup[],
   teams: Team[]
 ) {
+  const filteredTeams = teams.map((team) => {
+    team.tracks.splice(2);
+    while (team.tracks.length < 2) team.tracks.push('No Track');
+    return team;
+  });
+
   const techGroups = judgeGroups.filter((group) => group.type === 'tech');
   const generalGroups = judgeGroups.filter((group) => group.type === 'general');
   const designGroups = judgeGroups.filter((group) => group.type === 'design');
@@ -63,18 +69,15 @@ export default function matchingAlgorithm(
   let totalGeneral = 0;
   let totalDesign = 0;
 
-  teams.forEach((team) => {
+  filteredTeams.forEach((team) => {
     team.tracks.forEach((chosenTrack) => {
       const foundTrack = tracks.find((track) => track.name === chosenTrack);
-
-      if (
-        foundTrack == undefined ||
-        foundTrack.name === 'Best Hack for Social Good'
-      ) {
+      if (foundTrack === undefined) {
+        console.log('Warning: Undefined track found.');
         return;
       }
 
-      switch (foundTrack!.type) {
+      switch (foundTrack.type) {
         case 'tech':
           totalTech++;
           break;
@@ -90,20 +93,33 @@ export default function matchingAlgorithm(
     });
   });
 
+  console.log('total tech: %d', totalTech);
+  console.log('total general: %d', totalGeneral);
+  console.log('total design: %d', totalDesign);
+
   const techRounds = Math.ceil(totalTech / techGroups.length);
   const generalRounds = Math.ceil(totalGeneral / generalGroups.length);
   const designRounds = Math.ceil(totalDesign / designGroups.length);
 
-  const techMatches = createMatches(techGroups, teams, 'tech', techRounds);
+  console.log('tech rounds: %d', techRounds);
+  console.log('general rounds: %d', generalRounds);
+  console.log('design rounds: %d', designRounds);
+
+  const techMatches = createMatches(
+    techGroups,
+    filteredTeams,
+    'tech',
+    techRounds
+  );
   const generalMatches = createMatches(
     generalGroups,
-    teams,
+    filteredTeams,
     'general',
     generalRounds
   );
   const designMatches = createMatches(
     designGroups,
-    teams,
+    filteredTeams,
     'design',
     designRounds
   );
