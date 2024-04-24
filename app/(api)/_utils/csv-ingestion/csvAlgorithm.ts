@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import csv from 'csv-parser';
 import { NextResponse } from 'next/server';
+import trackData from '../../_data/tracks.json' assert { type: 'json' };
 
 interface parsedRecord {
   name: string;
@@ -8,8 +9,13 @@ interface parsedRecord {
   tracks: string[];
 }
 
-export default async function GetTeams() {
+interface track {
+  name: string;
+}
+
+export default async function csvAlgorithm() {
   const csvFilePath = 'app/(api)/_data/test_projects_2023.csv';
+  const trackstar: string[] = trackData.map((track: track) => track.name);
 
   try {
     const parsePromise = new Promise<parsedRecord[]>((resolve, reject) => {
@@ -26,7 +32,8 @@ export default async function GetTeams() {
                 .split(',')
                 .filter(
                   (track: string) =>
-                    !track.trim().toLowerCase().startsWith('sponsored by')
+                    !track.trim().toLowerCase().startsWith('sponsored by') &&
+                    trackstar.find((t) => t === track)
                 )
                 .map((track: string) => track.trim()),
             });
