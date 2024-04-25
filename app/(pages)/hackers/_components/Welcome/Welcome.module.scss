@@ -13,9 +13,6 @@ $pad-size: 16px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 375px;
-    transform: translateY(5%);
-    // padding: $pad-size;
 
     &_title{
         margin-top: 58px;
@@ -50,5 +47,6 @@ $pad-size: 16px;
         // border: 1px solid white;
         position: relative;
         margin-left: -$pad-size;
+        transform: translateY(10%);
     }
 }
