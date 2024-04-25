@@ -33,7 +33,7 @@ const Submission = {
       bsonType: 'array',
       description: 'correlations must be an array of correlations',
       minItems: 1,
-      maxItems: 4,
+      maxItems: 5,
       items: {
         bsonType: 'object',
         required: ['track', 'score'],

@@ -1,11 +1,15 @@
 import JudgeGroup from '@typeDefs/judgeGroups';
 import Team from '@typeDefs/teams';
 import tracks from '../../_data/tracks.json' assert { type: 'json' };
+import JudgeGroupToTeam from '@typeDefs/judgeGroupToTeam';
 
-interface Match {
-  judge_group_id: object;
-  team_id: object;
-}
+const shuffle = (array: Team[]) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
 
 function createMatches(
   judgeGroups: JudgeGroup[],
@@ -13,17 +17,18 @@ function createMatches(
   type: string,
   rounds: number
 ) {
-  const matches: Match[] = [];
+  const matches: JudgeGroupToTeam[] = [];
 
   judgeGroups.forEach((judgeGroup) => {
-    let count = 0;
+    if (judgeGroup._id === undefined) return;
+    let count = 1;
+    teams = shuffle(teams);
     for (const team of teams) {
-      if (count == rounds) break;
+      if (team._id === undefined) continue;
+      if (count === rounds + 1) break;
       for (const chosenTrack of team.tracks) {
-        if (chosenTrack === 'Best Hack for Social Good') continue;
-        if (judgeGroup._id == undefined) continue;
         const foundTrack = tracks.find((track) => track.name === chosenTrack);
-        if (foundTrack == undefined) continue;
+        if (foundTrack === undefined) continue;
 
         if (foundTrack.type === type) {
           const idx = team.tracks.indexOf(chosenTrack);
@@ -40,6 +45,7 @@ function createMatches(
                 id: team._id,
               },
             },
+            round: count,
           });
           count++;
           break;
@@ -55,6 +61,12 @@ export default function matchingAlgorithm(
   judgeGroups: JudgeGroup[],
   teams: Team[]
 ) {
+  const filteredTeams = teams.map((team) => {
+    team.tracks.splice(2);
+    while (team.tracks.length < 2) team.tracks.push('No Track');
+    return team;
+  });
+
   const techGroups = judgeGroups.filter((group) => group.type === 'tech');
   const generalGroups = judgeGroups.filter((group) => group.type === 'general');
   const designGroups = judgeGroups.filter((group) => group.type === 'design');
@@ -63,18 +75,15 @@ export default function matchingAlgorithm(
   let totalGeneral = 0;
   let totalDesign = 0;
 
-  teams.forEach((team) => {
+  filteredTeams.forEach((team) => {
     team.tracks.forEach((chosenTrack) => {
       const foundTrack = tracks.find((track) => track.name === chosenTrack);
-
-      if (
-        foundTrack == undefined ||
-        foundTrack.name === 'Best Hack for Social Good'
-      ) {
+      if (foundTrack === undefined) {
+        console.log('Warning: Undefined track found.');
         return;
       }
 
-      switch (foundTrack!.type) {
+      switch (foundTrack.type) {
         case 'tech':
           totalTech++;
           break;
@@ -94,16 +103,21 @@ export default function matchingAlgorithm(
   const generalRounds = Math.ceil(totalGeneral / generalGroups.length);
   const designRounds = Math.ceil(totalDesign / designGroups.length);
 
-  const techMatches = createMatches(techGroups, teams, 'tech', techRounds);
+  const techMatches = createMatches(
+    techGroups,
+    filteredTeams,
+    'tech',
+    techRounds
+  );
   const generalMatches = createMatches(
     generalGroups,
-    teams,
+    filteredTeams,
     'general',
     generalRounds
   );
   const designMatches = createMatches(
     designGroups,
-    teams,
+    filteredTeams,
     'design',
     designRounds
   );

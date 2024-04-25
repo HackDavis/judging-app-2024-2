@@ -1,10 +1,8 @@
 interface TeamInt {
-  number: number;
-  tracks: string[];
-  name: string;
-  judge_pair_ids?: string[];
-  submission_ids?: string[];
   _id: string;
+  number: number;
+  name: string;
+  tracks: string[];
 }
 
 export default TeamInt;

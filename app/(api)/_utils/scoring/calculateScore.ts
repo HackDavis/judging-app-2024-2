@@ -11,15 +11,16 @@ export default function calculateScore(
   correlations: Correlation[]
 ) {
   const finalScores = chosenTracks.map((chosenTrack) => {
-    const weights = tracks.find((track) => track.name == chosenTrack);
-    const score = weights?.weights.reduce((sum, weight, i) => {
+    const weights = tracks.find((track) => track.name == chosenTrack)?.weights;
+    if (weights === undefined) return -1;
+    const score = weights.reduce((sum, weight, i) => {
       return sum + weight * scores[i];
     }, 0);
     const correlationWeight = correlations.find(
       (correlation) => correlation.track == chosenTrack
     )?.score;
 
-    if (correlationWeight == undefined || score == undefined) {
+    if (correlationWeight === undefined || score === undefined) {
       return -1;
     }
 

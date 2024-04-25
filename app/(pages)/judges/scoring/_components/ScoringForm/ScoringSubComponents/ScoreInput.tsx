@@ -1,19 +1,16 @@
-import { Dispatch, SetStateAction } from 'react';
 import styles from './ScoreInput.module.scss';
 import ScoringCard from './ScoringCard/ScoringCard';
 
 interface ScoringInputProps {
   inputNameHeader: string;
   inputScoreNames: string[];
-  categoryScores: Map<string, number>;
-  setCategoryScores: Dispatch<SetStateAction<Map<string, number>>>;
+  setReady: (prev: any) => void;
 }
 
 export default function ScoringInput({
   inputNameHeader,
   inputScoreNames,
-  categoryScores,
-  setCategoryScores,
+  setReady,
 }: ScoringInputProps) {
   return (
     <div className={styles.inputContainer}>
@@ -23,8 +20,7 @@ export default function ScoringInput({
           categoryName={category}
           index={index + 1}
           key={index}
-          categoryScores={categoryScores}
-          setCategoryScores={setCategoryScores}
+          setReady={setReady}
         />
       ))}
     </div>
