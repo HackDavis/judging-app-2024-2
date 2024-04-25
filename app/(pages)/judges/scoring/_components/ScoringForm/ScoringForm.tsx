@@ -66,7 +66,7 @@ export default function ScoringForm({
           setReady={setReady}
         />
         <div>
-          <Comments submission={submission} />
+          <Comments _={submission} />
           <Submission canSubmit={ready <= 0} error={updateState.error} />
         </div>
       </form>
