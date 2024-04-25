@@ -25,7 +25,7 @@ export function useNextHelpTimer() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (event) {
+      if (event.body) {
         setTimeTill(Math.floor((event.body.utc - Date.now()) / 1000));
         if (event.body.utc < Date.now()) {
           setEnded(true);
