@@ -47,14 +47,8 @@ export default async function csvAlgorithm() {
         .pipe(csv())
         .on('data', (data) => {
           if (data['Table Number'] !== '') {
-            const track1 =
-              data[
-                'From The Tracks You Have Selected (Upto 4 Tracks) Please Choose The Top 2 Prize Tracks.'
-              ].trim();
-            const track2 =
-              data[
-                'Choose The Second Prize Track From Your Top 2 Prize Tracks.'
-              ].trim();
+            const track1 = data['Track #1'].trim();
+            const track2 = data['Track #2'].trim();
 
             const tracksInOrder: string[] = sortTracks(
               track1,
