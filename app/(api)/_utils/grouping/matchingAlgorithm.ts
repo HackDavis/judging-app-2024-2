@@ -1,12 +1,15 @@
 import JudgeGroup from '@typeDefs/judgeGroups';
 import Team from '@typeDefs/teams';
 import tracks from '../../_data/tracks.json' assert { type: 'json' };
+import JudgeGroupToTeam from '@typeDefs/judgeGroupToTeam';
 
-interface Match {
-  judge_group_id: object;
-  team_id: object;
-  round: number;
-}
+const shuffle = (array: Team[]) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
 
 function createMatches(
   judgeGroups: JudgeGroup[],
@@ -14,11 +17,12 @@ function createMatches(
   type: string,
   rounds: number
 ) {
-  const matches: Match[] = [];
+  const matches: JudgeGroupToTeam[] = [];
 
   judgeGroups.forEach((judgeGroup) => {
     if (judgeGroup._id === undefined) return;
     let count = 1;
+    teams = shuffle(teams);
     for (const team of teams) {
       if (team._id === undefined) continue;
       if (count === rounds + 1) break;
