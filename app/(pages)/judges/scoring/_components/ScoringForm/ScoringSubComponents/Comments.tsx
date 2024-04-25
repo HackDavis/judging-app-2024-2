@@ -3,11 +3,7 @@ import { useState } from 'react';
 import SubmissionInt from '@typeDefs/submissions';
 import styles from './Comments.module.scss';
 
-export default function Comments({
-  submission,
-}: {
-  submission: SubmissionInt;
-}) {
+export default function Comments({ _ }: { _: SubmissionInt }) {
   const [commentText, setCommentText] = useState('');
 
   const onCommentType = (e: any) => {
