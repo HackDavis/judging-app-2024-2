@@ -11,24 +11,15 @@ interface Team {
 }
 
 export default function ProjectsList({ activeTab }: { activeTab: number }) {
-  const { loading, submissions } = useSubmissions();
+  const { loading, judgedTeams, unjudgedTeams } = useSubmissions();
   if (loading) {
     return 'loading...';
   }
-  const teams = submissions.ok ? submissions.body : [];
-
-  const scoredProjects = teams.filter((team: { scores?: string[] }) =>
-    team.scores ? true : false
-  );
-
-  const unjudgedProjects = teams.filter((team: { scores?: string[] }) =>
-    team.scores ? false : true
-  );
 
   const renderScoredProjects = () => {
     return (
       <div className={styles.container}>
-        {scoredProjects.map((project: Team, index: number) => (
+        {judgedTeams.map((project: Team, index: number) => (
           <ProjectsCard
             key={index}
             num={project.number}
@@ -42,7 +33,7 @@ export default function ProjectsList({ activeTab }: { activeTab: number }) {
   const renderuUnjudgedProjects = () => {
     return (
       <div className={styles.container}>
-        {unjudgedProjects.map((project: Team, index: number) => (
+        {unjudgedTeams.map((project: Team, index: number) => (
           <ProjectsCard
             key={index}
             num={project.number}
