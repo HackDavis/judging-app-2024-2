@@ -12,7 +12,7 @@ import { verifyHMACSignature } from '@utils/invite/hmac';
 
 export async function POST(request: NextRequest) {
   try {
-    const { data: d, sig: s } = getQueries(request);
+    const { data: d, sig: s } = await getQueries(request);
 
     const judgesRes = await GetManyJudges();
     const judges = await judgesRes.json();
