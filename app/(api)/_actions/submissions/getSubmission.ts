@@ -12,6 +12,7 @@ export async function getSubmission(judge_id: string, team_id: string) {
 }
 
 export async function getManySubmissions(query: object = {}) {
-  const submissionRes = await GetManySubmissions(parseAndReplace(query));
+  const newQuery = await parseAndReplace(query);
+  const submissionRes = await GetManySubmissions(newQuery);
   return submissionRes.json();
 }

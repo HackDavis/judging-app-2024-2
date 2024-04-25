@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from './useAuth';
 import { getManySubmissions } from '@actions/submissions/getSubmission';
+import { getManyTeams } from '@actions/teams/getTeams';
 
 export function useSubmissions(): any {
   const { user, loading: authLoading } = useAuth();
@@ -17,7 +18,23 @@ export function useSubmissions(): any {
           },
         },
       });
-      setSubmssions(submissions);
+      if (submissions.ok) {
+        const team_ids = submissions.body.map(
+          (body: { team_id: string }) => body.team_id
+        );
+        const teams = await getManyTeams({
+          _id: {
+            $in: {
+              '*convertIds': {
+                ids: team_ids,
+              },
+            },
+          },
+        });
+        setSubmssions(teams);
+      } else {
+        setSubmssions(submissions);
+      }
       setLoading(false);
     };
     if (!authLoading && user) {
