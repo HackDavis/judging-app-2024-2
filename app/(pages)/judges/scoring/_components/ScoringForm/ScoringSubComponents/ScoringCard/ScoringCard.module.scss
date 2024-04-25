@@ -34,6 +34,7 @@
             height: 40px;
             border-radius: 50%; /* Make the border radius half of the width/height to create a circle */
             border: 2px solid black;
+            cursor: pointer;
         }
         .scoringCircleFilled {
             display: flex;
@@ -46,6 +47,7 @@
             color: white;
             background-color: #005271;
             font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
         }
         .scoringCircle:hover {
             border: 3px solid #005271;;
