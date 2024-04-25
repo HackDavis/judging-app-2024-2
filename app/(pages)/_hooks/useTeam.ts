@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { getTeam } from '@actions/teams/getTeams';
 
-export function useSubmissions(team_id: string): any {
+export function useTeam(team_id: string): any {
   const [team, setTeam] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
