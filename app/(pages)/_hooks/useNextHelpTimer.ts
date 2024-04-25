@@ -13,21 +13,23 @@ export function useNextHelpTimer() {
     if (ended) {
       const getNextHelperTimerWrapper = async () => {
         const time = await getNextTimer();
-        setEvent(time);
-        setTimeTill(Math.floor((time.body.utc - Date.now()) / 1000));
-        setPending(false);
-        setEnded(false);
+        if (time.body) {
+          setEvent(time.body);
+          setTimeTill(Math.floor((time.body.utc - Date.now()) / 1000));
+          setPending(false);
+          setEnded(false);
+        }
       };
 
       getNextHelperTimerWrapper();
     }
-  }, [ended]);
+  }, [ended, event]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (event.body) {
-        setTimeTill(Math.floor((event.body.utc - Date.now()) / 1000));
-        if (event.body.utc < Date.now()) {
+      if (event) {
+        setTimeTill(Math.floor((event.utc - Date.now()) / 1000));
+        if (event.utc < Date.now()) {
           setEnded(true);
         }
       }
