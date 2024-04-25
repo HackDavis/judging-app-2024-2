@@ -4,14 +4,14 @@ import styles from './HubHero.module.scss';
 
 import Image from 'next/image';
 
-const Thing1 = (
+const Shape1 = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="242"
     height="254"
     viewBox="0 0 242 254"
     fill="none"
-    className={styles.thing_1_image}
+    className={styles.shape_1}
   >
     <path
       opacity="0.2"
@@ -20,14 +20,14 @@ const Thing1 = (
     />
   </svg>
 );
-const Thing2 = (
+const Shape2 = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="192"
     height="91"
     viewBox="0 0 192 91"
     fill="none"
-    className={styles.thing_2_image}
+    className={styles.shape_2}
   >
     <path
       opacity="0.15"
@@ -38,14 +38,14 @@ const Thing2 = (
   </svg>
 );
 
-const Thing3 = (
+const Shape3 = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="69"
     height="76"
     viewBox="0 0 69 76"
     fill="none"
-    className={styles.thing_3_image}
+    className={styles.shape_3}
   >
     <g opacity="0.2">
       <path
@@ -69,9 +69,9 @@ export default function HubHero({
   return (
     <div className={styles.container}>
       <LogoutButton />
-      {Thing1}
-      {Thing2}
-      {Thing3}
+      {Shape1}
+      {Shape2}
+      {Shape3}
 
       <div className={styles.welcome_text}>
         <p>Welcome to HackDavis,</p>
