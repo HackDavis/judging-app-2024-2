@@ -33,5 +33,11 @@ function calculateTrackScore(
 }
 
 export default function calculateScores(team: Team, submissions: Submission[]) {
-  const chosenTracks = team.tracks;
+  for (const submission of submissions) {
+    calculateTrackScore(
+      team.tracks,
+      submission.scores,
+      submission.correlations as Correlation[]
+    );
+  }
 }
