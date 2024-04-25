@@ -5,11 +5,25 @@ import judge_cow from '/public/hackers/judge_cow.svg';
 import judge_wig from '/public/hackers/judge_wig.svg';
 import judge_gavel from '/public/hackers/judge_gavel.svg';
 import judge_sparkles from '/public/hackers/judge_sparkles.svg';
+import bg_bottom from '/public/hackers/bg_bottom.svg';
+import bg_top from '/public/hackers/bg_top.svg';
+import bg_topleft from '/public/hackers/bg_topleft.svg';
 
 export default function Welcome() {
   return (
     <div className={styles.welcome}>
       <div className={styles.container}>
+        <Image
+          src={bg_bottom}
+          alt="bottom blurb"
+          className={styles.bottom_blurb}
+        />
+        <Image src={bg_top} alt="top blurb" className={styles.top_blurb} />
+        <Image
+          src={bg_topleft}
+          alt="top left blurb"
+          className={styles.top_left_blurb}
+        />
         <div className={styles.container_title}>
           <h2>Welcome to HackDavis,</h2>
           <h1>Hackers!</h1>

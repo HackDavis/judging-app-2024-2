@@ -13,6 +13,7 @@ $pad-size: 16px;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    position: relative;
 
     &_title{
         margin-top: 58px;
@@ -49,4 +50,23 @@ $pad-size: 16px;
         margin-left: -$pad-size;
         transform: translateY(10%);
     }
+}
+
+.top_blurb {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.top_left_blurb {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.bottom_blurb {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    opacity: 0.3;
 }
