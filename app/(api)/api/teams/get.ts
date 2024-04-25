@@ -4,6 +4,6 @@ import getQueries from '@utils/request/getQueries';
 import { GetManyTeams } from '@datalib/teams/getTeam';
 
 export async function GET(request: NextRequest) {
-  const queries = getQueries(request);
+  const queries = await getQueries(request);
   return GetManyTeams(queries);
 }
