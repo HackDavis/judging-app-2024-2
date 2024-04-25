@@ -6,6 +6,23 @@
     flex-direction: column;
     justify-content: center;
     gap: var(--small-spacer);
+    position: relative;
+
+    .thing_1_image {
+        position: absolute;
+        top: 0px;
+    }
+    .thing_2_image {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+    .thing_3_image {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+
+    }
 
     .welcome_text {
         padding: 68px 13px 0px 13px;
