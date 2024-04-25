@@ -1,6 +1,7 @@
 const JudgeGroupToTeam = {
   bsonType: 'object',
   title: 'JudgeGroupToTeam Object Validation',
+  required: ['judge_group_id', 'team_id', 'round'],
   properties: {
     _id: {
       bsonType: 'objectId',
@@ -13,6 +14,11 @@ const JudgeGroupToTeam = {
     team_id: {
       bsonType: 'objectId',
       description: 'team_id must be an ObjectId',
+    },
+    round: {
+      bsonType: 'int',
+      minimum: 1,
+      description: 'round must be an integer',
     },
   },
   additionalProperties: false,
