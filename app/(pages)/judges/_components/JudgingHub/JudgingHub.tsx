@@ -9,12 +9,18 @@ const projects = [
   {
     num: 1,
     name: 'haptic hand',
-    categories: ['not sure', 'something else', 'another category'],
+    categories: [
+      'Beginner',
+      'Best Interactive Media Hack',
+      'Best Design',
+      'Best Design',
+      'Best Design',
+    ],
   },
   {
     num: 70,
     name: 'haptic hand',
-    categories: ['not sure', 'something else'],
+    categories: ['not sure', 'something else', 'Best Design'],
   },
   {
     num: 75,

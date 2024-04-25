@@ -12,6 +12,20 @@ function JudgingCard({ project }: { project: any }) {
     <div className={styles.card_container}>
       <h2 className={styles.project_num}>#{project.num}</h2>
       <p className={styles.project_name}>{project.name}</p>
+
+      {project.categories[0] && (
+        <div className={styles.project_category}>{project.categories[0]}</div>
+      )}
+
+      {project.categories[1] && (
+        <div className={styles.project_category}>{project.categories[1]}</div>
+      )}
+
+      {project.categories.length > 2 && (
+        <div className={styles.category_bubble}>{`+${
+          project.categories.length - 2
+        }`}</div>
+      )}
     </div>
   );
 }
