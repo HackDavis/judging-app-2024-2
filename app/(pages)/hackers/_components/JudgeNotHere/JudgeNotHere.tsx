@@ -1,5 +1,4 @@
 'use client';
-// import Image from 'next/image';
 import styles from './JudgeNotHere.module.scss';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { useNextHelpTimer } from '@hooks/useNextHelpTimer';

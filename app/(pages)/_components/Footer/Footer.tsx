@@ -1,13 +1,14 @@
 import styles from './Footer.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import {
-  faMedium,
-  faFacebookF,
-  faTwitter,
-  faInstagram,
-  faDiscord,
-} from '@fortawesome/free-brands-svg-icons';
+  FaMedium,
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaDiscord,
+  FaEnvelope,
+} from 'react-icons/fa';
+
+import logo from '/public/hackers/hdLogoWhite.svg';
 
 import Image from 'next/image';
 
@@ -15,60 +16,54 @@ export default function Footer() {
   return (
     <footer className={styles.container}>
       <Image
-        src="hdLogoWhite.svg"
+        src={logo}
         alt="hackdavis Logo"
-        width={103}
-        height={62}
+        width={50}
         className={styles.hdLogoWhite}
       />
       <div className={styles.brandIcons}>
-        <a className={styles.singleIcon} href="mailto:team@hackdavis.io">
-          <FontAwesomeIcon icon={faEnvelope} />
+        <a href="mailto:team@hackdavis.io">
+          <FaEnvelope />
         </a>
         <a
-          className={styles.singleIcon}
           href="https://medium.com/@HackDavis"
           target="#"
           rel="noopener noreferrer"
           aria-label="@HackDavis on Medium"
         >
-          <FontAwesomeIcon icon={faMedium} />
+          <FaMedium />
         </a>
         <a
-          className={styles.fbIcon}
           href="https://www.facebook.com/HackDavis"
           target="#"
           rel="noopener noreferrer"
           aria-label="HackDavis on Facebook"
         >
-          <FontAwesomeIcon icon={faFacebookF} />
+          <FaFacebookF />
         </a>
         <a
-          className={styles.singleIcon}
           href="https://twitter.com/hack_davis"
           target="#"
           rel="noopener noreferrer"
           aria-label="@hack_davis on Twitter"
         >
-          <FontAwesomeIcon icon={faTwitter} />
+          <FaTwitter />
         </a>
         <a
-          className={styles.singleIcon}
           href="https://www.instagram.com/hackdavis"
           target="#"
           rel="noopener noreferrer"
           aria-label="@hackdavis on Instagram"
         >
-          <FontAwesomeIcon icon={faInstagram} />
+          <FaInstagram />
         </a>
         <a
-          className={styles.singleIcon}
           href="https://discord.gg/wc6QQEc"
           target="#"
           rel="noopener noreferrer"
           aria-label="HackDavis Discord server"
         >
-          <FontAwesomeIcon icon={faDiscord} />
+          <FaDiscord />
         </a>
       </div>
       <p className={styles.copyright}>

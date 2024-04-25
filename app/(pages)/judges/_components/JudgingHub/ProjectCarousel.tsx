@@ -6,27 +6,31 @@ import styles from './ProjectCarousel.module.scss';
 import useEmblaCarousel from 'embla-carousel-react';
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 import { useCarouselProgress } from '@hooks/useCarouselProgress';
+import Link from 'next/link';
 
 function JudgingCard({ project }: { project: any }) {
   return (
-    <div className={styles.card_container}>
-      <h2 className={styles.project_num}>#{project.num}</h2>
+    <Link
+      href={`/judges/scoring/${project._id}`}
+      className={styles.card_container}
+    >
+      <h2 className={styles.project_num}>#{project.number}</h2>
       <p className={styles.project_name}>{project.name}</p>
 
-      {project.categories[0] && (
-        <div className={styles.project_category}>{project.categories[0]}</div>
+      {project.tracks[0] && (
+        <div className={styles.project_category}>{project.tracks[0]}</div>
       )}
 
-      {project.categories[1] && (
-        <div className={styles.project_category}>{project.categories[1]}</div>
+      {project.tracks[1] && (
+        <div className={styles.project_category}>{project.tracks[1]}</div>
       )}
 
-      {project.categories.length > 2 && (
+      {project.tracks.length > 2 && (
         <div className={styles.category_bubble}>{`+${
-          project.categories.length - 2
+          project.tracks.length - 2
         }`}</div>
       )}
-    </div>
+    </Link>
   );
 }
 

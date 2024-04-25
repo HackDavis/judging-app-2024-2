@@ -1,14 +1,22 @@
-import { Metadata } from 'next';
+'use client';
 import { AuthProvider } from '../_contexts/AuthContext';
 
-export const metadata: Metadata = {
-  title: 'HackDavis Judge View',
+import ProtectedDisplay from '@components/ProtectedDisplay/ProtectedDisplay';
+import LoginPage from './_components/LoginPage/LoginPage';
+
+type Props = {
+  children: React.ReactNode;
 };
 
-export default function JudgesLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <AuthProvider>{children}</AuthProvider>;
+export default function JudgesLayout({ children }: Props) {
+  return (
+    <AuthProvider>
+      <ProtectedDisplay
+        loadingDisplay={'loading...'}
+        failDisplay={<LoginPage />}
+      >
+        {children}
+      </ProtectedDisplay>
+    </AuthProvider>
+  );
 }

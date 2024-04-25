@@ -1,15 +1,14 @@
+import Link from 'next/link';
 import styles from './JudgingList.module.scss';
 import ProjectCarousel from './ProjectCarousel';
 
 const numProjects = 4;
 
 export default function JudgingList({
-  //   user,
-  //   loading,
+  loading,
   projects,
 }: {
-  //   user: object;
-  //   loading: boolean;
+  loading: boolean;
   projects: object[];
 }) {
   return (
@@ -20,9 +19,9 @@ export default function JudgingList({
           You have <span>{numProjects}</span> left to judge:
         </p>
       </div>
-      <ProjectCarousel projects={projects} />
-      <button className={styles.projects_button}>
-        View All Projects{' '}
+      {loading ? 'loading...' : <ProjectCarousel projects={projects} />}
+      <Link href="/judges/projects" className={styles.projects_button}>
+        View All Projects
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="21"
@@ -38,7 +37,7 @@ export default function JudgingList({
             strokeLinejoin="round"
           />
         </svg>
-      </button>
+      </Link>
     </div>
   );
 }
