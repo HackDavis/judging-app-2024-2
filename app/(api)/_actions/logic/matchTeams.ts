@@ -1,10 +1,11 @@
 'use server';
-import { GetManyJudgeGroups } from '@datalib/judgeGroups/getJudgeGroup';
-import { GetManyTeams } from '@datalib/teams/getTeam';
+
 import { LinkManyJudgeGroupsToTeams } from '@datalib/judgeGroups/linkJudgeGroupToTeam';
 import matchingAlgorithm from '@utils/grouping/matchingAlgorithm';
 import JudgeGroupToTeam from '@typeDefs/judgeGroupToTeam';
 import parseAndReplace from '@utils/request/parseAndReplace';
+import { getManyJudgeGroups } from '@actions/judgeGroups/getJudgeGroup';
+import { getManyTeams } from '@actions/teams/getTeams';
 
 function checkMatches(matches: JudgeGroupToTeam[], teamsLength: number) {
   if (matches.length < 2 * teamsLength) return false;
@@ -27,8 +28,8 @@ function checkMatches(matches: JudgeGroupToTeam[], teamsLength: number) {
 }
 
 export default async function matchTeams() {
-  const judgeGroups = (await (await GetManyJudgeGroups()).json()).body;
-  const teams = (await (await GetManyTeams()).json()).body;
+  const judgeGroups = (await getManyJudgeGroups()).body;
+  const teams = (await getManyTeams()).body;
 
   let matches = matchingAlgorithm(
     judgeGroups,

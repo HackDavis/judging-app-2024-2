@@ -3,15 +3,15 @@ import { ObjectId } from 'mongodb';
 import { getDatabase } from '@utils/mongodb/mongoClient.mjs';
 import { NotFoundError, HttpError } from '@utils/response/Errors';
 
-export const DeleteAllJudgeGroups = async () => {
+export const DeleteManyJudgeGroups = async (query: object = {}) => {
   try {
     const db = await getDatabase();
 
-    await db.collection('judgeGroups').deleteMany({});
+    await db.collection('judgeGroups').deleteMany(query);
 
     await db
       .collection('judges')
-      .updateMany({}, { $unset: { judge_group_id: '' } });
+      .updateMany(query, { $unset: { judge_group_id: '' } });
 
     return NextResponse.json(
       { ok: true, body: 'Judge Groups deleted', error: null },

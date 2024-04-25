@@ -1,3 +1,5 @@
+import Team from '@typeDefs/teams';
+import Submission from '@typeDefs/submissions';
 import tracks from '../../_data/tracks.json' assert { type: 'json' };
 
 interface Correlation {
@@ -5,7 +7,7 @@ interface Correlation {
   score: number;
 }
 
-export default function calculateScore(
+function calculateTrackScore(
   chosenTracks: string[],
   scores: number[],
   correlations: Correlation[]
@@ -28,4 +30,8 @@ export default function calculateScore(
   });
 
   return finalScores;
+}
+
+export default function calculateScores(team: Team, submissions: Submission[]) {
+  const chosenTracks = team.tracks;
 }
