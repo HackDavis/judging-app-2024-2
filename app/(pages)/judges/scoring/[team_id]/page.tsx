@@ -16,5 +16,5 @@ export default function Scoring({ params }: { params: { team_id: string } }) {
     return 'something went wrong.';
   }
 
-  return <ScoringForm team={team.body} _={submission.body} />;
+  return <ScoringForm team={team.body} submission={submission.body} />;
 }

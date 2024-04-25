@@ -1,18 +1,16 @@
 'use client';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import styles from './ScoringCard.module.scss';
 
 interface ScoringCardProps {
   categoryName: string;
   index: number;
-  categoryScores: Map<string, number>;
-  setCategoryScores: Dispatch<SetStateAction<Map<string, number>>>;
+  setReady: (prev: any) => void;
 }
 export default function ScoringCard({
   categoryName,
   index,
-  categoryScores,
-  setCategoryScores,
+  setReady,
 }: ScoringCardProps) {
   const scores = [1, 2, 3, 4, 5];
 
@@ -20,11 +18,12 @@ export default function ScoringCard({
 
   const enterChoice = (index: number) => {
     return () => {
+      if (pickedScore === -1) {
+        setReady((prev: any) => {
+          return prev - 1;
+        });
+      }
       setPickedScore(index);
-
-      const updatedMap = new Map(categoryScores);
-      updatedMap.set(categoryName, index + 1);
-      setCategoryScores(updatedMap);
     };
   };
   return (
@@ -35,16 +34,17 @@ export default function ScoringCard({
           <div
             key={index}
             className={
-              index == pickedScore
+              index + 1 == pickedScore
                 ? styles.scoringCircleFilled
                 : styles.scoringCircle
             }
-            onClick={enterChoice(index)}
+            onClick={enterChoice(score)}
           >
             {score}
           </div>
         ))}
       </div>
+      <input name={categoryName} type="hidden" value={pickedScore} />
     </div>
   );
 }
