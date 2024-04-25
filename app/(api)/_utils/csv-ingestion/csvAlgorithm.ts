@@ -14,7 +14,7 @@ interface track {
 }
 
 export default async function csvAlgorithm() {
-  const csvFilePath = 'app/(api)/_data/test_projects_2023.csv';
+  const csvFilePath = 'app/(api)/_data/2024_data.csv';
   const validTracks: string[] = trackData
     .map((track: track) => track.name)
     .filter((t) => t !== 'Best Hack for Social Good');
