@@ -2,24 +2,20 @@
 
 $bg-color: #005271;
 $pad-size: 16px;
-$mobile-width: 390px;
 
 .welcome{
-    // display: flex;
     justify-content: center;
-    // align-items: center;
     width: 100%;
-    // height: calc(100vh - var(--navbar-height));
     overflow: hidden;
 }
 .container {
     background-color: $bg-color;
-    max-width: $mobile-width;
     display: flex;
     flex-direction: row;
     justify-content: center;
     height: 375px;
-    padding: $pad-size;
+    transform: translateY(5%);
+    // padding: $pad-size;
 
     &_title{
         margin-top: 58px;
@@ -35,7 +31,7 @@ $mobile-width: 390px;
 
         h1{
             margin-top: 3px;
-            margin-left: 48px;
+            padding-left: 48px;
             // font-family: Proxima Nova;
             font-size: 64px;
             font-style: normal;

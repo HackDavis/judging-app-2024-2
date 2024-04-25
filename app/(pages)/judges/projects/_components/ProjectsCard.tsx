@@ -1,25 +1,22 @@
 'use client';
 
+import Link from 'next/link';
 // import Category from './Category';
 import styles from './ProjectsCard.module.scss';
 
 interface ProjectsCardProps {
+  team_id: string;
   num: number;
   name: string;
   categories: string[];
 }
 
 export default function ProjectsCard({
+  team_id,
   num,
   name,
   categories,
 }: ProjectsCardProps) {
-  //   const project = {
-  //     num: 1,
-  //     name: 'sc haptic hand',
-  //     categories: ['Technical', 'Beginner', 'another category'],
-  //   };
-
   const renderCategory = (category: string) => {
     return <div className={styles.category}>{category}</div>;
   };
@@ -58,7 +55,7 @@ export default function ProjectsCard({
     return <></>;
   };
   return (
-    <div className={styles.card}>
+    <Link href={`/judges/scoring/${team_id}`} className={styles.card}>
       <div className={styles.teamNumber}>{num}</div>
       <div className={styles.text}>
         <div className={styles.teamName}>{name} </div>
@@ -69,6 +66,6 @@ export default function ProjectsCard({
         </div> */}
         <div>{renderCategories(categories)}</div>
       </div>
-    </div>
+    </Link>
   );
 }

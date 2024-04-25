@@ -5,6 +5,7 @@ import ProjectsCard from './ProjectsCard';
 import styles from './ProjectsCard.module.scss';
 
 interface Team {
+  _id: string;
   number: number;
   name: string;
   tracks: string[];
@@ -22,6 +23,7 @@ export default function ProjectsList({ activeTab }: { activeTab: number }) {
         {judgedTeams.map((project: Team, index: number) => (
           <ProjectsCard
             key={index}
+            team_id={project._id}
             num={project.number}
             name={project.name}
             categories={project.tracks}
@@ -36,6 +38,7 @@ export default function ProjectsList({ activeTab }: { activeTab: number }) {
         {unjudgedTeams.map((project: Team, index: number) => (
           <ProjectsCard
             key={index}
+            team_id={project._id}
             num={project.number}
             name={project.name}
             categories={project.tracks}

@@ -64,7 +64,8 @@
 }
 
 html {
-    width: 390px;
+    max-width: 500px;
+    min-width: 370px;
     margin-left: auto;
     margin-right: auto;
 }
