@@ -5,7 +5,16 @@ import TeamBlock from './ScoringSubComponents/TeamBlock';
 import ScoringInput from './ScoringSubComponents/ScoreInput';
 import Comments from './ScoringSubComponents/Comments';
 
-export default function ScoringForm() {
+import TeamInt from '@typeDefs/teams';
+import SubmissionInt from '@typeDefs/submissions';
+
+export default function ScoringForm({
+  team,
+  _,
+}: {
+  team: TeamInt;
+  _: SubmissionInt;
+}) {
   const generalScoreNames = [
     'Social Good',
     'Technical Complexity',
@@ -34,7 +43,7 @@ export default function ScoringForm() {
 
   return (
     <div className={styles.container}>
-      <TeamBlock />
+      <TeamBlock team={team} />
       <ScoringInput
         inputNameHeader="Overall Scoring"
         inputScoreNames={generalScoreNames}

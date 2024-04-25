@@ -1,3 +1,4 @@
+import TeamInt from '@typeDefs/teams';
 import styles from './TeamBlock.module.scss';
 import Link from 'next/link';
 
@@ -35,15 +36,12 @@ const NoteBook = () => {
   );
 };
 
-export default function TeamBlock() {
+export default function TeamBlock({ team }: { team: TeamInt }) {
   /* retrieve these from backend */
-  const tableNumber = 117;
-  const teamName = 'Haptic Hand';
-
   return (
     <div className={styles.teamBlock}>
       <div className={styles.topText}>
-        <h2 className={styles.teamTable}>Table {tableNumber}</h2>
+        <h2 className={styles.teamTable}>Table {team.number}</h2>
 
         <div className={styles.mapContent}>
           <h3 className={styles.mapText}>Find on Map</h3>
@@ -51,7 +49,7 @@ export default function TeamBlock() {
         </div>
       </div>
 
-      <h1 className={styles.teamName}>{teamName}</h1>
+      <h1 className={styles.teamName}>{team.name}</h1>
       <div className={styles.guideContent}>
         <p className={styles.guideText}>
           Please refer back to our judging guide for each track. Tracks are on a
