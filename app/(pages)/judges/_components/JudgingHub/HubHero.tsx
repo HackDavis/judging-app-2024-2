@@ -56,6 +56,24 @@ const Shape3 = (
     </g>
   </svg>
 );
+
+const textBubbleTail = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    className={styles.text_bubble_tail}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M6.0712 8.81143C5.90657 7.95843 5.82036 7.07751 5.82036 6.17644V-0.0078125H19.644V20.0001C16.2965 20.0001 13.2268 18.8102 10.835 16.8303C8.44879 18.4199 4.62262 19.9309 0 19.0904C1.27323 18.5448 6.18426 15.2707 6.00237 8.7227C6.02438 8.75296 6.04733 8.78253 6.0712 8.81143Z"
+      fill="white"
+    />
+  </svg>
+);
 export default function HubHero({
   user,
   loading,
@@ -94,6 +112,7 @@ export default function HubHero({
             }}
           />
         </div>
+        {textBubbleTail}
         <div className={styles.blurb}>
           <p className={styles.intro_text}>You're paired with...</p>
           <p className={styles.name}>{user.email}</p>
