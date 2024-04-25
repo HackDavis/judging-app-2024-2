@@ -1,64 +1,39 @@
 'use client';
 
+import { useSubmissions } from '@hooks/useSubmissions';
 import ProjectsCard from './ProjectsCard';
 import styles from './ProjectsCard.module.scss';
 
-export default function ProjectsList({ activeTab }: { activeTab: number }) {
-  const scoredProjects = [
-    {
-      num: 1,
-      name: 'sc haptic hand',
-      categories: ['not sure', 'something else', 'another category'],
-    },
-    {
-      num: 70,
-      name: 'sc haptic hand',
-      categories: ['not sure', 'something else'],
-    },
-  ];
+interface Team {
+  number: number;
+  name: string;
+  tracks: string[];
+}
 
-  const unjudgedProjects = [
-    {
-      num: 75,
-      name: 'unj haptic hand',
-      categories: ['not sure', 'something else'],
-    },
-    {
-      num: 75,
-      name: 'unj haptic hand',
-      categories: ['not', 'something', 'one more', 'another 1'],
-    },
-    {
-      num: 175,
-      name: 'unj haptic hand',
-      categories: ['not sure', 'something else'],
-    },
-    {
-      num: 75,
-      name: 'unj haptic hand',
-      categories: ['not sure', 'something else'],
-    },
-    {
-      num: 75,
-      name: 'unj haptic hand',
-      categories: ['not', 'something', 'one more', 'another 1'],
-    },
-    {
-      num: 75,
-      name: 'unj haptic hand',
-      categories: ['not sure', 'something else'],
-    },
-  ];
+export default function ProjectsList({ activeTab }: { activeTab: number }) {
+  const { loading, submissions } = useSubmissions();
+  if (loading) {
+    return 'loading...';
+  }
+  const teams = submissions.ok ? submissions.body : [];
+
+  const scoredProjects = teams.filter((team: { scores?: string[] }) =>
+    team.scores ? true : false
+  );
+
+  const unjudgedProjects = teams.filter((team: { scores?: string[] }) =>
+    team.scores ? false : true
+  );
 
   const renderScoredProjects = () => {
     return (
       <div className={styles.container}>
-        {scoredProjects.map((project, index) => (
+        {scoredProjects.map((project: Team, index: number) => (
           <ProjectsCard
             key={index}
-            num={project.num}
+            num={project.number}
             name={project.name}
-            categories={project.categories}
+            categories={project.tracks}
           />
         ))}
       </div>
@@ -67,12 +42,12 @@ export default function ProjectsList({ activeTab }: { activeTab: number }) {
   const renderuUnjudgedProjects = () => {
     return (
       <div className={styles.container}>
-        {unjudgedProjects.map((project, index) => (
+        {unjudgedProjects.map((project: Team, index: number) => (
           <ProjectsCard
             key={index}
-            num={project.num}
+            num={project.number}
             name={project.name}
-            categories={project.categories}
+            categories={project.tracks}
           />
         ))}
       </div>
