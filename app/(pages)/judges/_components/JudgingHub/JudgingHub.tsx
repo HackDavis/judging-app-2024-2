@@ -3,6 +3,7 @@ import { useAuth } from '@hooks/useAuth';
 import styles from './JudgingHub.module.scss';
 import HubHero from './HubHero';
 import JudgingList from './JudgingList';
+import TableLocations from './TableLocations';
 
 const projects = [
   {
@@ -43,6 +44,7 @@ export default function JudgingHub() {
     <div className={styles.container}>
       <HubHero user={user} loading={loading} />
       <JudgingList /*user={user} loading={loading}*/ projects={projects} />
+      <TableLocations />
     </div>
   );
 }

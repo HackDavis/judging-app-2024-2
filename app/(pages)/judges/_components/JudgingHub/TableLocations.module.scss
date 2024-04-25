@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    background: #173A52;
+    width: 100%;
+
+    height: 312px;
+padding: 27px 17px;
+
+    .header {
+        color: #FFF;
+        font-family: "Proxima Nova";
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 0.36px;
+    }
+    .map {
+        width: 358px;
+        height: 185px;
+        border: 1px solid #000;
+
+        background: #D9D9D9;
+    }
+}
