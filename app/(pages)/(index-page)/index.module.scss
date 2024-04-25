@@ -3,9 +3,12 @@
     flex-direction: column;
     height: 100vh;
     width: 100%;
-    padding: 126px 22px;
+    padding: 32px 22px 32px 22px;
     background-color: #005271;
     align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 650px;
 
     .hd_text {
         font-size: 2.25rem;
@@ -16,6 +19,8 @@
         -webkit-text-fill-color: transparent;
         margin-top: 24px;
         margin-bottom: 8px;
+        z-index: 1;
+
     }
 
     .text {
@@ -23,6 +28,7 @@
         font-weight: 600;
         font-size: 1rem;
         margin-bottom: 64px;
+        z-index: 1;
     }
 
     .links {
@@ -31,6 +37,7 @@
         flex-direction: column;
         gap: 33px;
         align-items: center;
+        z-index: 1;
     }
 }
 
@@ -73,4 +80,37 @@
         font-weight: 500;
         font-size: 1rem;
     }
+}
+
+.bottom_blurb {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.bottom_left_blurb {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translateY(-100%);
+}
+
+.bottom_right_blurb {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: translateY(-130%);
+}
+
+.top_left_blurb {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateY(20%);
+}
+
+.top_right_blurb {
+    position: absolute;
+    right: 0;
+    top: 0;
 }
