@@ -6,6 +6,7 @@
 
     .viewport {
         overflow: hidden;
+        width: 100%;
 
         .projects {
             display: flex;
@@ -62,9 +63,12 @@
 
             .progress_bar {
                 position: absolute;
+                width: 20%;
+                border-radius: 10px;
                 top: 0;
                 bottom: 0;
-                background-color: var(--background-secondary-light);
+                left: 0%;
+                background-color: #1FBBC0;
             }
         }
     }

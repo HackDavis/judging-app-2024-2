@@ -26,7 +26,12 @@ const projects = [
     categories: ['not sure', 'something else'],
   },
   {
-    num: 75,
+    num: 78,
+    name: 'haptic hand',
+    categories: ['not sure', 'something else'],
+  },
+  {
+    num: 8,
     name: 'haptic hand',
     categories: ['not sure', 'something else'],
   },
