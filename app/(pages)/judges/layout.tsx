@@ -1,22 +1,14 @@
-'use client';
 import { AuthProvider } from '../_contexts/AuthContext';
-
-import ProtectedDisplay from '@components/ProtectedDisplay/ProtectedDisplay';
-import LoginPage from './_components/LoginPage/LoginPage';
+import { Metadata } from 'next';
 
 type Props = {
   children: React.ReactNode;
 };
 
+export const metadata: Metadata = {
+  title: 'HackDavis Judge Portal',
+};
+
 export default function JudgesLayout({ children }: Props) {
-  return (
-    <AuthProvider>
-      <ProtectedDisplay
-        loadingDisplay={'loading...'}
-        failDisplay={<LoginPage />}
-      >
-        {children}
-      </ProtectedDisplay>
-    </AuthProvider>
-  );
+  return <AuthProvider>{children}</AuthProvider>;
 }
