@@ -5,7 +5,13 @@ import TeamBlock from './ScoringSubComponents/TeamBlock';
 import ScoringInput from './ScoringSubComponents/ScoreInput';
 import Comments from './ScoringSubComponents/Comments';
 
-export default function ScoringForm() {
+export default function ScoringForm({
+  team_id,
+  judge_id,
+}: {
+  team_id: string;
+  judge_id: string;
+}) {
   const generalScoreNames = [
     'Social Good',
     'Technical Complexity',

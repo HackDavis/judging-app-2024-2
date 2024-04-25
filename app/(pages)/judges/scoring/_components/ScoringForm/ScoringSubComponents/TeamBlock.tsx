@@ -35,11 +35,14 @@ const NoteBook = () => {
   );
 };
 
-export default function TeamBlock() {
+export default function TeamBlock({
+  tableNumber,
+  teamName,
+}: {
+  tableNumber: number;
+  teamName: string;
+}) {
   /* retrieve these from backend */
-  const tableNumber = 117;
-  const teamName = 'Haptic Hand';
-
   return (
     <div className={styles.teamBlock}>
       <div className={styles.topText}>
