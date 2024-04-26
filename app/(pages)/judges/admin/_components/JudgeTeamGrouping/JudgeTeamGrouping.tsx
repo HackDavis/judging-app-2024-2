@@ -25,7 +25,7 @@ export default function JudgeTeamGrouping() {
         {trackResults !== null
           ? trackResults!.map((result) => (
               <>
-                <h2>{result.track}</h2>
+                <h4>{result.track}</h4>
                 {result.topEntries.map((entry) => (
                   <>
                     <p>{entry.team}</p>
