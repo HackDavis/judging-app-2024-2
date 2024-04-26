@@ -43,6 +43,6 @@ export default async function matchTeams() {
     parsedMatches = await parseAndReplace(matches);
     valid = checkMatches(parsedMatches, teams.length);
   }
-
+  console.log(matches);
   LinkManyJudgeGroupsToTeams(matches);
 }
