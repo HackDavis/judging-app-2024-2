@@ -22,7 +22,7 @@ export default function JudgeTeamGrouping() {
       </button>
       <form action={scoreAction}>
         <button type="submit">Score Teams</button>
-        {trackResults === null
+        {trackResults !== null
           ? trackResults!.map((result) => (
               <>
                 <h2>{result.track}</h2>
