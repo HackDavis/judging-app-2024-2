@@ -9,31 +9,29 @@ export default function CsvIngestion() {
   const [response, setResponse] = useState('');
   const [uploadRes, setUploadRes] = useState('');
 
-  const handleIngestion = async () => {
-    setPending(true);
-    const res = await ingestCSV();
-    setResponse(JSON.stringify(res));
-    setPending(false);
-  };
-
-  const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const res = await uploadFile(formData);
-    setUploadRes(JSON.stringify(res));
+    const fileRes = await uploadFile(formData);
+    setUploadRes(JSON.stringify(fileRes.ok));
+
+    if (fileRes.ok) {
+      setPending(true);
+      const res = await ingestCSV(fileRes.body);
+      setResponse(JSON.stringify(res));
+      setPending(false);
+    }
   };
 
   return (
     <div>
       <div>
         <h4>Upload CSV:</h4>
-        <form onSubmit={handleUpload} className={styles.form}>
+        <form onSubmit={handler} className={styles.form}>
           <input type="file" accept=".csv" name="file" id="file" />
           <button type="submit">Upload</button>
-          <p>{uploadRes}</p>
+          <p>Upload Successful: {uploadRes}</p>
         </form>
-        <h4>Create Teams:</h4>
-        <button onClick={handleIngestion}>Start CSV Ingestion</button>
         <p>{pending ? 'creating teams...' : response}</p>
       </div>
     </div>
