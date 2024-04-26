@@ -1,28 +1,12 @@
 'use server';
-import fs from 'fs';
+
+import csvAlgorithm from '@utils/csv-ingestion/csvAlgorithm';
 
 export default async function uploadFile(formData: FormData) {
   const file = formData.get('file') as File;
   const data = await file.arrayBuffer();
-  return new Promise((resolve, rejects) => {
-    fs.writeFile(
-      'app/(api)/_data/2024_data.csv',
-      Buffer.from(data),
-      (error) => {
-        if (error) {
-          rejects({
-            ok: false,
-            body: null,
-            error: error?.message,
-          });
-        } else {
-          resolve({
-            ok: true,
-            body: `Successfully uploaded.`,
-            error: null,
-          });
-        }
-      }
-    );
-  });
+  const blob = new Blob([data], { type: file.type });
+
+  const res = await csvAlgorithm(blob);
+  return await res.json();
 }
