@@ -3,10 +3,6 @@ import csv from 'csv-parser';
 import { NextResponse } from 'next/server';
 import trackData from '../../_data/tracks.json' assert { type: 'json' };
 
-const validTracks: string[] = trackData
-  .map((track: track) => track.name)
-  .filter((t) => t !== 'Best Hack for Social Good');
-
 interface parsedRecord {
   name: string;
   number: number;
@@ -17,11 +13,13 @@ interface track {
   name: string;
 }
 
+const validTracks: string[] = trackData
+  .map((track: track) => track.name)
+  .filter((t) => t !== 'Best Hack for Social Good');
+
 function sortTracks(track1: string, track2: string, chosentracks: string) {
   const tracksInOrder: string[] = [track1, track2];
-  if (chosentracks.length < 2) {
-    return tracksInOrder;
-  } else {
+  if (chosentracks.length > 1) {
     const otherTracks = chosentracks
       .split(',')
       .map((track: string) => track.trim())
@@ -31,9 +29,8 @@ function sortTracks(track1: string, track2: string, chosentracks: string) {
       );
 
     tracksInOrder.push(...otherTracks);
-
-    return tracksInOrder;
   }
+  return tracksInOrder.filter((track) => track !== 'NA');
 }
 
 export default async function csvAlgorithm() {
