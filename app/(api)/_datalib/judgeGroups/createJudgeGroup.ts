@@ -48,17 +48,8 @@ export const CreateJudgeGroup = async (body: object) => {
       );
     }
 
-    const specialties = new Set();
-    judges.forEach((judge: { specialty: string }) =>
-      specialties.add(judge.specialty)
-    );
-
-    if (specialties.size > 1) {
-      throw new BadRequestError('Judge specialties are not the same.');
-    }
-
     const creationStatus = await db.collection('judgeGroups').insertOne({
-      type: judges[0].specialty,
+      type: parsedBody.type,
       judge_ids: judge_ids,
     });
 
