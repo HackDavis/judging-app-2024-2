@@ -3,7 +3,6 @@ $light-blue: #9EE7E5;
 $bg-color: #E5EEF1;
 
 
-$mobile-width: 390px;
 $component-height: 395px;
 
 .judgeNotHere{
@@ -16,7 +15,6 @@ $component-height: 395px;
 .container{
   z-index: 1;
   background-color: $bg-color;
-  max-width: $mobile-width;
   display: flex;
   flex-direction: column;
 
@@ -24,8 +22,8 @@ $component-height: 395px;
   
   height: $component-height;
   padding-top: 32px;
-  padding-left: 17px;
-  padding-right: 17px;
+  padding-left: 24px;
+  padding-right: 24px;
 
   &_title{
     h2{

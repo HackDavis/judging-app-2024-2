@@ -1,44 +1,69 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useCallback } from 'react';
 import styles from './ProjectCarousel.module.scss';
+import useEmblaCarousel from 'embla-carousel-react';
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
+import { useCarouselProgress } from '@hooks/useCarouselProgress';
+import Link from 'next/link';
 
 function JudgingCard({ project }: { project: any }) {
   return (
-    <div className={styles.card_container}>
-      <h2 className={styles.project_num}>#{project.num}</h2>
+    <Link
+      href={`/judges/scoring/${project._id}`}
+      className={styles.card_container}
+    >
+      <h2 className={styles.project_num}>#{project.number}</h2>
       <p className={styles.project_name}>{project.name}</p>
-    </div>
+
+      {project.tracks[0] && (
+        <div className={styles.project_category}>{project.tracks[0]}</div>
+      )}
+
+      {project.tracks[1] && (
+        <div className={styles.project_category}>{project.tracks[1]}</div>
+      )}
+
+      {project.tracks.length > 2 && (
+        <div className={styles.category_bubble}>{`+${
+          project.tracks.length - 2
+        }`}</div>
+      )}
+    </Link>
   );
 }
 
 export default function JudgingList({ projects }: { projects: object[] }) {
   const progressBarRef = useRef<HTMLDivElement>(null);
-  const [index, setIndex] = useState(0);
-  const [_, setDivWidth] = useState(0);
-  const num_sections = Math.floor(projects.length / 2);
 
-  useEffect(() => {
-    if (progressBarRef.current) {
-      // Accessing clientWidth of the div element
-      const width = progressBarRef.current.offsetWidth;
-      // Setting the width to state variable
-      setDivWidth(width);
-    }
-  }, [progressBarRef]);
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: false,
+      align: 'start',
+      dragFree: true,
+      skipSnaps: true,
+      watchDrag: true,
+    },
+    [WheelGesturesPlugin()]
+  );
 
-  const incIndex = () => {
-    setIndex((index + 1) % num_sections);
-  };
+  const { scrollProgress, handleProgressBarClick } =
+    useCarouselProgress(emblaApi);
 
-  const decIndex = () => {
-    setIndex((index - 1) % num_sections);
-  };
+  const onPrevButtonClick = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const onNextButtonClick = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+  }, [emblaApi]);
 
   return (
     <div className={styles.container}>
-      <div className={styles.viewport}>
+      <div className={styles.viewport} ref={emblaRef}>
         <div className={styles.projects}>
           {projects.map((project, index) => (
             <JudgingCard key={index} project={project} />
@@ -46,7 +71,7 @@ export default function JudgingList({ projects }: { projects: object[] }) {
         </div>
       </div>
       <div className={styles.controls}>
-        <button onClick={decIndex}>
+        <button onClick={onPrevButtonClick}>
           <Image
             src="/judges/hub/back-arrow.svg"
             alt=""
@@ -60,10 +85,20 @@ export default function JudgingList({ projects }: { projects: object[] }) {
             }}
           />
         </button>
-        <div className={styles.progress} ref={progressBarRef}>
-          <div className={styles.progress_bar} style={{}} />
+        <div
+          className={styles.progress}
+          ref={progressBarRef}
+          onClick={handleProgressBarClick}
+        >
+          <div
+            className={styles.progress_bar}
+            style={{
+              transform: `translateX(${scrollProgress * 400}%`,
+            }}
+            onClick={(event) => event.stopPropagation()}
+          />
         </div>
-        <button onClick={incIndex}>
+        <button onClick={onNextButtonClick}>
           <Image
             src="/judges/hub/next-arrow.svg"
             alt=""

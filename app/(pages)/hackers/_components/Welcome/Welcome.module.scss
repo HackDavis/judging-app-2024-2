@@ -2,24 +2,18 @@
 
 $bg-color: #005271;
 $pad-size: 16px;
-$mobile-width: 390px;
 
 .welcome{
-    // display: flex;
     justify-content: center;
-    // align-items: center;
     width: 100%;
-    // height: calc(100vh - var(--navbar-height));
     overflow: hidden;
 }
 .container {
     background-color: $bg-color;
-    max-width: $mobile-width;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 375px;
-    padding: $pad-size;
+    position: relative;
 
     &_title{
         margin-top: 58px;
@@ -35,7 +29,7 @@ $mobile-width: 390px;
 
         h1{
             margin-top: 3px;
-            margin-left: 48px;
+            padding-left: 48px;
             // font-family: Proxima Nova;
             font-size: 64px;
             font-style: normal;
@@ -54,5 +48,25 @@ $mobile-width: 390px;
         // border: 1px solid white;
         position: relative;
         margin-left: -$pad-size;
+        transform: translateY(10%);
     }
+}
+
+.top_blurb {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.top_left_blurb {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.bottom_blurb {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    opacity: 0.3;
 }

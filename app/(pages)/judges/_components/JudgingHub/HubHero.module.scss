@@ -6,6 +6,23 @@
     flex-direction: column;
     justify-content: center;
     gap: var(--small-spacer);
+    position: relative;
+
+    .shape_1{
+        position: absolute;
+        top: 0px;
+    }
+    .shape_2 {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+    .shape_3{
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+
+    }
 
     .welcome_text {
         padding: 68px 13px 0px 13px;
@@ -43,6 +60,12 @@
             display: flex;
             flex-direction: column-reverse;
             width: 65%;
+        }
+
+        .text_bubble_tail {
+            position: absolute;
+            bottom: 49.6%;
+            left: 49.5%;
         }
 
         .blurb {

@@ -1,8 +1,12 @@
 [
   {
+    "name": "No Track",
+    "type": "general"
+  },
+  {
     "name": "Best Hack for Social Good",
     "weights": [0.5, 0.1, 0.1, 0.2, 0.1],
-    "type": "all"
+    "type": "general"
   },
   {
     "name": "Best Beginner Hack",

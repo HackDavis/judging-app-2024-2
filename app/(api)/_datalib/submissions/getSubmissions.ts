@@ -28,6 +28,7 @@ export const GetSubmission = async (judge_id: string, team_id: string) => {
   try {
     const judge_object_id = new ObjectId(judge_id);
     const team_object_id = new ObjectId(team_id);
+
     const db = await getDatabase();
     const submission = await db.collection('submissions').findOne({
       judge_id: judge_object_id,

@@ -15,7 +15,56 @@ export const LinkManyJudgeGroupsToTeams = async (body: object[]) => {
     }
 
     const parsedBody = await parseAndReplace(body);
+
     const db = await getDatabase();
+    const seenTeamIds: Set<string> = new Set();
+    const seenJudgeGroupIds: Set<string> = new Set();
+
+    for (const link of parsedBody) {
+      const existingLink = await db.collection('judgeGroupToTeams').findOne({
+        judge_group_id: link.judge_group_id,
+        team_id: link.team_id,
+      });
+      if (existingLink)
+        throw new DuplicateError('One or more links already exist.');
+      seenTeamIds.add(link.team_id.toString());
+      seenJudgeGroupIds.add(link.judge_group_id.toString());
+    }
+
+    const seenTeams = Array.from(seenTeamIds).map(
+      (id: string) => new ObjectId(id)
+    );
+
+    const foundTeams = await db
+      .collection('teams')
+      .find({
+        _id: {
+          $in: seenTeams,
+        },
+      })
+      .toArray();
+
+    if (foundTeams.length !== seenTeamIds.size) {
+      throw new NotFoundError('One or more teams not found');
+    }
+
+    const seenJudgeGroups = Array.from(seenJudgeGroupIds).map(
+      (id: string) => new ObjectId(id)
+    );
+
+    const foundJudgeGroups = await db
+      .collection('judgeGroups')
+      .find({
+        _id: {
+          $in: seenJudgeGroups,
+        },
+      })
+      .toArray();
+
+    if (foundJudgeGroups.length !== seenJudgeGroupIds.size) {
+      throw new NotFoundError('One or more judge groups not found');
+    }
+
     const creationStatus = await db
       .collection('judgeGroupToTeams')
       .insertMany(parsedBody);

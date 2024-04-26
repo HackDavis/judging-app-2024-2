@@ -1,62 +1,75 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useFormState } from 'react-dom';
+
 import styles from './ScoringForm.module.scss';
+
 import TeamBlock from './ScoringSubComponents/TeamBlock';
 import ScoringInput from './ScoringSubComponents/ScoreInput';
 import Comments from './ScoringSubComponents/Comments';
+import Submission from './ScoringSubComponents/Submission';
+
+import updateSubmission from '@actions/submissions/updateSubmission';
 
 import TeamInt from '@typeDefs/teams';
 import SubmissionInt from '@typeDefs/submissions';
+import { useRouter } from 'next/navigation';
+
+const generalScoreNames = [
+  'Social Good',
+  'Technical Complexity',
+  'Design',
+  'Creativity',
+  'Presentation',
+];
 
 export default function ScoringForm({
   team,
-  _,
+  submission,
 }: {
   team: TeamInt;
-  _: SubmissionInt;
+  submission: SubmissionInt;
 }) {
-  const generalScoreNames = [
-    'Social Good',
-    'Technical Complexity',
-    'Design',
-    'Creativity',
-    'Presentation',
-  ];
-
-  /* retrieve these from backend */
-  const trackScoreNames = [
-    'Best Social Hack',
-    'Best Beginner Hack',
-    'Best Design Hack',
-    'Best Usage of MongoDB',
-  ];
-
-  // prefils the map with all the categories and sets the scores to -1 to
-  // assist in error handling
-
-  const initialCategoryScores = new Map();
-  [...generalScoreNames, ...trackScoreNames].forEach((category) => {
-    initialCategoryScores.set(category, -1);
+  const router = useRouter();
+  const [updateState, UpdateSubmission] = useFormState(updateSubmission, {
+    ok: false,
+    body: null,
+    error: null,
   });
 
-  const [categoryScores, setCategoryScores] = useState(initialCategoryScores);
+  const [ready, setReady] = useState(5 + team.tracks.length);
+
+  useEffect(() => {
+    if (updateState.ok === true) {
+      router.push('/judges');
+    }
+  }, [updateState, router]);
 
   return (
     <div className={styles.container}>
       <TeamBlock team={team} />
-      <ScoringInput
-        inputNameHeader="Overall Scoring"
-        inputScoreNames={generalScoreNames}
-        categoryScores={categoryScores}
-        setCategoryScores={setCategoryScores}
-      />
-      <ScoringInput
-        inputNameHeader="Specific Tracks"
-        inputScoreNames={trackScoreNames}
-        categoryScores={categoryScores}
-        setCategoryScores={setCategoryScores}
-      />
-      <Comments categoryScores={categoryScores} />
+      <form action={UpdateSubmission}>
+        <input
+          name="judge_id"
+          type="hidden"
+          defaultValue={submission.judge_id}
+        />
+        <input name="team_id" type="hidden" defaultValue={team._id} />
+        <ScoringInput
+          inputNameHeader="Overall Scoring"
+          inputScoreNames={generalScoreNames}
+          setReady={setReady}
+        />
+        <ScoringInput
+          inputNameHeader="Specific Tracks"
+          inputScoreNames={team.tracks}
+          setReady={setReady}
+        />
+        <div>
+          <Comments _={submission} />
+          <Submission canSubmit={ready <= 0} error={updateState.error} />
+        </div>
+      </form>
     </div>
   );
 }

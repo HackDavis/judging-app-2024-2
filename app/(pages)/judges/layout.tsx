@@ -1,14 +1,14 @@
-import { Metadata } from 'next';
 import { AuthProvider } from '../_contexts/AuthContext';
+import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'HackDavis Judge View',
+type Props = {
+  children: React.ReactNode;
 };
 
-export default function JudgesLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const metadata: Metadata = {
+  title: 'HackDavis Judge Portal',
+};
+
+export default function JudgesLayout({ children }: Props) {
   return <AuthProvider>{children}</AuthProvider>;
 }
