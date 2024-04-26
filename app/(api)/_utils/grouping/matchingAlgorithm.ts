@@ -53,7 +53,7 @@ function createMatches(
       }
     }
   });
-
+  console.log(matches);
   return matches;
 }
 
