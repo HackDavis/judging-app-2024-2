@@ -60,26 +60,26 @@
         width: 100%;
         z-index: 1;
 
-
         .cow_container {
             position: relative;
             display: flex;
             flex-direction: column-reverse;
-            width: 60%;
-            margin-right: -10%;
+            width: 50%;
+            margin-right: -5%;
 
             .cow {
+                height: auto;
                 width: 100%;
             }
 
             .wig {
-                width: 100%;
+                height: auto;
+                width: 90%;
                 position: absolute;
                 top: 0;
                 left: 0;
-                margin-left: -6%;
+                margin-left: -5%;
             }
-
         }
 
         .text_bubble_tail {
