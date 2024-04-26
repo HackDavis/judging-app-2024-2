@@ -2,13 +2,7 @@ import Link from 'next/link';
 import styles from './JudgingList.module.scss';
 import ProjectCarousel from './ProjectCarousel';
 
-export default function JudgingList({
-  loading,
-  projects,
-}: {
-  loading: boolean;
-  projects: object[];
-}) {
+export default function JudgingList({ projects }: { projects: object[] }) {
   return (
     <div className={styles.container}>
       <div className={styles.top_text}>
@@ -17,7 +11,7 @@ export default function JudgingList({
           You have <span>{projects.length}</span> left to judge:
         </p>
       </div>
-      {loading ? 'loading...' : <ProjectCarousel projects={projects} />}
+      <ProjectCarousel projects={projects} />
       <Link href="/judges/projects" className={styles.projects_button}>
         View All Projects
         <svg

@@ -4,6 +4,7 @@ import {
   GetJudgeGroup,
   GetManyJudgeGroups,
 } from '@datalib/judgeGroups/getJudgeGroup';
+import parseAndReplace from '@utils/request/parseAndReplace';
 
 export async function getJudgeGroup(group_id: string) {
   const judgeGroupRes = await GetJudgeGroup(group_id);
@@ -11,6 +12,7 @@ export async function getJudgeGroup(group_id: string) {
 }
 
 export async function getManyJudgeGroups(query: object = {}) {
-  const judgeGroupRes = await GetManyJudgeGroups(query);
+  const newQuery = await parseAndReplace(query);
+  const judgeGroupRes = await GetManyJudgeGroups(newQuery);
   return judgeGroupRes.json();
 }

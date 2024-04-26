@@ -10,11 +10,11 @@ import { useJudgeGroup } from '@hooks/useJudgeGroup';
 export default function JudgingHub() {
   const { user, loading } = useAuth();
   const { members } = useJudgeGroup();
-  const { loading: submissionLoading, unjudgedTeams } = useSubmissions();
+  const { unjudgedTeams } = useSubmissions();
   return (
     <div className={styles.container}>
       <HubHero user={user} loading={loading} members={members} />
-      <JudgingList loading={submissionLoading} projects={unjudgedTeams} />
+      <JudgingList projects={unjudgedTeams} />
       <TableLocations />
     </div>
   );
