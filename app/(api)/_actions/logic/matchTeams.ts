@@ -31,18 +31,9 @@ export default async function matchTeams() {
   const judgeGroups = (await getManyJudgeGroups()).body;
   const teams = (await getManyTeams()).body;
 
-  let matches = matchingAlgorithm(
-    judgeGroups,
-    JSON.parse(JSON.stringify(teams))
-  );
-  let parsedMatches = await parseAndReplace(matches);
-  let valid = checkMatches(parsedMatches, teams.length);
+  const matches = matchingAlgorithm(judgeGroups, teams);
+  const parsedMatches = await parseAndReplace(matches);
+  const valid = checkMatches(parsedMatches, teams.length);
 
-  while (!valid) {
-    matches = matchingAlgorithm(judgeGroups, JSON.parse(JSON.stringify(teams)));
-    parsedMatches = await parseAndReplace(matches);
-    valid = checkMatches(parsedMatches, teams.length);
-  }
-  console.log(matches);
-  LinkManyJudgeGroupsToTeams(matches);
+  if (valid) await LinkManyJudgeGroupsToTeams(matches);
 }
