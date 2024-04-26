@@ -30,6 +30,12 @@ function sortTracks(track1: string, track2: string, chosentracks: string) {
 
     tracksInOrder.push(...otherTracks);
   }
+
+  if (tracksInOrder.length > 4) {
+    tracksInOrder.length = 4;
+  }
+
+  console.log(tracksInOrder);
   return tracksInOrder.filter((track) => track !== 'NA');
 }
 
