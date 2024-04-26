@@ -35,7 +35,6 @@ function sortTracks(track1: string, track2: string, chosentracks: string) {
     tracksInOrder.length = 4;
   }
 
-  console.log(tracksInOrder);
   return tracksInOrder.filter((track) => track !== 'NA');
 }
 
