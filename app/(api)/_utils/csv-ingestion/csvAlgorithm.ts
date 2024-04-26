@@ -18,7 +18,8 @@ const validTracks: string[] = trackData
   .filter((t) => t !== 'Best Hack for Social Good');
 
 function sortTracks(track1: string, track2: string, chosentracks: string) {
-  const tracksInOrder: string[] = [track1, track2];
+  let tracksInOrder: string[] = [track1, track2];
+
   if (chosentracks.length > 1) {
     const otherTracks = chosentracks
       .split(',')
@@ -28,14 +29,19 @@ function sortTracks(track1: string, track2: string, chosentracks: string) {
           validTracks.includes(track) && !tracksInOrder.includes(track)
       );
 
-    tracksInOrder.push(...otherTracks);
+    const uniqueTracks = [...new Set(otherTracks)];
+
+    tracksInOrder.push(...uniqueTracks);
   }
 
   if (tracksInOrder.length > 4) {
     tracksInOrder.length = 4;
   }
 
-  return tracksInOrder.filter((track) => track !== 'NA');
+  tracksInOrder = tracksInOrder.filter(
+    (track) => track !== 'NA' && validTracks.includes(track)
+  );
+  return tracksInOrder;
 }
 
 export default async function csvAlgorithm() {
