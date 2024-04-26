@@ -9,7 +9,6 @@ import judgeWig from '/public/judges/hub/judge-wig.svg';
 import bg_topleft from '/public/judges/hub/topleft.svg';
 import bg_top from '/public/judges/hub/topright.svg';
 import bg_bottom from '/public/judges/hub/bottom.svg';
-import zIndex from '@mui/material/styles/zIndex';
 
 export default function HubHero({
   user,
@@ -58,6 +57,7 @@ export default function HubHero({
         src={bg_topleft}
         alt="top left blurb"
         className={styles.top_left_blurb}
+        priority
       />
     </div>
   );
