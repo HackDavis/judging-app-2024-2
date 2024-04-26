@@ -6,7 +6,11 @@ import isBodyEmpty from '@utils/request/isBodyEmpty';
 import NoContentError from '@utils/response/NoContentError';
 import HttpError from '@utils/response/HttpError';
 import parseAndReplace from '@utils/request/parseAndReplace';
-import { NotFoundError, DuplicateError } from '@utils/response/Errors';
+import {
+  NotFoundError,
+  DuplicateError,
+  BadRequestError,
+} from '@utils/response/Errors';
 
 export const CreateSubmission = async (body: {
   judge_id: string;
@@ -42,6 +46,14 @@ export const CreateSubmission = async (body: {
 
     if (existingSubmission) {
       throw new DuplicateError('Submission already exists');
+    }
+
+    const judgeGroupToTeam = await db.collection('judgeGroupToTeams').findOne({
+      judge_group_id: judge.judge_group_id,
+    });
+
+    if (judgeGroupToTeam.team_id.toString() !== body.team_id.toString()) {
+      throw new BadRequestError('Judge is not judging this team.');
     }
 
     const creationStatus = await db
