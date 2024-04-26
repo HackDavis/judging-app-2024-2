@@ -8,20 +8,22 @@
     gap: var(--small-spacer);
     position: relative;
 
-    .shape_1{
+    .top_blurb {
         position: absolute;
-        top: 0px;
+        right: 0;
+        top: 0;
     }
-    .shape_2 {
+    
+    .top_left_blurb {
         position: absolute;
-        top: 0px;
-        right: 0px;
+        left: 0;
+        top: 0;
     }
-    .shape_3{
+    
+    .bottom_blurb {
         position: absolute;
-        bottom: 0px;
-        right: 0px;
-
+        right: 0;
+        bottom: 0;
     }
 
     .welcome_text {
@@ -53,13 +55,28 @@
         position: relative;
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
         width: 100%;
 
         .cow_container {
             position: relative;
             display: flex;
             flex-direction: column-reverse;
-            width: 65%;
+            width: 60%;
+            margin-right: -10%;
+
+            .cow {
+                width: 100%;
+            }
+
+            .wig {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin-left: -6%;
+            }
+
         }
 
         .text_bubble_tail {
