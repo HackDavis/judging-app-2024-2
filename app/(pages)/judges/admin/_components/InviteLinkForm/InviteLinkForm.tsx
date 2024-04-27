@@ -1,42 +1,74 @@
 import { useFormState } from 'react-dom';
-import sendInvite from '@actions/invite/sendInvite';
+// import sendInvite from '@actions/invite/sendInvite';
+import sendEmail from '@actions/invite/sendEmail';
 import styles from './InviteLinkForm.module.scss';
+import FormSubmitConfirmation from '@components/FormSubmitConfirmation/FormSubmitConfirmation';
+import { useEffect, useState } from 'react';
 
 export default function InviteLinkForm() {
-  const [inviteState, inviteAction] = useFormState(sendInvite, null);
+  const [loading, setLoading] = useState(false);
+  const [resStatus, setResStatus] = useState<null | string>(null);
+
+  const [inviteState, inviteAction] = useFormState(sendEmail, {
+    ok: true,
+    body: null,
+    error: null,
+  });
+
+  useEffect(() => {
+    if (inviteState.body || inviteState.error) {
+      setLoading(false);
+      setResStatus(inviteState.ok ? 'success' : 'failed');
+    }
+  }, [inviteState]);
+
+  const handleClose = () => {
+    setLoading(false);
+    setResStatus(null);
+    window.location.reload();
+  };
 
   return (
-    <form action={inviteAction} className={styles.form}>
-      <h3>Invite a Judge</h3>
-      <div className={styles.fields}>
-        <div>
-          <label className={styles.label}>Name</label>
-          <input name="name" type="text" required />
-        </div>
-        <div>
-          <label className={styles.label}>Email</label>
-          <input name="email" type="email" required />
-        </div>
-        <div className={styles.specialty_select}>
-          <label className={styles.label}>Specialty</label>
+    <>
+      <form action={inviteAction} className={styles.form}>
+        <h3>Invite a Judge</h3>
+        <div className={styles.fields}>
           <div>
-            <label>Technical</label>
-            <input type="radio" name="specialty" value="tech" required />
+            <label className={styles.label}>Name</label>
+            <input name="name" type="text" required />
           </div>
           <div>
-            <label>Design</label>
-            <input type="radio" name="specialty" value="design" required />
+            <label className={styles.label}>Email</label>
+            <input name="email" type="email" required />
           </div>
-          <div>
-            <label>General</label>
-            <input type="radio" name="specialty" value="general" required />
+          <div className={styles.specialty_select}>
+            <label className={styles.label}>Specialty</label>
+            <div>
+              <label>Technical</label>
+              <input type="radio" name="specialty" value="tech" required />
+            </div>
+            <div>
+              <label>Design</label>
+              <input type="radio" name="specialty" value="design" required />
+            </div>
+            <div>
+              <label>General</label>
+              <input type="radio" name="specialty" value="general" required />
+            </div>
           </div>
+          <input name="role" type="hidden" value="judge" />
+          <input name="slug" type="hidden" defaultValue="/register" />
         </div>
-        <input name="role" type="hidden" value="judge" />
-        <input name="slug" type="hidden" defaultValue="/register" />
-      </div>
-      <button type="submit">Generate invite link</button>
-      <p className={styles.link_text}>{inviteState ?? ''}</p>
-    </form>
+        <button type="submit" onClick={() => setLoading(true)}>
+          Generate invite link
+        </button>
+        <p className={styles.link_text}>{inviteState.body ?? ''}</p>
+      </form>
+      <FormSubmitConfirmation
+        pending={loading}
+        mailStatus={resStatus}
+        handleClose={handleClose}
+      />
+    </>
   );
 }
