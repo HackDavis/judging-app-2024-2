@@ -22,11 +22,29 @@ export default function HubHero({
   if (loading) {
     return 'loading...';
   }
+
+  const logOutStyle = {
+    zIndex: 1,
+    borderRadius: '15.497px',
+    background: '#FFC53D',
+    boxShadow: '0px 3.874px 61.987px 0px rgba(255, 197, 61, 0.16)',
+    color: '#173A52',
+    textAlign: 'center',
+    fontFamily: 'Metropolis',
+    fontSize: '16px',
+    fontStyle: 'normal',
+    fontWeight: 600,
+    lineHeight: 'normal',
+    letterSpacing: '0.32px',
+    width: '357px',
+    height: '43px',
+    border: 'none',
+    alignSelf: 'center',
+  };
+
   return (
     <div className={styles.container}>
-      <LogoutButton style={{ zIndex: 1 }}>
-        LOGOUT BUTTON YOU CAN'T MISS THIS
-      </LogoutButton>
+      <LogoutButton style={logOutStyle}>Log out</LogoutButton>
       <div className={styles.welcome_text}>
         <p>Welcome to HackDavis,</p>
         <div className={styles.name_container}>
