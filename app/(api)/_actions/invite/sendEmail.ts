@@ -7,7 +7,6 @@ import HttpError from '@utils/response/HttpError';
 
 const senderEmail = process.env.SENDER_EMAIL;
 const password = process.env.SENDER_PWD;
-const targetEmail = process.env.TARGET_EMAIL;
 
 interface Response {
   ok: boolean;
@@ -122,7 +121,7 @@ export default async function sendEmail(
     `;
     const mailOptions = {
       from: `${name} <${senderEmail}>`,
-      to: targetEmail,
+      to: email,
       subject: `HackDavis Judging App Invite`,
       replyTo: email,
       html: msg,

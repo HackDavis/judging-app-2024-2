@@ -36,11 +36,15 @@ jobs:
           --env JWT_SECRET=${{ secrets.JWT_SECRET }}
           --env HMAC_INVITE_SECRET=${{ secrets.HMAC_INVITE_SECRET }}
           --env INVITE_TIMEOUT=${{ vars.INVITE_TIMEOUT }}
+          --env SENDER_EMAIL=${{ vars.SENDER_EMAIL }}
+          --env SENDER_PWD=${{ secrets.SENDER_PWD }}
           --build-env MONGODB_URI=${{ secrets.MONGODB_URI }}
           --build-env BASE_URL=${{ vars.ENV_URL }}
           --build-env JWT_SECRET=${{ secrets.JWT_SECRET }}
           --build-env HMAC_INVITE_SECRET=${{ secrets.HMAC_INVITE_SECRET }}
           --build-env INVITE_TIMEOUT=${{ vars.INVITE_TIMEOUT }}
+          --build-env SENDER_EMAIL=${{ vars.SENDER_EMAIL }}
+          --build-env SENDER_PWD=${{ secrets.SENDER_PWD }}
 
       - name: Success
         run: echo "🚀  Deploy successful - BLAST OFF WOO! (woot woot) !!! 🐕 🐕 🐕 🚀 "
