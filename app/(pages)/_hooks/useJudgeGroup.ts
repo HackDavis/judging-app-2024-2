@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getJudgeGroup } from '@actions/judgeGroups/getJudgeGroup';
+import { getManyJudgeGroups } from '@actions/judgeGroups/getJudgeGroup';
 import { useAuth } from './useAuth';
 
 export function useJudgeGroup(): any {
@@ -12,17 +12,19 @@ export function useJudgeGroup(): any {
   useEffect(() => {
     if (user) {
       const wrapper = async () => {
-        if (user.judge_group_id) {
-          const group = await getJudgeGroup(user.judge_group_id);
-          const groupData = group.body;
-          const judges = groupData ? groupData.judges : [];
-          const names = judges.map((judge: { name: string }) => judge.name);
-          const other_judges = names.filter(
-            (judge: string) => judge !== user.name
-          );
-          setMembers(other_judges);
-          setUser(user.name);
-        }
+        const group = await getManyJudgeGroups({
+          judge_ids: {
+            '*convertId': { id: user._id },
+          },
+        });
+        const groupData = group.body;
+        const judges = groupData.length !== 0 ? groupData[0].judges : [];
+        const names = judges.map((judge: { name: string }) => judge.name);
+        const other_judges = names.filter(
+          (judge: string) => judge !== user.name
+        );
+        setMembers(other_judges);
+        setUser(user.name);
         setLoading(false);
       };
       wrapper();
