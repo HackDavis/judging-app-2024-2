@@ -42,6 +42,23 @@ export default function HubHero({
     alignSelf: 'center',
   };
 
+  const speechBubbleTail = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M6.0712 8.81143C5.90657 7.95843 5.82036 7.07751 5.82036 6.17644V-0.0078125H19.644V20.0001C16.2965 20.0001 13.2268 18.8102 10.835 16.8303C8.44879 18.4199 4.62262 19.9309 0 19.0904C1.27323 18.5448 6.18426 15.2707 6.00237 8.7227C6.02438 8.75296 6.04733 8.78253 6.0712 8.81143Z"
+        fill="white"
+      />
+    </svg>
+  );
+
   return (
     <div className={styles.container}>
       <LogoutButton style={logOutStyle}>Log out</LogoutButton>
@@ -57,6 +74,7 @@ export default function HubHero({
           <Image src={judgeWig} alt="Judge Wig" className={styles.wig} />
         </div>
         <div className={styles.blurb}>
+          <div className={styles.bubble_tail}>{speechBubbleTail}</div>
           <p className={styles.intro_text}>You're paired with...</p>
           {members.map((member: string, index: number) => (
             <p key={index} className={styles.name}>
