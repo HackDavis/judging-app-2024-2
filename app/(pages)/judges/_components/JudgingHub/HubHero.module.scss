@@ -41,7 +41,6 @@
     
         .name_container {
             width: 100%;
-            overflow: hidden;
     
             >h1 {
                 background: var(--gradient-primary);
@@ -82,12 +81,6 @@
             }
         }
 
-        .text_bubble_tail {
-            position: absolute;
-            bottom: 49.6%;
-            left: 49.5%;
-        }
-
         .blurb {
             width: 45%;
             display: flex;
@@ -108,6 +101,12 @@
             .name {
                 font-size: 1.75rem;
                 font-weight: 600;
+            }
+            .bubble_tail {
+                position: absolute;
+                bottom: -8%;
+                left: -2.5%;
+                z-index: -1;
             }
         }
     }
