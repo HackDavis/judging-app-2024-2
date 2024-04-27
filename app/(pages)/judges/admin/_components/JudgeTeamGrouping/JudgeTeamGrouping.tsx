@@ -20,22 +20,15 @@ export default function JudgeTeamGrouping() {
       >
         Group Judges
       </button>
+      <p>groups: {grouping}</p>
+
       <button
         onClick={async () => setMatching(JSON.stringify(await matchTeams()))}
       >
         Match Teams
       </button>
-      <button
-        onClick={async () => {
-          await deleteManyJudgeGroups();
-          setGrouping('groups deleted');
-        }}
-      >
-        Delete All Judge Groups
-      </button>
-      <button onClick={async () => await deleteManyJudgeGroupsToTeams()}>
-        Delete All Links
-      </button>
+      <p>matching: {matching}</p>
+
       <form action={scoreAction}>
         <button type="submit">Score Teams</button>
         {trackResults !== null
@@ -52,8 +45,28 @@ export default function JudgeTeamGrouping() {
             ))
           : ''}
       </form>
-      <p>groups: {grouping}</p>
-      <p>matching: {matching}</p>
+
+      <div className={styles.delete}>
+        <button
+          onClick={async () => {
+            await deleteManyJudgeGroups();
+            setGrouping('groups deleted');
+          }}
+          className={styles.deleteButton}
+        >
+          Delete All Judge Groups
+        </button>
+
+        <button
+          onClick={async () => {
+            await deleteManyJudgeGroupsToTeams();
+            setMatching('links deleted');
+          }}
+          className={styles.deleteButton}
+        >
+          Delete All Links
+        </button>
+      </div>
     </div>
   );
 }
