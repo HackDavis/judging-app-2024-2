@@ -20,7 +20,6 @@ export default function matchingAlgorithm(
   const matches: JudgeGroupToTeam[] = [];
 
   for (const team of filteredTeams) {
-    console.log(team.name);
     teamAssignments.sort((group1, group2) => group1.teams - group2.teams);
 
     let pairedGroup = '';

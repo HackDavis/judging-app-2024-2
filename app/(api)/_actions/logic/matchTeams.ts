@@ -51,5 +51,7 @@ export default async function matchTeams() {
         await createSubmission(judge._id, match.team_id.toString());
       }
     }
+  } else {
+    return 'Failed to match teams: There may be fewer than two judge groups in one or more specialties.';
   }
 }

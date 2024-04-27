@@ -11,6 +11,7 @@ import { useState } from 'react';
 export default function JudgeTeamGrouping() {
   const [trackResults, scoreAction] = useFormState(scoreTeams, null);
   const [grouping, setGrouping] = useState('');
+  const [matching, setMatching] = useState('');
 
   return (
     <div className={styles.body}>
@@ -19,7 +20,11 @@ export default function JudgeTeamGrouping() {
       >
         Group Judges
       </button>
-      <button onClick={async () => await matchTeams()}>Match Teams</button>
+      <button
+        onClick={async () => setMatching(JSON.stringify(await matchTeams()))}
+      >
+        Match Teams
+      </button>
       <button
         onClick={async () => {
           await deleteManyJudgeGroups();
@@ -48,6 +53,7 @@ export default function JudgeTeamGrouping() {
           : ''}
       </form>
       <p>groups: {grouping}</p>
+      <p>matching: {matching}</p>
     </div>
   );
 }
