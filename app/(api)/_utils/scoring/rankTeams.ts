@@ -37,20 +37,22 @@ function calculateScores(team: Team, submissions: Submission[]) {
   let results: number[] = [0, 0, 0, 0, 0];
 
   for (const submission of submissions) {
-    const scores = calculateTrackScore(
-      team.tracks,
-      submission.scores,
-      submission.correlations as Correlation[]
-    );
+    if (submission.scores && submission.correlations) {
+      const scores = calculateTrackScore(
+        team.tracks,
+        submission.scores,
+        submission.correlations as Correlation[]
+      );
 
-    results = results.map((res, i) => res + scores[i]);
+      results = results.map((res, i) => res + scores[i]);
+    }
   }
 
   const finalScores = results.map((res, i) => ({
     track: team.tracks[i],
     score: isNaN(res / submissions.length) ? 0 : res / submissions.length,
   }));
-  console.log(finalScores);
+
   return { team: team.name, scores: finalScores };
 }
 
