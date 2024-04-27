@@ -6,15 +6,11 @@ import isBodyEmpty from '@utils/request/isBodyEmpty';
 import NoContentError from '@utils/response/NoContentError';
 import HttpError from '@utils/response/HttpError';
 import parseAndReplace from '@utils/request/parseAndReplace';
-import {
-  NotFoundError,
-  DuplicateError,
-  BadRequestError,
-} from '@utils/response/Errors';
+import { NotFoundError, DuplicateError } from '@utils/response/Errors';
 
 export const CreateSubmission = async (body: {
-  judge_id: string;
-  team_id: string;
+  judge_id: object;
+  team_id: object;
 }) => {
   try {
     if (isBodyEmpty(body)) {
@@ -28,6 +24,7 @@ export const CreateSubmission = async (body: {
     });
 
     if (judge === null) {
+      console.log(`judge with id: ${body.judge_id} not found.`);
       throw new NotFoundError(`judge with id: ${body.judge_id} not found.`);
     }
 
@@ -36,6 +33,7 @@ export const CreateSubmission = async (body: {
     });
 
     if (team === null) {
+      console.log(`team with id: ${body.team_id} not found.`);
       throw new NotFoundError(`team with id: ${body.team_id} not found.`);
     }
 
@@ -45,15 +43,8 @@ export const CreateSubmission = async (body: {
     });
 
     if (existingSubmission) {
+      console.log('Submission already exists');
       throw new DuplicateError('Submission already exists');
-    }
-
-    const judgeGroupToTeam = await db.collection('judgeGroupToTeams').findOne({
-      judge_group_id: judge.judge_group_id,
-    });
-
-    if (judgeGroupToTeam.team_id.toString() !== body.team_id.toString()) {
-      throw new BadRequestError('Judge is not judging this team.');
     }
 
     const creationStatus = await db

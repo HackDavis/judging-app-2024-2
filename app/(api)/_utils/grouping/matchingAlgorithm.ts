@@ -20,8 +20,10 @@ export default function matchingAlgorithm(
   const matches: JudgeGroupToTeam[] = [];
 
   for (const team of filteredTeams) {
+    console.log(team.name);
     teamAssignments.sort((group1, group2) => group1.teams - group2.teams);
 
+    let pairedGroup = '';
     for (let i = 0; i < 2; i++) {
       const chosenTrack = team.tracks[i];
       const foundTrack = tracks.find((track) => track.name === chosenTrack);
@@ -30,26 +32,31 @@ export default function matchingAlgorithm(
       let idx = 0;
       while (
         idx < teamAssignments.length &&
-        teamAssignments[idx].judgeGroup.type !== foundTrack.type
+        (teamAssignments[idx].judgeGroup.type !== foundTrack.type ||
+          pairedGroup === teamAssignments[idx].judgeGroup._id)
       ) {
         idx++;
       }
 
-      teamAssignments[idx].teams++;
+      if (idx < teamAssignments.length) {
+        teamAssignments[idx].teams++;
 
-      matches.push({
-        judge_group_id: {
-          '*convertId': {
-            id: teamAssignments[idx].judgeGroup._id,
+        matches.push({
+          judge_group_id: {
+            '*convertId': {
+              id: teamAssignments[idx].judgeGroup._id,
+            },
           },
-        },
-        team_id: {
-          '*convertId': {
-            id: team._id,
+          team_id: {
+            '*convertId': {
+              id: team._id,
+            },
           },
-        },
-        round: teamAssignments[idx].teams,
-      });
+          round: teamAssignments[idx].teams,
+        });
+
+        pairedGroup = teamAssignments[idx].judgeGroup._id ?? '';
+      }
     }
   }
 

@@ -6,6 +6,8 @@ import JudgeGroupToTeam from '@typeDefs/judgeGroupToTeam';
 import parseAndReplace from '@utils/request/parseAndReplace';
 import { getManyJudgeGroups } from '@actions/judgeGroups/getJudgeGroup';
 import { getManyTeams } from '@actions/teams/getTeams';
+import { createSubmission } from '@actions/submissions/createSubmission';
+import { getManyJudges } from '@actions/judges/getJudge';
 
 function checkMatches(matches: JudgeGroupToTeam[], teamsLength: number) {
   if (matches.length < 2 * teamsLength) return false;
@@ -35,5 +37,19 @@ export default async function matchTeams() {
   const parsedMatches = await parseAndReplace(matches);
   const valid = checkMatches(parsedMatches, teams.length);
 
-  if (valid) await LinkManyJudgeGroupsToTeams(matches);
+  if (valid) {
+    await LinkManyJudgeGroupsToTeams(matches);
+
+    for (const match of parsedMatches) {
+      const judges = (
+        await getManyJudges({
+          judge_group_id: match.judge_group_id,
+        })
+      ).body;
+
+      for (const judge of judges) {
+        await createSubmission(judge._id, match.team_id.toString());
+      }
+    }
+  }
 }
