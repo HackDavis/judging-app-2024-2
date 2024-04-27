@@ -60,7 +60,7 @@ export default function InviteLinkForm() {
           <input name="slug" type="hidden" defaultValue="/register" />
         </div>
         <button type="submit" onClick={() => setLoading(true)}>
-          Generate invite link
+          Invite judge
         </button>
         <p className={styles.link_text}>{inviteState.body ?? ''}</p>
       </form>

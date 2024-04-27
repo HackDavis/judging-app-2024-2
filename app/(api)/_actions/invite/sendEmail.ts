@@ -40,17 +40,85 @@ export default async function sendEmail(
     });
 
     const msg = `
-      <div class="mail-container">
-        <p>Welcome ${name}</p>
-        <p>Your invite link is: ${hmac_url}</p>
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>Page Title</title>
+    <style>
+    * {
+      box-sizing: border-box;
+      color: white;
+      text-decoration: none;
+    }
+    
+    .container {
+      background-color: #173A52;
+      width: 100%;
+      padding: 48px;
+    }
+    
+    .welcome-text {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: 'Helvetica';
+    }
+    
+    .name-text {
+      color: #76D6E6;
+      font-family: 'Helvetica';
+    }
+    
+    .make-account {
+      color: white;
+      font-family: 'Helvetica';
+      margin-bottom: 30px;
+    }
+    
+    span {
+      font-weight: 700;
+    }
+    
+    .button {
+      border: none;
+      border-radius: 4px;
+      padding: 12px;
+      background-color: #FFC53D;
+      font-weight: 500;
+      font-family: 'Proxima Nova';
+      font-size: 1.25rem;
+      color: #173a52;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      font-family: 'Helvetica';
+    }
+    
+    .bottom-text {
+      color: white;
+      font-family: 'Helvetica';
+    }
+    
+    
+    </style>
+    </head>
+    <body>
+    <div class="container">
+      <h3 class="welcome-text">Welcome to HackDavis Judging,</h3>
+      <h3 class="name-text">${name}</h3>
+      <p class="make-account">
+        Please make an account on our Judging Portal with the following invite
+        link. Do <span>NOT</span> share this link
+        with anyone.
+      </p>
+      <a class="button" href="${hmac_url}">Register</a>
+      <div>
+        <p class="bottom-text">Your invite link is:</p>
+        <p class="bottom-text">${hmac_url}</p>
       </div>
-      <style>
-          .mail_container {
-              display: flex;
-              flex-direction: column;
-              gap: 16px;
-          }
-      </style>
+     </div>
+    </body>
+    </html>
     `;
     const mailOptions = {
       from: `${name} <${senderEmail}>`,
