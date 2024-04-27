@@ -36,8 +36,10 @@ function calculateTrackScore(
 function calculateScores(team: Team, submissions: Submission[]) {
   let results: number[] = [0, 0, 0, 0, 0];
 
+  let submissionsCount = 0;
   for (const submission of submissions) {
     if (submission.scores && submission.correlations) {
+      submissionsCount++;
       const scores = calculateTrackScore(
         team.tracks,
         submission.scores,
@@ -50,7 +52,7 @@ function calculateScores(team: Team, submissions: Submission[]) {
 
   const finalScores = results.map((res, i) => ({
     track: team.tracks[i],
-    score: isNaN(res / submissions.length) ? 0 : res / submissions.length,
+    score: isNaN(res / submissionsCount) ? 0 : res / submissionsCount,
   }));
 
   return { team: team.name, scores: finalScores };
