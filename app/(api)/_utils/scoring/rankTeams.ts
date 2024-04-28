@@ -55,7 +55,12 @@ function calculateScores(team: Team, submissions: Submission[]) {
     score: isNaN(res / submissionsCount) ? 0 : res / submissionsCount,
   }));
 
-  return { number: team.number, name: team.name, scores: finalScores };
+  return {
+    number: team.number,
+    name: team.name,
+    scores: finalScores,
+    comments: submissions.map((submission) => submission.comments),
+  };
 }
 
 async function computeAllTeams(teams: Team[]) {
@@ -98,6 +103,7 @@ export default async function rankTeams(teams: Team[]) {
         number: team.number,
         name: team.name,
         score: foundScore.score,
+        comments: team.comments,
       });
     }
 
