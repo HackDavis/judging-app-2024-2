@@ -26,9 +26,9 @@ function JudgingCard({ project }: { project: any }) {
       )}
 
       {project.tracks.length > 2 && (
-        <div className={styles.category_bubble}>{`+${
+        <div className={styles.category_bubble}>{`${
           project.tracks.length - 2
-        }`}</div>
+        }+`}</div>
       )}
     </Link>
   );
