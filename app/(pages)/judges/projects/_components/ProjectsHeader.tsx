@@ -4,10 +4,6 @@
 import styles from './ProjectsHeader.module.scss';
 import { CiMap } from 'react-icons/ci';
 import Image from 'next/image';
-import map from 'public/judges/hub/map.png';
-import { useState } from 'react';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
 import Link from 'next/link';
 
 export default function ProjectsHeader({
@@ -17,25 +13,8 @@ export default function ProjectsHeader({
   activeTab: number;
   setActiveTab: (tab: number) => void;
 }) {
-  // const [activeTab, setActiveTab] = useState(initialTab); // 0: unjudged, 1: scored
-  const [popUpActive, setPopUpActive] = useState(false);
-
-  const handleOpen = () => {
-    setPopUpActive(true);
-  };
-
-  const handleClose = () => {
-    setPopUpActive(false);
-  };
-
-  const boxStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    height: '100vh',
-    border: 'none',
-    background: 'black',
-  };
+  const figmaLink =
+    'https://www.figma.com/proto/9frZI5Kc9f2c8o4ZIZG8fX/Judging-Table-Map?page-id=0:1&type=design&node-id=1-4&viewport=134,164,0.69&t=Jfp4HXeR7nRs3B6R-1&scaling=min-zoom&mode=design';
 
   return (
     <div className={styles.container}>
@@ -64,46 +43,11 @@ export default function ProjectsHeader({
         </div>
 
         <div>
-          <div onClick={handleOpen} className={styles.header_map}>
-            <CiMap className={styles.header_map_icon} />
-          </div>
-          <Modal open={popUpActive}>
-            <Box sx={boxStyle} onClick={handleClose}>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  background: 'black',
-                  padding: '50px',
-                  marginTop: '-5vh',
-                }}
-              >
-                <Image
-                  src={map}
-                  alt="venue map"
-                  width={250}
-                  style={{ background: 'black', padding: '20px' }}
-                />
-                <button
-                  onClick={handleClose}
-                  style={{
-                    display: 'flex',
-                    padding: '12px 45px',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '9.686px',
-                    borderRadius: '32px',
-                    background: '#FFC5AB',
-                    width: '105px',
-                    alignSelf: 'center',
-                  }}
-                >
-                  Done
-                </button>
-              </div>
-            </Box>
-          </Modal>
+          <Link href={figmaLink} target="_blank">
+            <div className={styles.header_map}>
+              <CiMap className={styles.header_map_icon} />
+            </div>
+          </Link>
         </div>
       </div>
       <div className={styles.projectType}>

@@ -11,13 +11,20 @@
     padding: 10% 17px 60px 17px;
 
     .header {
-        color: #FFF;
+        color: black;
         font-family: "Proxima Nova";
         font-size: 18px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
         letter-spacing: 0.36px;
+
+        border-radius: 15.497px;
+        background: white;
+        box-shadow: 0px 3.874px 61.987px 0px rgba(255, 197, 61, 0.16);
+        padding: 10px;
+        width: 100%;
+        text-align: center;
     }
     .map {
         width: 90%;
