@@ -64,7 +64,9 @@ export default function JudgeNotHere() {
         </div>
         <div className={styles.container_button} onClick={DirectorNoti}>
           <NotificationsNoneOutlinedIcon />
-          <p>Notify a Director</p>
+          <a href="https://forms.gle/WHMb1W8Z2sCwvTxu6" target="_blank">
+            <p>Notify a Director</p>
+          </a>
         </div>
       </div>
     </div>
