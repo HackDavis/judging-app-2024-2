@@ -108,12 +108,13 @@ export default async function rankTeams(teams: Team[]) {
     }
 
     topEntries.sort((entry1, entry2) => entry2.score - entry1.score);
-    // if (
-    //   track.name !== 'Best Hack for Life of Kai' ||
-    //   track.name !== 'Best Hack for DCMH' ||
-    //   track.name !== 'Best Hack for AggieHouse'
-    // )
-    //   topEntries.splice(10);
+    if (
+      track.name !== ('Best Hack for Life of Kai' as string) ||
+      track.name !== ('Best Hack for DCMH' as string) ||
+      track.name !== ('Best Hack for AggieHouse' as string)
+    ) {
+      topEntries.splice(10);
+    }
 
     trackResults.push({
       track: track.name,
