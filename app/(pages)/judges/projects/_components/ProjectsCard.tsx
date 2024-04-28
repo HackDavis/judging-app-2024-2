@@ -3,6 +3,8 @@
 import Link from 'next/link';
 // import Category from './Category';
 import styles from './ProjectsCard.module.scss';
+import useEmblaCarousel from 'embla-carousel-react';
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 
 interface ProjectsCardProps {
   team_id: string;
@@ -54,17 +56,34 @@ export default function ProjectsCard({
     }
     return <></>;
   };
+
+  const [emblaRef, _] = useEmblaCarousel(
+    {
+      loop: false,
+      align: 'start',
+      dragFree: true,
+      skipSnaps: true,
+      watchDrag: true,
+    },
+    [WheelGesturesPlugin()]
+  );
+
   return (
     <Link href={`/judges/scoring/${team_id}`} className={styles.card}>
       <div className={styles.teamNumber}>{num}</div>
       <div className={styles.text}>
         <div className={styles.teamName}>{name} </div>
-        {/* <div>
-          {project.categories.map((category, index) => {
-            <Category key={index} category={category} />;
-          })}
-        </div> */}
-        <div>{renderCategories(categories)}</div>
+        <div ref={emblaRef}>
+          <div className={styles.categoriesContainer}>
+            {categories.map((category, index) => {
+              return (
+                <div key={index} className={styles.category}>
+                  {category}
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </Link>
   );
