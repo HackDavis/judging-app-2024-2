@@ -11,8 +11,16 @@
     .topText {
         display: flex;
         justify-content: space-between;
-        padding-top: 64px;
-        width: 350px;
+        padding: 32px;
+        padding-bottom: 0;
+        width: 100%;
+        align-items: center;
+
+        >div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
 
         .teamTable {
             color: #FFF;

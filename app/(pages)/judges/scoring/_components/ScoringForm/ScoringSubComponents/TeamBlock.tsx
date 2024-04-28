@@ -2,6 +2,7 @@ import TeamInt from '@typeDefs/teams';
 import styles from './TeamBlock.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
+import backArrow from '/public/judges/hub/back-arrow.svg';
 
 const RightArrow = () => {
   return (
@@ -41,25 +42,18 @@ export default function TeamBlock({ team }: { team: TeamInt }) {
   /* retrieve these from backend */
   return (
     <div className={styles.teamBlock}>
-      <Link href="/judges/projects">
-        <Image
-          src="/judges/hub/back-arrow.svg"
-          alt=""
-          height={50}
-          width={50}
-          quality={100}
-          style={{
-            maxWidth: '100%',
-            height: 'auto',
-            objectFit: 'contain',
-            position: 'absolute',
-            marginLeft: '-190px',
-          }}
-        />
-      </Link>
       <div className={styles.topText}>
-        <h2 className={styles.teamTable}>Table {team.number}</h2>
-
+        <div>
+          <Link href="/judges">
+            <Image
+              src={backArrow}
+              alt="back arrow"
+              width={50}
+              style={{ marginTop: '8px' }}
+            />
+          </Link>
+          <h2 className={styles.teamTable}>Table {team.number}</h2>
+        </div>
         <Link href={'/judges/map'}>
           <div className={styles.mapContent}>
             <h3 className={styles.mapText}>Find on Map</h3>
@@ -67,8 +61,9 @@ export default function TeamBlock({ team }: { team: TeamInt }) {
           </div>
         </Link>
       </div>
-
-      <h1 className={styles.teamName}>{team.name}</h1>
+      <div className={styles.back_section}>
+        <h1 className={styles.teamName}>{team.name}</h1>
+      </div>
       <div className={styles.guideContent}>
         <p className={styles.guideText}>
           Please refer back to our judging guide for each track. Tracks are on a
