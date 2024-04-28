@@ -19,9 +19,6 @@ export default function Submission({
       >
         Submit Score
       </button>
-      <p className={styles.submitDescription}>
-        Once submitted, results cannot be changed.
-      </p>
     </div>
   );
 }
