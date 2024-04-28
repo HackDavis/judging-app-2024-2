@@ -39,24 +39,30 @@ export default function ProjectsHeader({
 
   return (
     <div className={styles.container}>
-      <Link href="/judges">
-        <Image
-          src="/judges/hub/back-arrow.svg"
-          alt=""
-          height={50}
-          width={50}
-          quality={100}
-          style={{
-            maxWidth: '100%',
-            height: 'auto',
-            objectFit: 'contain',
-            marginTop: '-110px',
-            marginLeft: '-15px',
-          }}
-        />
-      </Link>
       <div className={styles.header}>
-        <div className={styles.header_title}>Projects</div>
+        <div
+          style={{
+            display: 'flex',
+          }}
+        >
+          <Link href="/judges">
+            <Image
+              src="/judges/hub/back-arrow.svg"
+              alt=""
+              height={50}
+              width={50}
+              quality={100}
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                objectFit: 'contain',
+                marginTop: '-7px',
+              }}
+            />
+          </Link>
+          <div className={styles.header_title}>Projects</div>
+        </div>
+
         <div>
           <div onClick={handleOpen} className={styles.header_map}>
             <CiMap className={styles.header_map_icon} />
