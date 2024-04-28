@@ -11,7 +11,6 @@ export default function TableLocations() {
     boxShadow: '0px 3.874px 61.987px 0px rgba(255, 197, 61, 0.16)',
     color: '#173A52',
     textAlign: 'center',
-    fontFamily: 'Metropolis',
     fontSize: '16px',
     fontStyle: 'normal',
     fontWeight: 600,
