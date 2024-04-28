@@ -1,10 +1,9 @@
 'use client';
 import { useState } from 'react';
-import SubmissionInt from '@typeDefs/submissions';
 import styles from './Comments.module.scss';
 
-export default function Comments({ _ }: { _: SubmissionInt }) {
-  const [commentText, setCommentText] = useState('');
+export default function Comments({ submission }: { submission: string }) {
+  const [commentText, setCommentText] = useState(submission);
 
   const onCommentType = (e: any) => {
     setCommentText(e.target.value);
