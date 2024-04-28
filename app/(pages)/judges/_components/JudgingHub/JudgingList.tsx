@@ -8,7 +8,7 @@ export default function JudgingList({ projects }: { projects: object[] }) {
       <div className={styles.top_text}>
         <h3>Judging has begun!</h3>
         <p>
-          You have <span>{projects.length}</span> left to judge:
+          You have <span>{projects.length}</span> team&#40;s&#41; left to judge:
         </p>
       </div>
       <ProjectCarousel projects={projects} />

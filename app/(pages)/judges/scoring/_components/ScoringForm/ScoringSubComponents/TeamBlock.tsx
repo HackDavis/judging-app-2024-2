@@ -43,10 +43,12 @@ export default function TeamBlock({ team }: { team: TeamInt }) {
       <div className={styles.topText}>
         <h2 className={styles.teamTable}>Table {team.number}</h2>
 
-        <div className={styles.mapContent}>
-          <h3 className={styles.mapText}>Find on Map</h3>
-          <RightArrow />
-        </div>
+        <Link href={'/judges/map'}>
+          <div className={styles.mapContent}>
+            <h3 className={styles.mapText}>Find on Map</h3>
+            <RightArrow />
+          </div>
+        </Link>
       </div>
 
       <h1 className={styles.teamName}>{team.name}</h1>

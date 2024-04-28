@@ -30,7 +30,6 @@ export default function HubHero({
     boxShadow: '0px 3.874px 61.987px 0px rgba(255, 197, 61, 0.16)',
     color: '#173A52',
     textAlign: 'center',
-    fontFamily: 'Metropolis',
     fontSize: '16px',
     fontStyle: 'normal',
     fontWeight: 600,
@@ -38,6 +37,7 @@ export default function HubHero({
     letterSpacing: '0.32px',
     width: '357px',
     height: '43px',
+    marginTop: '16px',
     border: 'none',
     alignSelf: 'center',
   };
