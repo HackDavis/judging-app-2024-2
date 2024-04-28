@@ -8,7 +8,7 @@ import map from 'public/judges/hub/map.png';
 import { useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import Link from 'next/link';
 
 export default function ProjectsHeader({
   activeTab,
@@ -38,6 +38,22 @@ export default function ProjectsHeader({
 
   return (
     <div className={styles.container}>
+      <Link href="/judges">
+        <Image
+          src="/judges/hub/back-arrow.svg"
+          alt=""
+          height={50}
+          width={50}
+          quality={100}
+          style={{
+            maxWidth: '100%',
+            height: 'auto',
+            objectFit: 'contain',
+            marginTop: '-110px',
+            marginLeft: '-15px',
+          }}
+        />
+      </Link>
       <div className={styles.header}>
         <div className={styles.header_title}>Projects</div>
         <div>
