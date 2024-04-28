@@ -63,7 +63,7 @@ export default function Tips() {
               />
             </svg>
           </div>
-          <Bar translatePosition={scrollPosition * 45} />
+          <Bar translatePosition={(scrollPosition / tipsArray.length) * 500} />
           <div onClick={moveRight} className={styles.arrow}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +99,7 @@ const Bar = (props: { translatePosition: number }) => {
     <div className={styles.bar}>
       <div
         className={styles.progress}
-        style={{ transform: `translateX(${props.translatePosition}px)` }}
+        style={{ transform: `translateX(${props.translatePosition}%)` }}
       ></div>
     </div>
   );
