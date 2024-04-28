@@ -19,43 +19,43 @@ export default function ProjectsCard({
   name,
   categories,
 }: ProjectsCardProps) {
-  const renderCategory = (category: string) => {
-    return <div className={styles.category}>{category}</div>;
-  };
+  // const renderCategory = (category: string) => {
+  //   return <div className={styles.category}>{category}</div>;
+  // };
 
-  const extraCategories = (extra: number) => {
-    return <div className={styles.extra}>{extra}+</div>;
-  };
+  // const extraCategories = (extra: number) => {
+  //   return <div className={styles.extra}>{extra}+</div>;
+  // };
 
-  const renderCategories = (categories: string[]) => {
-    const size: number = categories.length;
-    if (size == 0) {
-      return <></>;
-    } else if (size == 1) {
-      return (
-        <div className={styles.categoriesContainer}>
-          {/* <Category category={categories[0]} />; */}
-          {renderCategory(categories[0])}
-        </div>
-      );
-    } else if (size == 2) {
-      return (
-        <div className={styles.categoriesContainer}>
-          {renderCategory(categories[0])}
-          {renderCategory(categories[1])}
-        </div>
-      );
-    } else if (size > 2) {
-      return (
-        <div className={styles.categoriesContainer}>
-          {renderCategory(categories[0])}
-          {renderCategory(categories[1])}
-          {extraCategories(size - 2)}
-        </div>
-      );
-    }
-    return <></>;
-  };
+  // const renderCategories = (categories: string[]) => {
+  //   const size: number = categories.length;
+  //   if (size == 0) {
+  //     return <></>;
+  //   } else if (size == 1) {
+  //     return (
+  //       <div className={styles.categoriesContainer}>
+  //         {/* <Category category={categories[0]} />; */}
+  //         {renderCategory(categories[0])}
+  //       </div>
+  //     );
+  //   } else if (size == 2) {
+  //     return (
+  //       <div className={styles.categoriesContainer}>
+  //         {renderCategory(categories[0])}
+  //         {renderCategory(categories[1])}
+  //       </div>
+  //     );
+  //   } else if (size > 2) {
+  //     return (
+  //       <div className={styles.categoriesContainer}>
+  //         {renderCategory(categories[0])}
+  //         {renderCategory(categories[1])}
+  //         {extraCategories(size - 2)}
+  //       </div>
+  //     );
+  //   }
+  //   return <></>;
+  // };
 
   const [emblaRef, _] = useEmblaCarousel(
     {
