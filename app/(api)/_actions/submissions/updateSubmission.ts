@@ -9,9 +9,10 @@ export default async function updateSubmission(
   const { judge_id, team_id, comments, ...rest } = FormToJSON(formData);
   const keys = Object.keys(rest);
   const scores = keys.slice(0, 5).map((key: string) => +rest[key]);
-  const correlations = keys
-    .slice(5)
-    .map((key: string) => ({ track: key, score: +rest[key] }));
+  const correlations = keys.slice(5).map((key: string) => ({
+    track: Buffer.from(key, 'ascii').toString('utf-8'),
+    score: +rest[key],
+  }));
 
   const updateBody = {
     $set: {
