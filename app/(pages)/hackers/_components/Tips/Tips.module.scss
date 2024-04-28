@@ -97,6 +97,15 @@ $background-color: #E5EEF1;
             border-radius: 10px;
             position: absolute;
             transition: transform 0.5s ease;
+
+            @media only screen and (max-width: 390px) {
+                width: 39px;
+            
+            }
+            @media only screen and (max-width: 375px) {
+                width: 37px;
+            
+            }
         }
     }
 }
