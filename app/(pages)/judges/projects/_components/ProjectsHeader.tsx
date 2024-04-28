@@ -5,7 +5,6 @@ import styles from './ProjectsHeader.module.scss';
 import { CiMap } from 'react-icons/ci';
 import Image from 'next/image';
 import map from 'public/judges/hub/map.png';
-import mapButton from 'public/judges/hub/mapButton.png';
 import { useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
