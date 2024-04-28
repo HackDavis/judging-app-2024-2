@@ -37,8 +37,9 @@ export default function JudgeTeamGrouping() {
                 <h4>{result.track}</h4>
                 {result.topEntries.map((entry) => (
                   <>
-                    <p>{entry.team}</p>
-                    <p>{entry.score}</p>
+                    <p>
+                      Team No. {entry.number}, {entry.name}, {entry.score}
+                    </p>
                   </>
                 ))}
               </>

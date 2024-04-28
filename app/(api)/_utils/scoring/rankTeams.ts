@@ -55,7 +55,7 @@ function calculateScores(team: Team, submissions: Submission[]) {
     score: isNaN(res / submissionsCount) ? 0 : res / submissionsCount,
   }));
 
-  return { team: team.name, scores: finalScores };
+  return { number: team.number, name: team.name, scores: finalScores };
 }
 
 async function computeAllTeams(teams: Team[]) {
@@ -95,7 +95,8 @@ export default async function rankTeams(teams: Team[]) {
       if (foundScore === undefined) continue;
 
       topEntries.push({
-        team: team.team,
+        number: team.number,
+        name: team.name,
         score: foundScore.score,
       });
     }
