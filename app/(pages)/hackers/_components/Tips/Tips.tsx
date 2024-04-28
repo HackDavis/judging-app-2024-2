@@ -9,10 +9,10 @@ export default function Tips() {
 
   const tipsArray = [
     "Take a deep breath. It'll help you both organize your thoughts and your presentation better!",
-    '2',
-    '3',
-    '4',
-    '5',
+    'Practice your pitch multiple times, ensuring you explain your project, its purpose and its unique features.',
+    'Plan the flow of your demo to highlight key functionalities and how they address the problem statement or challenge.',
+    'Even if there are flaws or limitations in your project, maintain a positive attitude and focus on the strengths and your achievements.',
+    'If you start feeling overwhelmed or anxious, take a short break to collect yourself and clear your mind.',
   ];
 
   const moveRight = () => {

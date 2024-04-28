@@ -51,6 +51,7 @@ export default function Welcome() {
               alt="judge_gavel"
               width={103}
               height={103}
+              className={styles.gavel}
               style={{ position: 'absolute', left: 190, top: 30, zIndex: 2 }}
             />
             <Image
