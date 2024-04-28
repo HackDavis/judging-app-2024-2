@@ -38,6 +38,9 @@ const NoteBook = () => {
   );
 };
 
+const figmaLink =
+  'https://www.figma.com/proto/9frZI5Kc9f2c8o4ZIZG8fX/Judging-Table-Map?page-id=0:1&type=design&node-id=1-4&viewport=134,164,0.69&t=Jfp4HXeR7nRs3B6R-1&scaling=min-zoom&mode=design';
+
 export default function TeamBlock({ team }: { team: TeamInt }) {
   /* retrieve these from backend */
   return (
@@ -54,7 +57,7 @@ export default function TeamBlock({ team }: { team: TeamInt }) {
           </Link>
           <h2 className={styles.teamTable}>Table {team.number}</h2>
         </div>
-        <Link href={'/judges/map'}>
+        <Link href={figmaLink}>
           <div className={styles.mapContent}>
             <h3 className={styles.mapText}>Find on Map</h3>
             <RightArrow />

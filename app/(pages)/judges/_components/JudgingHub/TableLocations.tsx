@@ -1,8 +1,6 @@
 import styles from './TableLocations.module.scss';
-import Image from 'next/image';
 import LogoutButton from '../LogoutButton/LogoutButton';
-
-import map from 'public/judges/hub/map.png';
+import Link from 'next/link';
 export default function TableLocations() {
   const logOutStyle = {
     zIndex: 1,
@@ -22,11 +20,14 @@ export default function TableLocations() {
     alignSelf: 'center',
     marginTop: '64px',
   };
+  const figmaLink =
+    'https://www.figma.com/proto/9frZI5Kc9f2c8o4ZIZG8fX/Judging-Table-Map?page-id=0:1&type=design&node-id=1-4&viewport=134,164,0.69&t=Jfp4HXeR7nRs3B6R-1&scaling=min-zoom&mode=design';
 
   return (
     <div className={styles.container}>
-      {/* <h3 className={styles.header}>Table Locations</h3> */}
-      <Image src={map} alt={'venue map'} className={styles.map} />
+      <Link href={figmaLink} target="_blank">
+        <div className={styles.header}>Click Here for Table Map</div>
+      </Link>
       <LogoutButton style={logOutStyle}>
         <p>Sign out</p>
       </LogoutButton>
