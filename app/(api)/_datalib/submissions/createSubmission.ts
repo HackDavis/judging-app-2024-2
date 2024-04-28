@@ -9,8 +9,8 @@ import parseAndReplace from '@utils/request/parseAndReplace';
 import { NotFoundError, DuplicateError } from '@utils/response/Errors';
 
 export const CreateSubmission = async (body: {
-  judge_id: string;
-  team_id: string;
+  judge_id: object;
+  team_id: object;
 }) => {
   try {
     if (isBodyEmpty(body)) {
@@ -24,6 +24,7 @@ export const CreateSubmission = async (body: {
     });
 
     if (judge === null) {
+      console.log(`judge with id: ${body.judge_id} not found.`);
       throw new NotFoundError(`judge with id: ${body.judge_id} not found.`);
     }
 
@@ -32,6 +33,7 @@ export const CreateSubmission = async (body: {
     });
 
     if (team === null) {
+      console.log(`team with id: ${body.team_id} not found.`);
       throw new NotFoundError(`team with id: ${body.team_id} not found.`);
     }
 
@@ -41,6 +43,7 @@ export const CreateSubmission = async (body: {
     });
 
     if (existingSubmission) {
+      console.log('Submission already exists');
       throw new DuplicateError('Submission already exists');
     }
 

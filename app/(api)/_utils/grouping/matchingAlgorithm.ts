@@ -3,124 +3,61 @@ import Team from '@typeDefs/teams';
 import tracks from '../../_data/tracks.json' assert { type: 'json' };
 import JudgeGroupToTeam from '@typeDefs/judgeGroupToTeam';
 
-const shuffle = (array: Team[]) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-};
-
-function createMatches(
-  judgeGroups: JudgeGroup[],
-  teams: Team[],
-  type: string,
-  rounds: number
-) {
-  const matches: JudgeGroupToTeam[] = [];
-
-  judgeGroups.forEach((judgeGroup) => {
-    if (judgeGroup._id === undefined) return;
-    let count = 1;
-    teams = shuffle(teams);
-    for (const team of teams) {
-      if (team._id === undefined) continue;
-      if (count === rounds + 1) break;
-      for (const chosenTrack of team.tracks) {
-        const foundTrack = tracks.find((track) => track.name === chosenTrack);
-        if (foundTrack === undefined) continue;
-
-        if (foundTrack.type === type) {
-          const idx = team.tracks.indexOf(chosenTrack);
-          if (idx !== -1) team.tracks.splice(idx, 1);
-
-          matches.push({
-            judge_group_id: {
-              '*convertId': {
-                id: judgeGroup._id,
-              },
-            },
-            team_id: {
-              '*convertId': {
-                id: team._id,
-              },
-            },
-            round: count,
-          });
-          count++;
-          break;
-        }
-      }
-    }
-  });
-
-  return matches;
-}
-
 export default function matchingAlgorithm(
   judgeGroups: JudgeGroup[],
   teams: Team[]
 ) {
   const filteredTeams = teams.map((team) => {
-    team.tracks.splice(2);
     while (team.tracks.length < 2) team.tracks.push('No Track');
     return team;
   });
 
-  const techGroups = judgeGroups.filter((group) => group.type === 'tech');
-  const generalGroups = judgeGroups.filter((group) => group.type === 'general');
-  const designGroups = judgeGroups.filter((group) => group.type === 'design');
+  const teamAssignments = judgeGroups.map((group) => ({
+    judgeGroup: group,
+    teams: 0,
+  }));
 
-  let totalTech = 0;
-  let totalGeneral = 0;
-  let totalDesign = 0;
+  const matches: JudgeGroupToTeam[] = [];
 
-  filteredTeams.forEach((team) => {
-    team.tracks.forEach((chosenTrack) => {
+  for (const team of filteredTeams) {
+    teamAssignments.sort((group1, group2) => group1.teams - group2.teams);
+
+    let pairedGroup = '';
+    for (let i = 0; i < 2; i++) {
+      const chosenTrack = team.tracks[i];
       const foundTrack = tracks.find((track) => track.name === chosenTrack);
-      if (foundTrack === undefined) {
-        console.log('Warning: Undefined track found.');
-        return;
+      if (foundTrack === undefined) continue;
+
+      let idx = 0;
+      while (
+        idx < teamAssignments.length &&
+        (teamAssignments[idx].judgeGroup.type !== foundTrack.type ||
+          pairedGroup === teamAssignments[idx].judgeGroup._id)
+      ) {
+        idx++;
       }
 
-      switch (foundTrack.type) {
-        case 'tech':
-          totalTech++;
-          break;
-        case 'general':
-          totalGeneral++;
-          break;
-        case 'design':
-          totalDesign++;
-          break;
-        default:
-          return;
+      if (idx < teamAssignments.length) {
+        teamAssignments[idx].teams++;
+
+        matches.push({
+          judge_group_id: {
+            '*convertId': {
+              id: teamAssignments[idx].judgeGroup._id,
+            },
+          },
+          team_id: {
+            '*convertId': {
+              id: team._id,
+            },
+          },
+          round: teamAssignments[idx].teams,
+        });
+
+        pairedGroup = teamAssignments[idx].judgeGroup._id ?? '';
       }
-    });
-  });
+    }
+  }
 
-  const techRounds = Math.ceil(totalTech / techGroups.length);
-  const generalRounds = Math.ceil(totalGeneral / generalGroups.length);
-  const designRounds = Math.ceil(totalDesign / designGroups.length);
-
-  const techMatches = createMatches(
-    techGroups,
-    filteredTeams,
-    'tech',
-    techRounds
-  );
-  const generalMatches = createMatches(
-    generalGroups,
-    filteredTeams,
-    'general',
-    generalRounds
-  );
-  const designMatches = createMatches(
-    designGroups,
-    filteredTeams,
-    'design',
-    designRounds
-  );
-
-  return techMatches.concat(generalMatches, designMatches);
+  return matches;
 }

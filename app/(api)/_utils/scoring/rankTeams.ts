@@ -15,7 +15,7 @@ function calculateTrackScore(
 ) {
   const finalScores = chosenTracks.map((chosenTrack) => {
     const weights = tracks.find((track) => track.name == chosenTrack)?.weights;
-    if (weights === undefined) return -1;
+    if (weights === undefined) return 0;
     const score = weights.reduce((sum, weight, i) => {
       return sum + weight * scores[i];
     }, 0);
@@ -24,7 +24,7 @@ function calculateTrackScore(
     )?.score;
 
     if (correlationWeight === undefined || score === undefined) {
-      return -1;
+      return 0;
     }
 
     return (score! * correlationWeight!) / 5;
@@ -34,24 +34,33 @@ function calculateTrackScore(
 }
 
 function calculateScores(team: Team, submissions: Submission[]) {
-  let results: number[] = [];
+  let results: number[] = [0, 0, 0, 0, 0];
 
+  let submissionsCount = 0;
   for (const submission of submissions) {
-    const scores = calculateTrackScore(
-      team.tracks,
-      submission.scores,
-      submission.correlations as Correlation[]
-    );
+    if (submission.scores && submission.correlations) {
+      submissionsCount++;
+      const scores = calculateTrackScore(
+        team.tracks,
+        submission.scores,
+        submission.correlations as Correlation[]
+      );
 
-    results = results.map((res, i) => res + scores[i]);
+      results = results.map((res, i) => res + scores[i]);
+    }
   }
 
   const finalScores = results.map((res, i) => ({
     track: team.tracks[i],
-    score: res / submissions.length,
+    score: isNaN(res / submissionsCount) ? 0 : res / submissionsCount,
   }));
 
-  return { team: team.name, scores: finalScores };
+  return {
+    number: team.number,
+    name: team.name,
+    scores: finalScores,
+    comments: submissions.map((submission) => submission.comments),
+  };
 }
 
 async function computeAllTeams(teams: Team[]) {
@@ -91,8 +100,10 @@ export default async function rankTeams(teams: Team[]) {
       if (foundScore === undefined) continue;
 
       topEntries.push({
-        team: team.team,
+        number: team.number,
+        name: team.name,
         score: foundScore.score,
+        comments: team.comments,
       });
     }
 

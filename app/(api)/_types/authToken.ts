@@ -4,6 +4,7 @@ interface AuthTokenInt {
   email: string;
   password: string;
   specialty: string;
+  judge_group_id: string;
   role: string;
   iat: number;
   exp: number;

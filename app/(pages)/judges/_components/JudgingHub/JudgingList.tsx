@@ -2,24 +2,16 @@ import Link from 'next/link';
 import styles from './JudgingList.module.scss';
 import ProjectCarousel from './ProjectCarousel';
 
-const numProjects = 4;
-
-export default function JudgingList({
-  loading,
-  projects,
-}: {
-  loading: boolean;
-  projects: object[];
-}) {
+export default function JudgingList({ projects }: { projects: object[] }) {
   return (
     <div className={styles.container}>
       <div className={styles.top_text}>
         <h3>Judging has begun!</h3>
         <p>
-          You have <span>{numProjects}</span> left to judge:
+          You have <span>{projects.length}</span> team&#40;s&#41; left to judge:
         </p>
       </div>
-      {loading ? 'loading...' : <ProjectCarousel projects={projects} />}
+      <ProjectCarousel projects={projects} />
       <Link href="/judges/projects" className={styles.projects_button}>
         View All Projects
         <svg
