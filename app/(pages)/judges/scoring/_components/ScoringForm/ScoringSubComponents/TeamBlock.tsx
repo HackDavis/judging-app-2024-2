@@ -1,6 +1,7 @@
 import TeamInt from '@typeDefs/teams';
 import styles from './TeamBlock.module.scss';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const RightArrow = () => {
   return (
@@ -40,6 +41,22 @@ export default function TeamBlock({ team }: { team: TeamInt }) {
   /* retrieve these from backend */
   return (
     <div className={styles.teamBlock}>
+      <Link href="/judges">
+        <Image
+          src="/judges/hub/back-arrow.svg"
+          alt=""
+          height={50}
+          width={50}
+          quality={100}
+          style={{
+            maxWidth: '100%',
+            height: 'auto',
+            objectFit: 'contain',
+            position: 'absolute',
+            marginLeft: '-190px',
+          }}
+        />
+      </Link>
       <div className={styles.topText}>
         <h2 className={styles.teamTable}>Table {team.number}</h2>
 

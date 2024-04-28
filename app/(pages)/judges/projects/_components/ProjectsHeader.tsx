@@ -34,6 +34,7 @@ export default function ProjectsHeader({
     alignItems: 'center',
     height: '100vh',
     border: 'none',
+    background: 'black',
   };
 
   return (
@@ -73,7 +74,7 @@ export default function ProjectsHeader({
                 <Image
                   src={map}
                   alt="venue map"
-                  width={250}
+                  width={350}
                   style={{ background: 'black', padding: '20px' }}
                 />
                 <button
