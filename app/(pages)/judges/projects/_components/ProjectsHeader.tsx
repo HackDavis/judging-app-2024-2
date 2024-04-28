@@ -5,6 +5,7 @@ import styles from './ProjectsHeader.module.scss';
 import { CiMap } from 'react-icons/ci';
 import Image from 'next/image';
 import map from 'public/judges/hub/map.png';
+import mapButton from 'public/judges/hub/mapButton.png';
 import { useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -61,13 +62,39 @@ export default function ProjectsHeader({
             <CiMap className={styles.header_map_icon} />
           </div>
           <Modal open={popUpActive} onClose={handleClose}>
-            <Box sx={boxStyle} onClick={handleClose}>
-              <Image
-                src={map}
-                alt="venue map"
-                width={250}
-                style={{ background: 'black', padding: '20px' }}
-              />
+            <Box sx={boxStyle}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  background: 'black',
+                  padding: '50px',
+                }}
+              >
+                <Image
+                  src={map}
+                  alt="venue map"
+                  width={250}
+                  style={{ background: 'black', padding: '20px' }}
+                />
+                <button
+                  onClick={handleClose}
+                  style={{
+                    display: 'flex',
+                    padding: '12px 45px',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '9.686px',
+                    borderRadius: '32px',
+                    background: '#FFC5AB',
+                    width: '135px',
+                    alignSelf: 'center',
+                  }}
+                >
+                  Done
+                </button>
+              </div>
             </Box>
           </Modal>
         </div>
