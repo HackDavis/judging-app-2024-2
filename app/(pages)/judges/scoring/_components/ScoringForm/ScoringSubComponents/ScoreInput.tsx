@@ -5,12 +5,14 @@ interface ScoringInputProps {
   inputNameHeader: string;
   inputScoreNames: string[];
   setReady: (prev: any) => void;
+  submission: number[];
 }
 
 export default function ScoringInput({
   inputNameHeader,
   inputScoreNames,
   setReady,
+  submission,
 }: ScoringInputProps) {
   return (
     <div className={styles.inputContainer}>
@@ -21,6 +23,7 @@ export default function ScoringInput({
           index={index + 1}
           key={index}
           setReady={setReady}
+          initVal={submission[index]}
         />
       ))}
     </div>

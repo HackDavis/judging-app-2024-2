@@ -3,6 +3,15 @@
   flex-direction: column;
 }
 
+.score {
+  margin-bottom: 8px;
+  border: none;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: var(--background-tertiary);
+  box-shadow: 0 3.874px 61.987px 0 rgba(255, 197, 61, .16);
+}
+
 .delete {
   display: flex;
   flex-direction: column;

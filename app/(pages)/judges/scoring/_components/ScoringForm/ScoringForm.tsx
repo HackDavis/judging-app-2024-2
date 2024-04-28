@@ -30,6 +30,18 @@ export default function ScoringForm({
   team: TeamInt;
   submission: SubmissionInt;
 }) {
+  const scores = submission.scores ?? generalScoreNames.map((_) => -1);
+  const corrs = (
+    submission.correlations ??
+    team.tracks.map((track: string) => {
+      return { track, score: -1 };
+    })
+  ).map((corr: any) => corr.score);
+
+  const already_done =
+    (submission.correlations ? team.tracks.length : 0) +
+    (submission.scores ? generalScoreNames.length : 0);
+
   const router = useRouter();
   const [updateState, UpdateSubmission] = useFormState(updateSubmission, {
     ok: false,
@@ -37,7 +49,7 @@ export default function ScoringForm({
     error: null,
   });
 
-  const [ready, setReady] = useState(5 + team.tracks.length);
+  const [ready, setReady] = useState(5 + team.tracks.length - already_done);
 
   useEffect(() => {
     if (updateState.ok === true) {
@@ -59,14 +71,16 @@ export default function ScoringForm({
           inputNameHeader="Overall Scoring"
           inputScoreNames={generalScoreNames}
           setReady={setReady}
+          submission={scores}
         />
         <ScoringInput
           inputNameHeader="Specific Tracks"
           inputScoreNames={team.tracks}
           setReady={setReady}
+          submission={corrs}
         />
         <div>
-          <Comments _={submission} />
+          <Comments submission={submission.comments ?? ''} />
           <Submission canSubmit={ready <= 0} error={updateState.error} />
         </div>
       </form>

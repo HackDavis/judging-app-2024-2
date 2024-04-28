@@ -35,12 +35,20 @@ export default function JudgeTeamGrouping() {
           ? trackResults!.map((result) => (
               <>
                 <h4>{result.track}</h4>
-                {result.topEntries.map((entry) => (
-                  <>
+                {result.topEntries.map((entry, i) => (
+                  <div key={i} className={styles.score}>
                     <p>
                       Team No. {entry.number}, {entry.name}, {entry.score}
                     </p>
-                  </>
+                    <p>Comments:</p>
+                    <ul>
+                      {entry.comments.map((comment, i) => {
+                        if (comment !== undefined) {
+                          return <li key={i}>{comment}</li>;
+                        }
+                      })}
+                    </ul>
+                  </div>
                 ))}
               </>
             ))
