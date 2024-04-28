@@ -52,7 +52,7 @@ export default function groupingAlgorithm(judges: Judge[]) {
   const desJudges = judges.filter((judge) => judge.specialty === 'design');
   const generalJudges = judges.filter((judge) => judge.specialty === 'general');
 
-  desJudges.push(...generalJudges.splice(0, desJudges.length));
+  // desJudges.push(...generalJudges.splice(0, desJudges.length));
 
   const Tgroups = createGroups(techJudges, 'tech');
   const Dgroups = createGroups(desJudges, 'design');
