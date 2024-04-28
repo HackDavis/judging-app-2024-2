@@ -6,15 +6,17 @@ interface ScoringCardProps {
   categoryName: string;
   index: number;
   setReady: (prev: any) => void;
+  initVal: number;
 }
 export default function ScoringCard({
   categoryName,
   index,
   setReady,
+  initVal,
 }: ScoringCardProps) {
   const scores = [1, 2, 3, 4, 5];
 
-  const [pickedScore, setPickedScore] = useState(-1);
+  const [pickedScore, setPickedScore] = useState(initVal);
 
   const enterChoice = (index: number) => {
     return () => {
