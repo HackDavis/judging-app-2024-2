@@ -41,7 +41,7 @@ export default function TeamBlock({ team }: { team: TeamInt }) {
   /* retrieve these from backend */
   return (
     <div className={styles.teamBlock}>
-      <Link href="/judges">
+      <Link href="/judges/projects">
         <Image
           src="/judges/hub/back-arrow.svg"
           alt=""
