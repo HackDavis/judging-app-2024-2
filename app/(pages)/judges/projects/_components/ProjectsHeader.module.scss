@@ -14,6 +14,7 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        margin-top: -20px;
 
         &_title {
             color: var(--text-light);
@@ -41,7 +42,14 @@
                 width: 28px;
                 height: 28px;
             }
-
+        }
+        
+        .mapPopUp {
+            width: 90px;
+            height: 100%;
+            border: 1px solid #000;
+            background: #000;
+            padding: 10%;
         }
         
     }
