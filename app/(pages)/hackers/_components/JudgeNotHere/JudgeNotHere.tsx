@@ -18,9 +18,6 @@ export default function JudgeNotHere() {
   const minuteDigits =
     minutes < 10 ? '0'.concat(minutes.toString()) : minutes.toString();
 
-  const DirectorNoti = () => {
-    console.log('clicked');
-  };
   return (
     <div className={styles.judgeNotHere}>
       <div className={styles.container}>
@@ -62,10 +59,14 @@ export default function JudgeNotHere() {
             </div>
           </div>
         </div>
-        <div className={styles.container_button} onClick={DirectorNoti}>
+        <a
+          href="https://forms.gle/WHMb1W8Z2sCwvTxu6"
+          target="_blank"
+          className={styles.container_button}
+        >
           <NotificationsNoneOutlinedIcon />
           <p>Notify a Director</p>
-        </div>
+        </a>
       </div>
     </div>
   );
