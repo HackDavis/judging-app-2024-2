@@ -31,7 +31,7 @@ export default function ProjectsHeader({
   const boxStyle = {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     height: '100vh',
     border: 'none',
     background: 'black',
@@ -61,20 +61,21 @@ export default function ProjectsHeader({
           <div onClick={handleOpen} className={styles.header_map}>
             <CiMap className={styles.header_map_icon} />
           </div>
-          <Modal open={popUpActive} onClose={handleClose}>
-            <Box sx={boxStyle}>
+          <Modal open={popUpActive}>
+            <Box sx={boxStyle} onClick={handleClose}>
               <div
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
                   background: 'black',
                   padding: '50px',
+                  marginTop: '-5vh',
                 }}
               >
                 <Image
                   src={map}
                   alt="venue map"
-                  width={350}
+                  width={250}
                   style={{ background: 'black', padding: '20px' }}
                 />
                 <button
@@ -88,7 +89,7 @@ export default function ProjectsHeader({
                     gap: '9.686px',
                     borderRadius: '32px',
                     background: '#FFC5AB',
-                    width: '135px',
+                    width: '105px',
                     alignSelf: 'center',
                   }}
                 >
